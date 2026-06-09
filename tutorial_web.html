@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial: Criando sua Primeira Página Web</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Source+Code+Pro:wght@400;600&family=Inter:wght@400;500;600&display=swap');
+
+  :root {
+    --navy: #1a2744;
+    --navy-light: #2d3f6b;
+    --gold: #e8a020;
+    --gold-light: #f5c55a;
+    --cream: #faf8f4;
+    --white: #ffffff;
+    --gray-100: #f3f2ef;
+    --gray-200: #e8e6e1;
+    --gray-400: #9e9b94;
+    --gray-600: #5a5750;
+    --gray-800: #2c2b28;
+    --red-soft: #c0392b;
+    --green-soft: #1e7a4a;
+    --blue-soft: #1a5fa8;
+    --purple-soft: #6c3fb5;
+    --tag-html: #e55a2b;
+    --tag-css: #2b82e5;
+    --tag-js: #c9a020;
+    --radius: 10px;
+    --radius-lg: 16px;
+    --shadow: 0 2px 12px rgba(26,39,68,0.10);
+    --shadow-lg: 0 8px 32px rgba(26,39,68,0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--gray-800);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 260px; height: 100vh;
+    background: var(--navy);
+    padding: 28px 0 24px;
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar-logo {
+    padding: 0 24px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+    margin-bottom: 16px;
+  }
+  .sidebar-logo .logo-title {
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.3;
+  }
+  .sidebar-logo .logo-sub {
+    font-size: 12px;
+    color: var(--gold-light);
+    margin-top: 4px;
+    letter-spacing: 0.03em;
+  }
+  .nav-section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    padding: 12px 24px 6px;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 24px;
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.70);
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.18s;
+    text-decoration: none;
+  }
+  .nav-item:hover { color: #fff; background: rgba(255,255,255,0.06); }
+  .nav-item.active {
+    color: var(--gold-light);
+    border-left-color: var(--gold);
+    background: rgba(232,160,32,0.08);
+    font-weight: 500;
+  }
+  .nav-badge {
+    margin-left: auto;
+    font-size: 10px;
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.55);
+    padding: 1px 7px;
+    border-radius: 20px;
+  }
+  .nav-badge.html { background: rgba(229,90,43,0.25); color: #f5a07a; }
+  .nav-badge.css  { background: rgba(43,130,229,0.25); color: #7ab8f5; }
+  .nav-badge.js   { background: rgba(201,160,32,0.25); color: #f5d07a; }
+
+  .sidebar-progress {
+    margin-top: auto;
+    padding: 20px 24px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .progress-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 8px;
+  }
+  .progress-bar-bg {
+    height: 4px;
+    background: rgba(255,255,255,0.10);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 4px;
+    transition: width 0.4s;
+    width: 0%;
+  }
+
+  /* ── Main content ── */
+  .main {
+    margin-left: 260px;
+    min-height: 100vh;
+  }
+  .content-area {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 48px 48px 80px;
+  }
+
+  /* ── Sections ── */
+  .section {
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: none; } }
+
+  /* ── Section header ── */
+  .section-header {
+    margin-bottom: 36px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .section-tag.html { background: #fdf0ea; color: var(--tag-html); }
+  .section-tag.css  { background: #e8f1fc; color: var(--tag-css); }
+  .section-tag.js   { background: #fdf7e3; color: var(--tag-js); }
+  .section-tag.intro{ background: #eef0f8; color: var(--navy); }
+
+  .section-title {
+    font-family: 'Lora', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+  .section-intro {
+    font-size: 17px;
+    color: var(--gray-600);
+    line-height: 1.7;
+    max-width: 640px;
+  }
+
+  /* ── Prose ── */
+  .prose h3 {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--navy);
+    margin: 36px 0 12px;
+  }
+  .prose p { margin-bottom: 16px; line-height: 1.75; }
+  .prose ul, .prose ol { padding-left: 22px; margin-bottom: 16px; }
+  .prose li { margin-bottom: 6px; line-height: 1.75; }
+  .prose strong { font-weight: 600; color: var(--navy); }
+
+  /* ── Info boxes ── */
+  .info-box {
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin: 20px 0;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .info-box .ib-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .info-box .ib-content { flex: 1; }
+  .info-box .ib-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .info-box .ib-text { font-size: 14px; line-height: 1.6; margin: 0; }
+  .info-box.tip   { background: #eef8f2; border-left: 3px solid #1e7a4a; }
+  .info-box.tip .ib-title   { color: var(--green-soft); }
+  .info-box.note  { background: #eef2fc; border-left: 3px solid #1a5fa8; }
+  .info-box.note .ib-title  { color: var(--blue-soft); }
+  .info-box.warn  { background: #fdf7e3; border-left: 3px solid #c9a020; }
+  .info-box.warn .ib-title  { color: #9a7015; }
+  .info-box.concept { background: #f3effe; border-left: 3px solid #6c3fb5; }
+  .info-box.concept .ib-title { color: var(--purple-soft); }
+
+  /* ── Code blocks ── */
+  .code-block {
+    background: #1e2438;
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 20px 0;
+    box-shadow: var(--shadow);
+  }
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: #151b2e;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .code-filename {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    font-family: 'Source Code Pro', monospace;
+  }
+  .code-lang {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .code-lang.html { background: rgba(229,90,43,0.25); color: #f5a07a; }
+  .code-lang.css  { background: rgba(43,130,229,0.25); color: #7ab8f5; }
+  .code-lang.js   { background: rgba(201,160,32,0.25); color: #f5d07a; }
+  .code-body {
+    padding: 20px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 13.5px;
+    line-height: 1.75;
+    overflow-x: auto;
+    color: #c9d1d9;
+    white-space: pre;
+  }
+  .code-body .hl-tag    { color: #79c0ff; }
+  .code-body .hl-attr   { color: #ffb347; }
+  .code-body .hl-str    { color: #a8d8a8; }
+  .code-body .hl-val    { color: #d2a8ff; }
+  .code-body .hl-prop   { color: #79c0ff; }
+  .code-body .hl-num    { color: #f0883e; }
+  .code-body .hl-cmt    { color: #6a7380; font-style: italic; }
+  .code-body .hl-kw     { color: #ff7b72; }
+  .code-body .hl-fn     { color: #d2a8ff; }
+  .code-body .hl-str2   { color: #a8d8a8; }
+
+  /* ── Diagrams (SVG wrappers) ── */
+  .diagram-wrapper {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin: 24px 0;
+    box-shadow: var(--shadow);
+  }
+  .diagram-caption {
+    font-size: 13px;
+    color: var(--gray-400);
+    text-align: center;
+    margin-top: 12px;
+  }
+
+  /* ── Steps ── */
+  .steps { margin: 24px 0; }
+  .step {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 24px;
+    align-items: flex-start;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 32px; height: 32px;
+    background: var(--navy);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .step-content { flex: 1; }
+  .step-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .step-desc { font-size: 14.5px; line-height: 1.7; color: var(--gray-600); }
+
+  /* ── Preview card ── */
+  .preview-card {
+    border: 2px dashed var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    margin: 24px 0;
+    background: var(--white);
+  }
+  .preview-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 16px;
+  }
+
+  /* ── Navigation buttons ── */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    padding-top: 28px;
+    border-top: 1px solid var(--gray-200);
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.18s;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: var(--navy);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--navy-light); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--gray-600);
+    border: 1px solid var(--gray-200);
+  }
+  .btn-ghost:hover { background: var(--gray-100); color: var(--navy); }
+  .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  /* ── Highlight inline code ── */
+  code {
+    font-family: 'Source Code Pro', monospace;
+    background: rgba(26,39,68,0.07);
+    color: var(--navy);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+
+  /* ── Stackblitz callout ── */
+  .stackblitz-callout {
+    background: linear-gradient(135deg, #1b2035 0%, #1a3a6b 100%);
+    border-radius: var(--radius-lg);
+    padding: 24px 28px;
+    margin: 24px 0;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    color: #fff;
+  }
+  .sb-icon { font-size: 36px; flex-shrink: 0; }
+  .sb-content { flex: 1; }
+  .sb-title { font-weight: 600; font-size: 16px; margin-bottom: 4px; }
+  .sb-desc { font-size: 13.5px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+  .sb-btn {
+    flex-shrink: 0;
+    background: var(--gold);
+    color: var(--navy);
+    padding: 9px 18px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    white-space: nowrap;
+  }
+
+  /* ── Result preview ── */
+  .result-preview {
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 24px 0;
+    background: #fff;
+  }
+  .result-bar {
+    background: var(--gray-100);
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .result-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .result-bar-url {
+    flex: 1;
+    background: #fff;
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 11px;
+    color: var(--gray-400);
+    border: 1px solid var(--gray-200);
+    font-family: 'Source Code Pro', monospace;
+  }
+  .result-body { padding: 24px; }
+
+  /* ── Objective checklist ── */
+  .checklist {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .checklist h4 {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-400);
+    margin-bottom: 14px;
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 14.5px;
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── Responsive ── */
+  @media (max-width: 800px) {
+    .sidebar { transform: translateX(-260px); }
+    .main { margin-left: 0; }
+    .content-area { padding: 28px 20px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-title">Criando sua<br>Primeira Página Web</div>
+    <div class="logo-sub">Tutorial completo · 9 módulos</div>
+  </div>
+
+  <div class="nav-section-label">Introdução</div>
+  <a class="nav-item active" onclick="goTo(0)" href="#">
+    <span>🚀</span> Boas-vindas <span class="nav-badge">Início</span>
+  </a>
+  <a class="nav-item" onclick="goTo(1)" href="#">
+    <span>🛠️</span> O StackBlitz
+  </a>
+
+  <div class="nav-section-label">HTML</div>
+  <a class="nav-item" onclick="goTo(2)" href="#">
+    <span>📄</span> Estrutura HTML <span class="nav-badge html">HTML</span>
+  </a>
+  <a class="nav-item" onclick="goTo(3)" href="#">
+    <span>✏️</span> Tags de texto <span class="nav-badge html">HTML</span>
+  </a>
+
+  <div class="nav-section-label">CSS</div>
+  <a class="nav-item" onclick="goTo(4)" href="#">
+    <span>🎨</span> Estilizando com CSS <span class="nav-badge css">CSS</span>
+  </a>
+  <a class="nav-item" onclick="goTo(5)" href="#">
+    <span>📦</span> Box model e imagens <span class="nav-badge css">CSS</span>
+  </a>
+  <a class="nav-item" onclick="goTo(6)" href="#">
+    <span>🔲</span> Flexbox e classes <span class="nav-badge css">CSS</span>
+  </a>
+
+  <div class="nav-section-label">JavaScript</div>
+  <a class="nav-item" onclick="goTo(7)" href="#">
+    <span>⚡</span> Contador de likes <span class="nav-badge js">JS</span>
+  </a>
+  <a class="nav-item" onclick="goTo(8)" href="#">
+    <span>👥</span> Múltiplos elementos <span class="nav-badge js">JS</span>
+  </a>
+  <a class="nav-item" onclick="goTo(9)" href="#">
+    <span>🔒</span> Lógica de curtidas <span class="nav-badge js">JS</span>
+  </a>
+
+  <div class="sidebar-progress">
+    <div class="progress-label">Progresso: <span id="progress-pct">0%</span></div>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-bar"></div></div>
+  </div>
+</nav>
+
+<!-- ── MAIN ── -->
+<main class="main">
+<div class="content-area">
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 0 — BOAS-VINDAS
+  ════════════════════════════════════════ -->
+  <section class="section active" id="sec-0">
+    <div class="section-header">
+      <div class="section-tag intro">📖 Módulo introdutório</div>
+      <h1 class="section-title">Bem-vindo ao tutorial de<br>desenvolvimento web!</h1>
+      <p class="section-intro">Neste tutorial, você aprenderá a criar, do zero, uma página web completa sobre sugestão de filmes. Ao final, sua página terá texto, imagens, estilos coloridos e um botão de curtir interativo.</p>
+    </div>
+
+    <div class="prose">
+      <h3>O que você vai construir</h3>
+      <p>Ao longo deste tutorial, você criará passo a passo a seguinte página:</p>
+    </div>
+
+    <div class="result-preview">
+      <div class="result-bar">
+        <div class="result-dot" style="background:#ff5f57"></div>
+        <div class="result-dot" style="background:#febc2e"></div>
+        <div class="result-dot" style="background:#28c840"></div>
+        <div class="result-bar-url">Meu Blog de Filmes</div>
+      </div>
+      <div class="result-body">
+        <div style="background:#1a2744;color:#fff;text-align:center;padding:20px 24px;border-radius:8px;margin-bottom:16px;">
+          <div style="font-family:'Lora',serif;font-size:22px;font-weight:700;margin-bottom:6px;">🎬 Meu Blog de Filmes</div>
+          <div style="font-size:13px;opacity:0.75;">Dicas e recomendações para todos os gostos</div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start;background:#f8f8f8;border-radius:8px;padding:16px;">
+          <div style="width:64px;height:88px;background:#c8d5e8;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px;">🎥</div>
+          <div>
+            <div style="font-size:16px;font-weight:700;color:#1a2744;margin-bottom:4px;">Interestelar (2014)</div>
+            <div style="font-size:12px;color:#888;font-weight:600;margin-bottom:8px;">Por: Maria Souza</div>
+            <div style="font-size:13.5px;color:#444;line-height:1.6;">Uma viagem épica pelo espaço que desafia os limites da ciência e do amor. Indicado para quem aprecia ficção científica profunda.</div>
+            <button style="margin-top:12px;padding:7px 14px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:13px;">❤️ <span>0</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <h3>O que você vai aprender</h3>
+    </div>
+
+    <div class="checklist">
+      <h4>Conteúdo do tutorial</h4>
+      <div class="check-item"><span class="check-icon">📄</span><span>Criar arquivos HTML e entender a estrutura básica de uma página</span></div>
+      <div class="check-item"><span class="check-icon">🏷️</span><span>Usar tags como <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code> e <code>&lt;img&gt;</code></span></div>
+      <div class="check-item"><span class="check-icon">🎨</span><span>Estilizar a página com CSS: cores, fontes, margens e bordas</span></div>
+      <div class="check-item"><span class="check-icon">📦</span><span>Compreender o modelo de caixa (box model) e o Flexbox</span></div>
+      <div class="check-item"><span class="check-icon">⚡</span><span>Adicionar interatividade com JavaScript: botão de curtir com contador</span></div>
+    </div>
+
+    <div class="info-box note">
+      <div class="ib-icon">💡</div>
+      <div class="ib-content">
+        <div class="ib-title">Nenhum conhecimento prévio é necessário</div>
+        <p class="ib-text">Este tutorial foi criado para quem nunca programou antes. Cada conceito é apresentado de forma gradual, com exemplos visuais e explicações detalhadas.</p>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" disabled>← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(1)">Próximo: O StackBlitz →</button>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 1 — STACKBLITZ
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-1">
+    <div class="section-header">
+      <div class="section-tag intro">🛠️ Ambiente de programação</div>
+      <h1 class="section-title">Conhecendo o StackBlitz</h1>
+      <p class="section-intro">Antes de escrever qualquer código, precisamos de um editor. Neste tutorial, utilizaremos o StackBlitz — uma ferramenta gratuita que funciona diretamente no navegador, sem precisar instalar nada.</p>
+    </div>
+
+    <div class="stackblitz-callout">
+      <div class="sb-icon">⚡</div>
+      <div class="sb-content">
+        <div class="sb-title">StackBlitz — editor no navegador</div>
+        <div class="sb-desc">Acesse stackblitz.com, crie um projeto HTML e comece a programar imediatamente.</div>
+      </div>
+      <button class="sb-btn" onclick="window.open('https://stackblitz.com','_blank')">Abrir →</button>
+    </div>
+
+    <div class="prose">
+      <h3>Como criar um projeto no StackBlitz</h3>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Acesse stackblitz.com</div>
+          <div class="step-desc">Abra o endereço <strong>stackblitz.com</strong> em seu navegador. Você verá a tela inicial com opções de projetos.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Selecione "HTML/CSS/JS"</div>
+          <div class="step-desc">Na tela inicial, clique em <strong>"New Project"</strong> e escolha a opção <strong>"HTML/CSS/JS"</strong>. Esse é o ponto de partida para páginas web simples.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Explore a interface</div>
+          <div class="step-desc">O StackBlitz mostrará três painéis: à esquerda os <strong>arquivos</strong> do projeto, ao centro o <strong>editor de código</strong> e à direita uma <strong>pré-visualização</strong> da página.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Abra o arquivo index.html</div>
+          <div class="step-desc">No painel de arquivos, clique em <strong>index.html</strong>. Este será o arquivo principal de sua página. Apague todo o conteúdo existente — começaremos do zero.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="diagram-wrapper">
+      <svg width="100%" viewBox="0 0 680 200" role="img">
+        <title>Interface do StackBlitz dividida em três painéis</title>
+        <defs>
+          <marker id="arr1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#1a2744" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <!-- Panels -->
+        <rect x="40" y="30" width="160" height="140" rx="8" fill="#e8ecf5" stroke="#b0bacf" stroke-width="0.5"/>
+        <rect x="40" y="30" width="160" height="22" rx="8" fill="#1a2744"/>
+        <rect x="40" y="44" width="160" height="8" rx="0" fill="#1a2744"/>
+        <text x="120" y="46" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#fff">Arquivos</text>
+        <text x="55" y="75" font-family="'Source Code Pro',monospace" font-size="11" fill="#3a4a6a">📁 projeto/</text>
+        <text x="65" y="93" font-family="'Source Code Pro',monospace" font-size="11" fill="#1a5fa8">📄 index.html</text>
+        <text x="65" y="111" font-family="'Source Code Pro',monospace" font-size="11" fill="#5a6a8a">🎨 styles.css</text>
+
+        <rect x="220" y="30" width="220" height="140" rx="8" fill="#1e2438" stroke="#3a4458" stroke-width="0.5"/>
+        <rect x="220" y="30" width="220" height="22" rx="8" fill="#151b2e"/>
+        <rect x="220" y="44" width="220" height="8" rx="0" fill="#151b2e"/>
+        <text x="330" y="46" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="rgba(255,255,255,0.7)">Editor de código</text>
+        <text x="232" y="75" font-family="'Source Code Pro',monospace" font-size="10" fill="#79c0ff">&lt;h1&gt;</text>
+        <text x="264" y="75" font-family="'Source Code Pro',monospace" font-size="10" fill="#c9d1d9">Meu Blog</text>
+        <text x="232" y="91" font-family="'Source Code Pro',monospace" font-size="10" fill="#79c0ff">&lt;/h1&gt;</text>
+        <text x="232" y="107" font-family="'Source Code Pro',monospace" font-size="10" fill="#79c0ff">&lt;p&gt;</text>
+        <text x="256" y="107" font-family="'Source Code Pro',monospace" font-size="10" fill="#c9d1d9">Bem-vindo!</text>
+        <text x="232" y="123" font-family="'Source Code Pro',monospace" font-size="10" fill="#79c0ff">&lt;/p&gt;</text>
+
+        <rect x="460" y="30" width="180" height="140" rx="8" fill="#fff" stroke="#dde2ec" stroke-width="0.5"/>
+        <rect x="460" y="30" width="180" height="22" rx="8" fill="#f3f2ef"/>
+        <rect x="460" y="44" width="180" height="8" rx="0" fill="#f3f2ef"/>
+        <text x="550" y="46" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#5a5750">Pré-visualização</text>
+        <text x="475" y="78" font-family="'Lora',serif" font-size="14" font-weight="700" fill="#1a2744">Meu Blog</text>
+        <text x="475" y="97" font-family="Inter,sans-serif" font-size="11" fill="#5a5750">Bem-vindo!</text>
+
+        <!-- Labels below -->
+        <text x="120" y="188" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9e9b94">① Arquivos</text>
+        <text x="330" y="188" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9e9b94">② Editor</text>
+        <text x="550" y="188" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9e9b94">③ Resultado</text>
+      </svg>
+      <p class="diagram-caption">Interface do StackBlitz: arquivos à esquerda, código ao centro, resultado ao vivo à direita</p>
+    </div>
+
+    <div class="info-box tip">
+      <div class="ib-icon">✅</div>
+      <div class="ib-content">
+        <div class="ib-title">Salvamento automático</div>
+        <p class="ib-text">No StackBlitz, as alterações são salvas e refletidas na pré-visualização automaticamente, sem necessidade de pressionar nenhuma tecla especial.</p>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(0)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(2)">Próximo: Estrutura HTML →</button>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 2 — ESTRUTURA HTML
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-2">
+    <div class="section-header">
+      <div class="section-tag html">📄 HTML</div>
+      <h1 class="section-title">A estrutura básica do HTML</h1>
+      <p class="section-intro">Todo documento HTML segue uma estrutura padrão. Ela é como o esqueleto de uma página: define onde ficam as informações que o navegador exibe e as instruções que ficam ocultas.</p>
+    </div>
+
+    <div class="prose">
+      <h3>O que é HTML?</h3>
+      <p>HTML (HyperText Markup Language) é a linguagem que define o <strong>conteúdo e a estrutura</strong> de uma página web. Tudo que você vê em um site — textos, títulos, imagens — é criado com HTML.</p>
+      <p>No HTML, utilizamos <strong>tags</strong> para organizar o conteúdo. Uma tag é composta por um nome entre sinais de menor e maior: <code>&lt;tag&gt;</code>. A maioria das tags possui abertura e fechamento:</p>
+    </div>
+
+    <div class="diagram-wrapper">
+      <svg width="100%" viewBox="0 0 680 110" role="img">
+        <title>Anatomia de uma tag HTML com abertura, conteúdo e fechamento</title>
+        <rect x="40" y="25" width="600" height="60" rx="10" fill="#eef2fc" stroke="#b0c4e8" stroke-width="0.5"/>
+        <!-- tag abertura -->
+        <rect x="70" y="38" width="100" height="34" rx="6" fill="#1a2744"/>
+        <text x="120" y="60" text-anchor="middle" font-family="'Source Code Pro',monospace" font-size="14" fill="#79c0ff">&lt;h1&gt;</text>
+        <!-- conteudo -->
+        <rect x="200" y="38" width="240" height="34" rx="6" fill="#f3effe" stroke="#c9b8f0" stroke-width="0.5"/>
+        <text x="320" y="60" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" fill="#6c3fb5">Meu Blog de Filmes</text>
+        <!-- tag fechamento -->
+        <rect x="470" y="38" width="120" height="34" rx="6" fill="#1a2744"/>
+        <text x="530" y="60" text-anchor="middle" font-family="'Source Code Pro',monospace" font-size="14" fill="#79c0ff">&lt;/h1&gt;</text>
+        <!-- labels -->
+        <text x="120" y="20" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#5a6a9a">Tag de abertura</text>
+        <text x="320" y="20" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#6c3fb5">Conteúdo</text>
+        <text x="530" y="20" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#5a6a9a">Tag de fechamento</text>
+      </svg>
+      <p class="diagram-caption">Toda tag HTML possui uma abertura <code>&lt;tag&gt;</code>, um conteúdo e um fechamento <code>&lt;/tag&gt;</code></p>
+    </div>
+
+    <div class="prose">
+      <h3>A estrutura completa</h3>
+      <p>Cole o código abaixo no seu arquivo <code>index.html</code> no StackBlitz. Este é o ponto de partida do nosso blog de filmes:</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">index.html</span>
+        <span class="code-lang html">HTML</span>
+      </div>
+      <div class="code-body"><span class="hl-tag">&lt;!DOCTYPE html&gt;</span>
+<span class="hl-tag">&lt;html</span> <span class="hl-attr">lang</span>=<span class="hl-str">"pt-BR"</span><span class="hl-tag">&gt;</span>
+<span class="hl-tag">&lt;head&gt;</span>
+  <span class="hl-tag">&lt;meta</span> <span class="hl-attr">charset</span>=<span class="hl-str">"UTF-8"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;meta</span> <span class="hl-attr">name</span>=<span class="hl-str">"viewport"</span> <span class="hl-attr">content</span>=<span class="hl-str">"width=device-width, initial-scale=1.0"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;title&gt;</span>Meu Blog de Filmes<span class="hl-tag">&lt;/title&gt;</span>
+<span class="hl-tag">&lt;/head&gt;</span>
+<span class="hl-tag">&lt;body&gt;</span>
+
+  <span class="hl-tag">&lt;header&gt;</span>
+    <span class="hl-tag">&lt;h1&gt;</span>🎬 Meu Blog de Filmes<span class="hl-tag">&lt;/h1&gt;</span>
+    <span class="hl-tag">&lt;p&gt;</span>Dicas e recomendações para todos os gostos<span class="hl-tag">&lt;/p&gt;</span>
+  <span class="hl-tag">&lt;/header&gt;</span>
+
+  <span class="hl-tag">&lt;main&gt;</span>
+    <span class="hl-tag">&lt;h2&gt;</span>Filme em Destaque<span class="hl-tag">&lt;/h2&gt;</span>
+    <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: Maria Souza<span class="hl-tag">&lt;/p&gt;</span>
+    <span class="hl-tag">&lt;p&gt;</span>Uma viagem épica pelo espaço que desafia os limites da ciência e do amor.<span class="hl-tag">&lt;/p&gt;</span>
+  <span class="hl-tag">&lt;/main&gt;</span>
+
+<span class="hl-tag">&lt;/body&gt;</span>
+<span class="hl-tag">&lt;/html&gt;</span></div>
+    </div>
+
+    <div class="diagram-wrapper">
+      <svg width="100%" viewBox="0 0 680 320" role="img">
+        <title>Diagrama da estrutura HTML mostrando a hierarquia das tags</title>
+        <defs>
+          <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#9e9b94" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <!-- html -->
+        <rect x="240" y="20" width="200" height="38" rx="8" fill="#1a2744" stroke="#2d3f6b" stroke-width="0.5"/>
+        <text x="340" y="44" text-anchor="middle" font-family="'Source Code Pro',monospace" font-size="13" fill="#79c0ff">&lt;html&gt;</text>
+        <!-- line from html -->
+        <line x1="340" y1="58" x2="210" y2="88" stroke="#9e9b94" stroke-width="0.5" marker-end="url(#arr2)"/>
+        <line x1="340" y1="58" x2="470" y2="88" stroke="#9e9b94" stroke-width="0.5" marker-end="url(#arr2)"/>
+        <!-- head -->
+        <rect x="100" y="90" width="200" height="38" rx="8" fill="#e8ecf5" stroke="#b0bacf" stroke-width="0.5"/>
+        <text x="200" y="108" text-anchor="middle" font-family="'Source Code Pro',monospace" font-size="13" fill="#1a5fa8">&lt;head&gt;</text>
+        <text x="200" y="122" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#9e9b94">meta, title…</text>
+        <!-- body -->
+        <rect x="380" y="90" width="200" height="38" rx="8" fill="#e8f5ee" stroke="#a0c8b0" stroke-width="0.5"/>
+        <text x="480" y="108" text-anchor="middle" font-family="'Source Code Pro',monospace" font-size="13" fill="#1e7a4a">&lt;body&gt;</text>
+        <text x="480" y="122" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#9e9b94">todo o conteúdo</text>
+        <!-- lines from body -->
+        <line x1="480" y1="128" x2="380" y2="178" stroke="#9e9b94" stroke-width="0.5" marker-end="url(#arr2)"/>
+        <line x1="480" y1="128" x2="580" y2="178" stroke="#9e9b94" stroke-width="0.5" marker-end="url(#arr2)"/>
+        <!-- header -->
+        <rect x="260" y="180" width="200" height="38" rx="8" fill="#fdf7e3" stroke="#e8d080" stroke-width="0.5"/>
+        <text x="360" y="198" text-anchor="middle" font-family="'Source Code Pro',monospace" font-size="13" fill="#9a7015">&lt;header&gt;</text>
+        <text x="360" y="212" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#9e9b94">cabeçalho da página</text>
+        <!-- main -->
+        <rect x="480" y="180" width="180" height="38" rx="8" fill="#f3effe" stroke="#c9b8f0" stroke-width="0.5"/>
+        <text x="570" y="198" text-anchor="middle" font-family="'Source Code Pro',monospace" font-size="13" fill="#6c3fb5">&lt;main&gt;</text>
+        <text x="570" y="212" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#9e9b94">conteúdo principal</text>
+        <!-- lines from header -->
+        <line x1="360" y1="218" x2="300" y2="268" stroke="#9e9b94" stroke-width="0.5" marker-end="url(#arr2)"/>
+        <line x1="360" y1="218" x2="420" y2="268" stroke="#9e9b94" stroke-width="0.5" marker-end="url(#arr2)"/>
+        <!-- h1 -->
+        <rect x="200" y="270" width="130" height="34" rx="6" fill="#fdf0ea" stroke="#f0b090" stroke-width="0.5"/>
+        <text x="265" y="292" text-anchor="middle" font-family="'Source Code Pro',monospace" font-size="12" fill="#e55a2b">&lt;h1&gt;</text>
+        <!-- p -->
+        <rect x="350" y="270" width="130" height="34" rx="6" fill="#fdf0ea" stroke="#f0b090" stroke-width="0.5"/>
+        <text x="415" y="292" text-anchor="middle" font-family="'Source Code Pro',monospace" font-size="12" fill="#e55a2b">&lt;p&gt;</text>
+      </svg>
+      <p class="diagram-caption">A estrutura HTML é organizada de forma hierárquica — tags dentro de outras tags</p>
+    </div>
+
+    <div class="info-box concept">
+      <div class="ib-icon">🧩</div>
+      <div class="ib-content">
+        <div class="ib-title">O que cada tag faz</div>
+        <p class="ib-text"><code>&lt;!DOCTYPE html&gt;</code> — informa ao navegador que é um documento HTML moderno.<br>
+        <code>&lt;head&gt;</code> — contém informações ocultas, como o título da aba e configurações.<br>
+        <code>&lt;body&gt;</code> — tudo o que o usuário vê na página fica aqui.<br>
+        <code>&lt;header&gt;</code> — define o cabeçalho visual da página.<br>
+        <code>&lt;main&gt;</code> — delimita o conteúdo principal da página.</p>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(1)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(3)">Próximo: Tags de texto →</button>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 3 — TAGS DE TEXTO
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-3">
+    <div class="section-header">
+      <div class="section-tag html">📄 HTML</div>
+      <h1 class="section-title">Tags de texto e formatação</h1>
+      <p class="section-intro">O HTML oferece diversas tags para organizar e formatar textos. Cada uma tem uma função semântica: não apenas muda a aparência, mas também informa ao navegador o papel daquele conteúdo.</p>
+    </div>
+
+    <div class="diagram-wrapper">
+      <svg width="100%" viewBox="0 0 680 260" role="img">
+        <title>Comparação visual das tags de texto HTML h1 h2 p strong em</title>
+        <!-- h1 -->
+        <rect x="40" y="20" width="290" height="50" rx="8" fill="#fdf0ea" stroke="#f0b090" stroke-width="0.5"/>
+        <text x="60" y="42" font-family="'Lora',serif" font-size="20" font-weight="700" fill="#1a2744">Título principal</text>
+        <text x="60" y="60" font-family="'Source Code Pro',monospace" font-size="11" fill="#e55a2b">&lt;h1&gt;</text>
+        <text x="85" y="60" font-family="Inter,sans-serif" font-size="11" fill="#9e9b94">— maior destaque</text>
+        <!-- h2 -->
+        <rect x="40" y="88" width="290" height="50" rx="8" fill="#fdf0ea" stroke="#f0b090" stroke-width="0.5"/>
+        <text x="60" y="108" font-family="'Lora',serif" font-size="16" font-weight="700" fill="#1a2744">Subtítulo da seção</text>
+        <text x="60" y="128" font-family="'Source Code Pro',monospace" font-size="11" fill="#e55a2b">&lt;h2&gt;</text>
+        <text x="85" y="128" font-family="Inter,sans-serif" font-size="11" fill="#9e9b94">— segundo nível</text>
+        <!-- p -->
+        <rect x="40" y="156" width="290" height="50" rx="8" fill="#fdf0ea" stroke="#f0b090" stroke-width="0.5"/>
+        <text x="60" y="176" font-family="Inter,sans-serif" font-size="13" fill="#2c2b28">Texto de parágrafo comum</text>
+        <text x="60" y="196" font-family="'Source Code Pro',monospace" font-size="11" fill="#e55a2b">&lt;p&gt;</text>
+        <text x="80" y="196" font-family="Inter,sans-serif" font-size="11" fill="#9e9b94">— bloco de texto</text>
+        <!-- strong -->
+        <rect x="360" y="20" width="280" height="50" rx="8" fill="#eef2fc" stroke="#b0c4e8" stroke-width="0.5"/>
+        <text x="380" y="42" font-family="Inter,sans-serif" font-size="13" fill="#2c2b28">Texto em <tspan font-weight="700" fill="#1a2744">negrito</tspan> aqui</text>
+        <text x="380" y="60" font-family="'Source Code Pro',monospace" font-size="11" fill="#1a5fa8">&lt;strong&gt;</text>
+        <text x="440" y="60" font-family="Inter,sans-serif" font-size="11" fill="#9e9b94">— importância</text>
+        <!-- em -->
+        <rect x="360" y="88" width="280" height="50" rx="8" fill="#eef2fc" stroke="#b0c4e8" stroke-width="0.5"/>
+        <text x="380" y="108" font-family="Inter,sans-serif" font-size="13" fill="#2c2b28">Texto em <tspan font-style="italic" fill="#1a2744">itálico</tspan> aqui</text>
+        <text x="380" y="128" font-family="'Source Code Pro',monospace" font-size="11" fill="#1a5fa8">&lt;em&gt;</text>
+        <text x="410" y="128" font-family="Inter,sans-serif" font-size="11" fill="#9e9b94">— ênfase</text>
+        <!-- br -->
+        <rect x="360" y="156" width="280" height="50" rx="8" fill="#eef8f2" stroke="#a0c8b0" stroke-width="0.5"/>
+        <text x="380" y="178" font-family="Inter,sans-serif" font-size="13" fill="#2c2b28">Quebra de linha</text>
+        <text x="380" y="196" font-family="'Source Code Pro',monospace" font-size="11" fill="#1e7a4a">&lt;br&gt;</text>
+        <text x="406" y="196" font-family="Inter,sans-serif" font-size="11" fill="#9e9b94">— sem tag de fechamento</text>
+        <!-- line separator -->
+        <line x1="340" y1="20" x2="340" y2="216" stroke="#e8e6e1" stroke-width="0.5" stroke-dasharray="4 4"/>
+        <text x="340" y="248" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9e9b94">Tags de bloco (à esquerda) × tags inline (à direita)</text>
+      </svg>
+      <p class="diagram-caption">As tags de bloco ocupam uma linha inteira; as tags inline formatam apenas parte do texto</p>
+    </div>
+
+    <div class="prose">
+      <h3>Atualize seu arquivo index.html</h3>
+      <p>Dentro do <code>&lt;main&gt;</code>, enriqueça o conteúdo do filme adicionando ênfase ao título e ao gênero:</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">index.html — trecho do &lt;main&gt;</span>
+        <span class="code-lang html">HTML</span>
+      </div>
+      <div class="code-body"><span class="hl-tag">&lt;main&gt;</span>
+  <span class="hl-tag">&lt;h2&gt;</span>Filme em Destaque<span class="hl-tag">&lt;/h2&gt;</span>
+  <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: <span class="hl-tag">&lt;strong&gt;</span>Maria Souza<span class="hl-tag">&lt;/strong&gt;</span><span class="hl-tag">&lt;/p&gt;</span>
+  <span class="hl-tag">&lt;p&gt;</span>
+    <span class="hl-tag">&lt;em&gt;</span>Interestelar (2014)<span class="hl-tag">&lt;/em&gt;</span> — Uma viagem épica pelo espaço
+    que desafia os limites da ciência e do amor.
+    <span class="hl-tag">&lt;br&gt;</span>
+    Indicado para quem aprecia <span class="hl-tag">&lt;strong&gt;</span>ficção científica<span class="hl-tag">&lt;/strong&gt;</span> profunda.
+  <span class="hl-tag">&lt;/p&gt;</span>
+<span class="hl-tag">&lt;/main&gt;</span></div>
+    </div>
+
+    <div class="info-box tip">
+      <div class="ib-icon">💡</div>
+      <div class="ib-content">
+        <div class="ib-title">Semântica importa</div>
+        <p class="ib-text">Use <code>&lt;strong&gt;</code> para indicar <em>importância real</em> do conteúdo (não apenas para deixar negrito). Use <code>&lt;em&gt;</code> para indicar <em>ênfase</em> (não apenas itálico decorativo). O Google e os leitores de tela entendem essa diferença.</p>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(2)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(4)">Próximo: CSS →</button>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 4 — CSS
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-4">
+    <div class="section-header">
+      <div class="section-tag css">🎨 CSS</div>
+      <h1 class="section-title">Estilizando com CSS</h1>
+      <p class="section-intro">O CSS (Cascading Style Sheets) é a linguagem responsável pela <strong>aparência visual</strong> da página. Com ele, definimos cores, fontes, tamanhos e disposição dos elementos.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Como o CSS funciona</h3>
+      <p>O CSS funciona através de <strong>regras</strong>. Cada regra é composta por um <strong>seletor</strong> (qual elemento estilizar) e um <strong>bloco de declarações</strong> (quais estilos aplicar):</p>
+    </div>
+
+    <div class="diagram-wrapper">
+      <svg width="100%" viewBox="0 0 680 130" role="img">
+        <title>Anatomia de uma regra CSS com seletor, propriedade e valor</title>
+        <rect x="40" y="20" width="600" height="88" rx="10" fill="#e8f1fc" stroke="#b0c4e8" stroke-width="0.5"/>
+        <!-- seletor -->
+        <rect x="65" y="38" width="100" height="34" rx="6" fill="#1a2744"/>
+        <text x="115" y="60" text-anchor="middle" font-family="'Source Code Pro',monospace" font-size="14" fill="#79c0ff">header</text>
+        <text x="115" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#5a6a9a">Seletor</text>
+        <!-- brace -->
+        <text x="185" y="60" font-family="'Source Code Pro',monospace" font-size="18" fill="#c9d1d9">{</text>
+        <!-- property -->
+        <rect x="205" y="38" width="175" height="34" rx="6" fill="#fff7e0" stroke="#e8d080" stroke-width="0.5"/>
+        <text x="292" y="60" text-anchor="middle" font-family="'Source Code Pro',monospace" font-size="13" fill="#9a7015">background-color</text>
+        <text x="292" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9a7015">Propriedade</text>
+        <!-- colon -->
+        <text x="390" y="60" font-family="'Source Code Pro',monospace" font-size="16" fill="#c9d1d9">:</text>
+        <!-- value -->
+        <rect x="405" y="38" width="100" height="34" rx="6" fill="#eef8f2" stroke="#a0c8b0" stroke-width="0.5"/>
+        <text x="455" y="60" text-anchor="middle" font-family="'Source Code Pro',monospace" font-size="13" fill="#1e7a4a">#1a2744</text>
+        <text x="455" y="100" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#1e7a4a">Valor</text>
+        <!-- semicolon + brace -->
+        <text x="515" y="60" font-family="'Source Code Pro',monospace" font-size="16" fill="#c9d1d9">; }</text>
+      </svg>
+      <p class="diagram-caption">Uma regra CSS: seletor define <em>o quê</em> estilizar; propriedade e valor definem <em>como</em></p>
+    </div>
+
+    <div class="prose">
+      <h3>Adicionando estilos ao nosso blog</h3>
+      <p>Por boas práticas de programação, não devemos misturar código HTML e CSS no mesmo arquivo. Em vez disso, vamos criar um arquivo separado chamado <code>styles.css</code> para guardar todos os nossos estilos.</p>
+      <p>Primeiro, dentro do <code>&lt;head&gt;</code> do seu arquivo <code>index.html</code>, adicione a tag <code>&lt;link&gt;</code> abaixo para fazer a ligação entre o HTML e a nossa folha de estilos externa:</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">index.html — ligando o arquivo CSS</span>
+        <span class="code-lang html">HTML</span>
+      </div>
+      <div class="code-body"><span class="hl-tag">&lt;head&gt;</span>
+  <span class="hl-cmt">&lt;!-- ... outras tags meta ... --&gt;</span>
+  <span class="hl-tag">&lt;title&gt;</span>Meu Blog de Filmes<span class="hl-tag">&lt;/title&gt;</span>
+  <span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-str">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-str">"styles.css"</span><span class="hl-tag">&gt;</span>
+<span class="hl-tag">&lt;/head&gt;</span></div>
+    </div>
+
+    <div class="prose">
+      <p>Agora, crie um novo arquivo chamado <code>styles.css</code> na mesma pasta do seu projeto e adicione as regras CSS abaixo nele (não use a tag <code>&lt;style&gt;</code> aqui, pois esse já é um arquivo CSS puro):</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">styles.css</span>
+        <span class="code-lang css">CSS</span>
+      </div>
+      <div class="code-body"><span class="hl-prop">header</span> {
+  <span class="hl-attr">background-color</span>: <span class="hl-str">#1a2744</span>;
+  <span class="hl-attr">color</span>: <span class="hl-str">#ffffff</span>;
+  <span class="hl-attr">text-align</span>: <span class="hl-val">center</span>;
+  <span class="hl-attr">max-width</span>: <span class="hl-num">800px</span>;
+  <span class="hl-attr">margin</span>: <span class="hl-num">0</span> <span class="hl-val">auto</span>;
+  <span class="hl-attr">padding</span>: <span class="hl-num">16px</span>;
+}
+
+<span class="hl-prop">main</span> {
+  <span class="hl-attr">background-color</span>: <span class="hl-str">#ffffff</span>;
+  <span class="hl-attr">color</span>: <span class="hl-str">#1a2744</span>;
+  <span class="hl-attr">text-align</span>: <span class="hl-val">center</span>;
+  <span class="hl-attr">max-width</span>: <span class="hl-num">800px</span>;
+  <span class="hl-attr">margin</span>: <span class="hl-num">0</span> <span class="hl-val">auto</span>;
+  <span class="hl-attr">padding</span>: <span class="hl-num">16px</span>;
+}</div>
+    </div>
+
+    <div class="info-box warn">
+      <div class="ib-icon">⚠️</div>
+      <div class="ib-content">
+        <div class="ib-title">Contraste de cores</div>
+        <p class="ib-text">A combinação de cores deve garantir boa legibilidade. A proporção mínima recomendada é de <strong>4,5:1</strong> entre texto e fundo. O azul-marinho <code>#1a2744</code> com texto branco <code>#ffffff</code> oferece excelente contraste.</p>
+      </div>
+    </div>
+
+    <div class="prose">
+      <h3>Propriedades CSS essenciais</h3>
+    </div>
+
+    <div class="checklist">
+      <h4>Referência rápida</h4>
+      <div class="check-item"><span class="check-icon" style="color:#1a5fa8">🔵</span><span><code>background-color</code> — cor de fundo do elemento</span></div>
+      <div class="check-item"><span class="check-icon" style="color:#1a5fa8">🔵</span><span><code>color</code> — cor do texto</span></div>
+      <div class="check-item"><span class="check-icon" style="color:#1a5fa8">🔵</span><span><code>text-align</code> — alinhamento do texto (left, center, right)</span></div>
+      <div class="check-item"><span class="check-icon" style="color:#1a5fa8">🔵</span><span><code>max-width</code> — largura máxima do elemento (ex: 800px)</span></div>
+      <div class="check-item"><span class="check-icon" style="color:#1a5fa8">🔵</span><span><code>margin: 0 auto</code> — centraliza o elemento horizontalmente</span></div>
+      <div class="check-item"><span class="check-icon" style="color:#1a5fa8">🔵</span><span><code>padding</code> — espaçamento interno entre o conteúdo e a borda</span></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(3)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(5)">Próximo: Box Model e Imagens →</button>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 5 — BOX MODEL E IMAGENS
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-5">
+    <div class="section-header">
+      <div class="section-tag css">🎨 CSS</div>
+      <h1 class="section-title">Box model e imagens</h1>
+      <p class="section-intro">Cada elemento HTML é tratado como uma "caixa" pelo navegador. Compreender esse modelo é fundamental para controlar espaçamentos e bordas. Também aprenderemos a inserir imagens de forma acessível.</p>
+    </div>
+
+    <div class="prose">
+      <h3>O modelo de caixa (Box Model)</h3>
+      <p>Todo elemento HTML possui quatro camadas ao seu redor. Da parte mais interna para a mais externa:</p>
+    </div>
+
+    <div class="diagram-wrapper">
+      <svg width="100%" viewBox="0 0 680 320" role="img">
+        <title>Diagrama do box model CSS mostrando as camadas content padding border e margin</title>
+        <!-- margin -->
+        <rect x="40" y="20" width="600" height="280" rx="12" fill="#fdf7e3" stroke="#e8d080" stroke-width="1"/>
+        <text x="60" y="46" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#9a7015">margin</text>
+        <text x="60" y="62" font-family="Inter,sans-serif" font-size="11" fill="#c8a040">espaçamento externo</text>
+        <!-- border -->
+        <rect x="80" y="75" width="520" height="190" rx="10" fill="#eef2fc" stroke="#7ab8f5" stroke-width="2"/>
+        <text x="100" y="96" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#1a5fa8">border</text>
+        <text x="100" y="112" font-family="Inter,sans-serif" font-size="11" fill="#5a90c8">borda visível</text>
+        <!-- padding -->
+        <rect x="115" y="120" width="450" height="120" rx="8" fill="#eef8f2" stroke="#80c8a0" stroke-width="1"/>
+        <text x="135" y="141" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#1e7a4a">padding</text>
+        <text x="135" y="157" font-family="Inter,sans-serif" font-size="11" fill="#50a070">espaçamento interno</text>
+        <!-- content -->
+        <rect x="170" y="162" width="340" height="60" rx="6" fill="#fff7f0" stroke="#f0b090" stroke-width="1"/>
+        <text x="340" y="187" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#e55a2b">content</text>
+        <text x="340" y="207" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#c08060">texto, imagens…</text>
+        <!-- Labels right side -->
+        <text x="628" y="162" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#9a7015">← margin</text>
+        <text x="628" y="182" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#1a5fa8">← border</text>
+        <text x="628" y="202" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#1e7a4a">← padding</text>
+        <text x="628" y="222" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#e55a2b">← content</text>
+      </svg>
+      <p class="diagram-caption">O box model: cada elemento é uma caixa com conteúdo, espaçamento interno, borda e espaçamento externo</p>
+    </div>
+
+    <div class="prose">
+      <h3>Adicionando uma imagem ao blog</h3>
+      <p>A tag <code>&lt;img&gt;</code> insere imagens na página. Ela possui dois atributos essenciais:</p>
+      <ul>
+        <li><code>src</code> — o caminho ou endereço da imagem</li>
+        <li><code>alt</code> — texto alternativo que descreve a imagem (essencial para acessibilidade)</li>
+      </ul>
+      <p>Adicione o código abaixo dentro do <code>&lt;main&gt;</code>, antes do <code>&lt;h2&gt;</code>:</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">index.html — imagem e espaçamentos</span>
+        <span class="code-lang html">HTML</span>
+      </div>
+      <div class="code-body"><span class="hl-tag">&lt;main&gt;</span>
+  <span class="hl-tag">&lt;img</span>
+    <span class="hl-attr">src</span>=<span class="hl-str">"https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg"</span>
+    <span class="hl-attr">alt</span>=<span class="hl-str">"Pôster do filme Interestelar: nave espacial sobre um planeta alienígena"</span>
+  <span class="hl-tag">&gt;</span>
+
+  <span class="hl-tag">&lt;h2&gt;</span>Filme em Destaque<span class="hl-tag">&lt;/h2&gt;</span>
+  <span class="hl-cmt">&lt;!-- ... restante do conteúdo ... --&gt;</span>
+<span class="hl-tag">&lt;/main&gt;</span></div>
+    </div>
+
+    <div class="prose">
+      <p>Agora, no CSS, controle o tamanho da imagem e adicione bordas e padding ao header:</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">styles.css — adicionar estilos da imagem</span>
+        <span class="code-lang css">CSS</span>
+      </div>
+      <div class="code-body"><span class="hl-prop">img</span> {
+  <span class="hl-attr">width</span>: <span class="hl-num">120px</span>;
+  <span class="hl-attr">height</span>: <span class="hl-num">170px</span>;
+  <span class="hl-attr">border</span>: <span class="hl-num">3px</span> <span class="hl-val">solid</span> <span class="hl-str">#e8a020</span>;
+  <span class="hl-attr">border-radius</span>: <span class="hl-num">8px</span>;
+}
+
+<span class="hl-prop">header</span> {
+  <span class="hl-cmt">/* adicionar ao bloco existente: */</span>
+  <span class="hl-attr">padding</span>: <span class="hl-num">24px 16px</span>;
+}</div>
+    </div>
+
+    <div class="info-box note">
+      <div class="ib-icon">♿</div>
+      <div class="ib-content">
+        <div class="ib-title">Por que o atributo alt é obrigatório</div>
+        <p class="ib-text">O atributo <code>alt</code> é utilizado por leitores de tela para descrever imagens a pessoas com deficiência visual. Também é exibido quando a imagem não carrega. Sempre descreva o conteúdo relevante da imagem.</p>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(4)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(6)">Próximo: Flexbox e Classes →</button>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 6 — FLEXBOX E CLASSES
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-6">
+    <div class="section-header">
+      <div class="section-tag css">🎨 CSS</div>
+      <h1 class="section-title">Flexbox e classes CSS</h1>
+      <p class="section-intro">O Flexbox é um sistema de layout que permite posicionar elementos lado a lado de forma flexível. As classes CSS permitem aplicar estilos específicos a elementos escolhidos, sem afetar todos os demais.</p>
+    </div>
+
+    <div class="prose">
+      <h3>O problema sem Flexbox</h3>
+      <p>Por padrão, elementos HTML como <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code> e <code>&lt;img&gt;</code> ficam empilhados verticalmente (um abaixo do outro), ocupando toda a largura disponível. Isso é chamado de <strong>display: block</strong>.</p>
+    </div>
+
+    <div class="diagram-wrapper">
+      <svg width="100%" viewBox="0 0 680 220" role="img">
+        <title>Comparação entre layout sem Flexbox e com Flexbox</title>
+        <!-- sem flex -->
+        <rect x="40" y="20" width="260" height="180" rx="10" fill="#f8f6f2" stroke="#ddd" stroke-width="0.5"/>
+        <text x="170" y="42" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#9e9b94">Sem Flexbox (padrão)</text>
+        <rect x="55" y="52" width="230" height="34" rx="6" fill="#c8d5e8" stroke="#90a8c8" stroke-width="0.5"/>
+        <text x="170" y="74" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#2c2b28">🎥 imagem</text>
+        <rect x="55" y="94" width="230" height="34" rx="6" fill="#d5e8d5" stroke="#90c890" stroke-width="0.5"/>
+        <text x="170" y="116" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#2c2b28">Título do filme</text>
+        <rect x="55" y="136" width="230" height="34" rx="6" fill="#e8d5d5" stroke="#c89090" stroke-width="0.5"/>
+        <text x="170" y="158" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#2c2b28">Por: Maria Souza</text>
+
+        <!-- com flex -->
+        <rect x="380" y="20" width="260" height="180" rx="10" fill="#f8f6f2" stroke="#ddd" stroke-width="0.5"/>
+        <text x="510" y="42" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#1e7a4a">Com display: flex</text>
+        <rect x="395" y="52" width="70" height="130" rx="6" fill="#c8d5e8" stroke="#90a8c8" stroke-width="0.5"/>
+        <text x="430" y="121" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#2c2b28">🎥</text>
+        <rect x="475" y="52" width="150" height="50" rx="6" fill="#d5e8d5" stroke="#90c890" stroke-width="0.5"/>
+        <text x="550" y="82" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#2c2b28">Título do filme</text>
+        <rect x="475" y="110" width="150" height="34" rx="6" fill="#e8d5d5" stroke="#c89090" stroke-width="0.5"/>
+        <text x="550" y="132" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#2c2b28">Por: Maria Souza</text>
+      </svg>
+      <p class="diagram-caption">O <code>display: flex</code> permite colocar a imagem e o texto lado a lado</p>
+    </div>
+
+    <div class="prose">
+      <h3>Organizando o card do filme com div e Flexbox</h3>
+      <p>Primeiro, no HTML, envolva a imagem e os textos do filme em uma <code>&lt;div&gt;</code>. Isso nos permite aplicar Flexbox apenas nesse grupo:</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">index.html — main atualizado</span>
+        <span class="code-lang html">HTML</span>
+      </div>
+      <div class="code-body"><span class="hl-tag">&lt;main&gt;</span>
+  <span class="hl-tag">&lt;img</span>
+    <span class="hl-attr">src</span>=<span class="hl-str">"https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg"</span>
+    <span class="hl-attr">alt</span>=<span class="hl-str">"Pôster do filme Interestelar"</span>
+  <span class="hl-tag">&gt;</span>
+
+  <span class="hl-tag">&lt;div&gt;</span>
+    <span class="hl-tag">&lt;h2&gt;</span>Filme em Destaque<span class="hl-tag">&lt;/h2&gt;</span>
+    <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: <span class="hl-tag">&lt;strong&gt;</span>Maria Souza<span class="hl-tag">&lt;/strong&gt;</span><span class="hl-tag">&lt;/p&gt;</span>
+    <span class="hl-tag">&lt;p&gt;</span>Uma viagem épica pelo espaço...<span class="hl-tag">&lt;/p&gt;</span>
+  <span class="hl-tag">&lt;/div&gt;</span>
+<span class="hl-tag">&lt;/main&gt;</span></div>
+    </div>
+
+    <div class="prose">
+      <p>Agora, no CSS, aplique <code>display: flex</code> ao <code>&lt;main&gt;</code> e estilize a classe <code>.autor</code>:</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">styles.css — atualizar main e adicionar .autor</span>
+        <span class="code-lang css">CSS</span>
+      </div>
+      <div class="code-body"><span class="hl-prop">main</span> {
+  <span class="hl-attr">background-color</span>: <span class="hl-str">#ffffff</span>;
+  <span class="hl-attr">color</span>: <span class="hl-str">#1a2744</span>;
+  <span class="hl-attr">max-width</span>: <span class="hl-num">800px</span>;
+  <span class="hl-attr">margin</span>: <span class="hl-num">0</span> <span class="hl-val">auto</span>;
+  <span class="hl-attr">padding</span>: <span class="hl-num">24px 16px</span>;
+  <span class="hl-attr">display</span>: <span class="hl-val">flex</span>;           <span class="hl-cmt">/* ← posiciona img e div lado a lado */</span>
+  <span class="hl-attr">gap</span>: <span class="hl-num">20px</span>;              <span class="hl-cmt">/* ← espaço entre os itens */</span>
+  <span class="hl-attr">align-items</span>: <span class="hl-val">flex-start</span>; <span class="hl-cmt">/* ← alinha pelo topo */</span>
+  <span class="hl-attr">text-align</span>: <span class="hl-val">left</span>;
+}
+
+<span class="hl-prop">.autor</span> {                    <span class="hl-cmt">/* ← seletor de classe com ponto */</span>
+  <span class="hl-attr">font-weight</span>: <span class="hl-val">bold</span>;
+  <span class="hl-attr">color</span>: <span class="hl-str">#888888</span>;
+  <span class="hl-attr">font-size</span>: <span class="hl-num">13px</span>;
+}</div>
+    </div>
+
+    <div class="info-box concept">
+      <div class="ib-icon">🏷️</div>
+      <div class="ib-content">
+        <div class="ib-title">Classes CSS: como funcionam</div>
+        <p class="ib-text">No HTML, atribuímos uma classe com <code>class="nome-da-classe"</code>. No CSS, referenciamos essa classe com um ponto na frente: <code>.nome-da-classe { ... }</code>. O nome deve ser uma única palavra (use hífens para separar), sem espaços e sem caracteres especiais.</p>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(5)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(7)">Próximo: JavaScript →</button>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 7 — JAVASCRIPT
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-7">
+    <div class="section-header">
+      <div class="section-tag js">⚡ JavaScript</div>
+      <h1 class="section-title">Contador de likes com JavaScript</h1>
+      <p class="section-intro">O JavaScript é a linguagem que torna as páginas interativas. Com ele, podemos responder a ações do usuário — como um clique — e atualizar o conteúdo da página em tempo real.</p>
+    </div>
+
+    <div class="diagram-wrapper">
+      <svg width="100%" viewBox="0 0 680 160" role="img">
+        <title>Diagrama mostrando as três camadas de uma página web HTML CSS e JavaScript</title>
+        <defs>
+          <marker id="arr3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#9e9b94" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <!-- HTML -->
+        <rect x="40" y="40" width="160" height="80" rx="10" fill="#fdf0ea" stroke="#f0b090" stroke-width="0.5"/>
+        <text x="120" y="75" text-anchor="middle" font-family="Inter,sans-serif" font-size="16" font-weight="700" fill="#e55a2b">HTML</text>
+        <text x="120" y="95" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#b07050">Estrutura e conteúdo</text>
+        <!-- Arrow -->
+        <line x1="200" y1="80" x2="252" y2="80" stroke="#9e9b94" stroke-width="0.5" marker-end="url(#arr3)"/>
+        <text x="226" y="72" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#9e9b94">+</text>
+        <!-- CSS -->
+        <rect x="254" y="40" width="160" height="80" rx="10" fill="#eef2fc" stroke="#b0c4e8" stroke-width="0.5"/>
+        <text x="334" y="75" text-anchor="middle" font-family="Inter,sans-serif" font-size="16" font-weight="700" fill="#1a5fa8">CSS</text>
+        <text x="334" y="95" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#5a80c0">Aparência visual</text>
+        <!-- Arrow -->
+        <line x1="414" y1="80" x2="466" y2="80" stroke="#9e9b94" stroke-width="0.5" marker-end="url(#arr3)"/>
+        <text x="440" y="72" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#9e9b94">+</text>
+        <!-- JS -->
+        <rect x="468" y="40" width="172" height="80" rx="10" fill="#fdf7e3" stroke="#e8d080" stroke-width="0.5"/>
+        <text x="554" y="75" text-anchor="middle" font-family="Inter,sans-serif" font-size="16" font-weight="700" fill="#c9a020">JavaScript</text>
+        <text x="554" y="95" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#a08030">Interatividade</text>
+        <!-- Label -->
+        <text x="340" y="148" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#9e9b94">Juntos, formam uma página web completa</text>
+      </svg>
+      <p class="diagram-caption">HTML = esqueleto · CSS = aparência · JavaScript = comportamento</p>
+    </div>
+
+    <div class="prose">
+      <h3>Passo 1: Adicionar o botão no HTML</h3>
+      <p>Dentro do <code>&lt;div&gt;</code> que contém os textos do filme, adicione um botão com um emoji de coração e um <code>&lt;span&gt;</code> para exibir o contador:</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">index.html — botão de curtir</span>
+        <span class="code-lang html">HTML</span>
+      </div>
+      <div class="code-body"><span class="hl-tag">&lt;div&gt;</span>
+  <span class="hl-tag">&lt;h2&gt;</span>Filme em Destaque<span class="hl-tag">&lt;/h2&gt;</span>
+  <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: <span class="hl-tag">&lt;strong&gt;</span>Maria Souza<span class="hl-tag">&lt;/strong&gt;</span><span class="hl-tag">&lt;/p&gt;</span>
+  <span class="hl-tag">&lt;p&gt;</span>Uma viagem épica pelo espaço...<span class="hl-tag">&lt;/p&gt;</span>
+
+  <span class="hl-tag">&lt;button&gt;</span>❤️ <span class="hl-tag">&lt;span&gt;</span>0<span class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
+<span class="hl-tag">&lt;/div&gt;</span></div>
+    </div>
+
+    <div class="prose">
+      <h3>Passo 2: Estilizar o botão no CSS</h3>
+      <p>Abra o seu arquivo <code>styles.css</code> e adicione a regra abaixo para deixar o botão com cantos arredondados, fundo branco e espaçamento interno:</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">styles.css — estilo do botão</span>
+        <span class="code-lang css">CSS</span>
+      </div>
+      <div class="code-body"><span class="hl-prop">button</span> {
+  <span class="hl-attr">padding</span>: <span class="hl-num">8px 16px</span>;
+  <span class="hl-attr">border</span>: <span class="hl-num">1px</span> <span class="hl-val">solid</span> <span class="hl-str">#ddd</span>;
+  <span class="hl-attr">border-radius</span>: <span class="hl-num">20px</span>;
+  <span class="hl-attr">background</span>: <span class="hl-str">#ffffff</span>;
+  <span class="hl-attr">cursor</span>: <span class="hl-val">pointer</span>;
+  <span class="hl-attr">font-size</span>: <span class="hl-num">14px</span>;
+  <span class="hl-attr">margin-top</span>: <span class="hl-num">12px</span>;
+}</div>
+    </div>
+
+    <div class="prose">
+      <h3>Passo 3: Criar e vincular o arquivo JavaScript</h3>
+      <p>Assim como fizemos com o CSS, a melhor prática é manter nosso código JavaScript em um arquivo separado chamado <code>script.js</code>. Isso deixa nosso HTML limpo e focado na estrutura.</p>
+      <p>Primeiro, no final do seu arquivo <code>index.html</code>, logo antes da tag de fechamento <code>&lt;/body&gt;</code>, adicione a tag <code>&lt;script&gt;</code> vinculando o arquivo externo:</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">index.html — vinculando o arquivo script.js</span>
+        <span class="code-lang html">HTML</span>
+      </div>
+      <div class="code-body"><span class="hl-tag">&lt;script</span> <span class="hl-attr">src</span>=<span class="hl-str">"script.js"</span><span class="hl-tag">&gt;&lt;/script&gt;</span>
+<span class="hl-tag">&lt;/body&gt;</span></div>
+    </div>
+
+    <div class="prose">
+      <p>Agora, crie o arquivo <code>script.js</code> na mesma pasta do seu projeto e adicione o código abaixo para fazer o botão funcionar:</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">script.js</span>
+        <span class="code-lang js">JS</span>
+      </div>
+      <div class="code-body"><span class="hl-cmt">// 1. Seleciona o botão no documento</span>
+<span class="hl-kw">const</span> botao = document.<span class="hl-fn">querySelector</span>(<span class="hl-str2">"button"</span>);
+
+<span class="hl-cmt">// 2. Escuta o evento de clique</span>
+botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"</span>, botaoClicado);
+
+<span class="hl-cmt">// 3. Define o que acontece ao clicar</span>
+<span class="hl-kw">function</span> <span class="hl-fn">botaoClicado</span>() {
+  <span class="hl-kw">let</span> contador = botao.<span class="hl-fn">querySelector</span>(<span class="hl-str2">"span"</span>);
+  contador.textContent++;  <span class="hl-cmt">// incrementa o número em 1</span>
+}</div>
+    </div>
+
+    <div class="diagram-wrapper">
+      <svg width="100%" viewBox="0 0 680 200" role="img">
+        <title>Fluxo do JavaScript ao clicar no botão de like</title>
+        <defs>
+          <marker id="arr4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#9e9b94" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <!-- Step 1 -->
+        <rect x="40" y="60" width="140" height="80" rx="10" fill="#fdf7e3" stroke="#e8d080" stroke-width="0.5"/>
+        <text x="110" y="95" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#9a7015">Usuário clica</text>
+        <text x="110" y="113" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#c8a040">no botão ❤️</text>
+        <!-- Arrow -->
+        <line x1="180" y1="100" x2="218" y2="100" stroke="#9e9b94" stroke-width="0.5" marker-end="url(#arr4)"/>
+        <!-- Step 2 -->
+        <rect x="220" y="60" width="150" height="80" rx="10" fill="#e8f1fc" stroke="#b0c4e8" stroke-width="0.5"/>
+        <text x="295" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#1a5fa8">addEventListener</text>
+        <text x="295" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#5a90c8">detecta o clique</text>
+        <text x="295" y="126" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#5a90c8">e chama a função</text>
+        <!-- Arrow -->
+        <line x1="370" y1="100" x2="408" y2="100" stroke="#9e9b94" stroke-width="0.5" marker-end="url(#arr4)"/>
+        <!-- Step 3 -->
+        <rect x="410" y="60" width="150" height="80" rx="10" fill="#eef8f2" stroke="#a0c8b0" stroke-width="0.5"/>
+        <text x="485" y="90" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#1e7a4a">botaoClicado()</text>
+        <text x="485" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#50a070">atualiza o</text>
+        <text x="485" y="126" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#50a070">valor no &lt;span&gt;</text>
+        <!-- Arrow -->
+        <line x1="560" y1="100" x2="598" y2="100" stroke="#9e9b94" stroke-width="0.5" marker-end="url(#arr4)"/>
+        <!-- Result -->
+        <rect x="600" y="72" width="60" height="56" rx="10" fill="#fdf0ea" stroke="#f0b090" stroke-width="0.5"/>
+        <text x="630" y="97" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#e55a2b">❤️ 1</text>
+        <text x="630" y="118" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#c08060">na tela</text>
+        <!-- Labels -->
+        <text x="340" y="172" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9e9b94">Clique → Evento detectado → Função executada → Página atualizada</text>
+      </svg>
+      <p class="diagram-caption">Fluxo completo: o clique dispara o evento, que executa a função, que atualiza o número na tela</p>
+    </div>
+
+    <div class="info-box tip">
+      <div class="ib-icon">🧪</div>
+      <div class="ib-content">
+        <div class="ib-title">Testando o JavaScript</div>
+        <p class="ib-text">Pressione <strong>F12</strong> no navegador para abrir as ferramentas de desenvolvedor. Na aba <strong>Console</strong>, você pode adicionar <code>console.log("teste")</code> dentro da função para verificar se ela está sendo executada corretamente.</p>
+      </div>
+    </div>
+
+    <!-- Código da Versão Intermediária -->
+    <div class="prose">
+      <h3>Estado dos arquivos do projeto neste módulo</h3>
+      <p>Neste ponto, o seu projeto deve estar organizado em três arquivos separados na mesma pasta:</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">index.html (versão intermediária)</span>
+        <span class="code-lang html">HTML</span>
+      </div>
+      <div class="code-body"><span class="hl-tag">&lt;!DOCTYPE html&gt;</span>
+<span class="hl-tag">&lt;html</span> <span class="hl-attr">lang</span>=<span class="hl-str">"pt-BR"</span><span class="hl-tag">&gt;</span>
+<span class="hl-tag">&lt;head&gt;</span>
+  <span class="hl-tag">&lt;meta</span> <span class="hl-attr">charset</span>=<span class="hl-str">"UTF-8"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;meta</span> <span class="hl-attr">name</span>=<span class="hl-str">"viewport"</span> <span class="hl-attr">content</span>=<span class="hl-str">"width=device-width, initial-scale=1.0"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;title&gt;</span>Meu Blog de Filmes<span class="hl-tag">&lt;/title&gt;</span>
+  <span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-str">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-str">"styles.css"</span><span class="hl-tag">&gt;</span>
+<span class="hl-tag">&lt;/head&gt;</span>
+<span class="hl-tag">&lt;body&gt;</span>
+
+  <span class="hl-tag">&lt;header&gt;</span>
+    <span class="hl-tag">&lt;h1&gt;</span>🎬 Meu Blog de Filmes<span class="hl-tag">&lt;/h1&gt;</span>
+    <span class="hl-tag">&lt;p&gt;</span>Dicas e recomendações para todos os gostos<span class="hl-tag">&lt;/p&gt;</span>
+  <span class="hl-tag">&lt;/header&gt;</span>
+
+  <span class="hl-tag">&lt;main&gt;</span>
+    <span class="hl-tag">&lt;img</span> <span class="hl-attr">src</span>=<span class="hl-str">"https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg"</span> <span class="hl-attr">alt</span>=<span class="hl-str">"Pôster de Interestelar"</span><span class="hl-tag">&gt;</span>
+    <span class="hl-tag">&lt;div&gt;</span>
+      <span class="hl-tag">&lt;h2&gt;</span>Filme em Destaque<span class="hl-tag">&lt;/h2&gt;</span>
+      <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: <span class="hl-tag">&lt;strong&gt;</span>Maria Souza<span class="hl-tag">&lt;/strong&gt;</span><span class="hl-tag">&lt;/p&gt;</span>
+      <span class="hl-tag">&lt;p&gt;</span>Uma viagem épica pelo espaço...<span class="hl-tag">&lt;/p&gt;</span>
+      <span class="hl-tag">&lt;button&gt;</span>❤️ <span class="hl-tag">&lt;span&gt;</span>0<span class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
+    <span class="hl-tag">&lt;/div&gt;</span>
+  <span class="hl-tag">&lt;/main&gt;</span>
+
+  <span class="hl-tag">&lt;script</span> <span class="hl-attr">src</span>=<span class="hl-str">"script.js"</span><span class="hl-tag">&gt;&lt;/script&gt;</span>
+<span class="hl-tag">&lt;/body&gt;</span>
+<span class="hl-tag">&lt;/html&gt;</span></div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">styles.css (versão intermediária)</span>
+        <span class="code-lang css">CSS</span>
+      </div>
+      <div class="code-body"><span class="hl-prop">header</span> {
+  <span class="hl-attr">background-color</span>: <span class="hl-str">#1a2744</span>;
+  <span class="hl-attr">color</span>: <span class="hl-str">#ffffff</span>;
+  <span class="hl-attr">text-align</span>: <span class="hl-val">center</span>;
+  <span class="hl-attr">max-width</span>: <span class="hl-num">800px</span>;
+  <span class="hl-attr">margin</span>: <span class="hl-num">0</span> <span class="hl-val">auto</span>;
+  <span class="hl-attr">padding</span>: <span class="hl-num">24px 16px</span>;
+}
+<span class="hl-prop">main</span> {
+  <span class="hl-attr">background-color</span>: <span class="hl-str">#ffffff</span>;
+  <span class="hl-attr">color</span>: <span class="hl-str">#1a2744</span>;
+  <span class="hl-attr">max-width</span>: <span class="hl-num">800px</span>;
+  <span class="hl-attr">margin</span>: <span class="hl-num">0</span> <span class="hl-val">auto</span>;
+  <span class="hl-attr">padding</span>: <span class="hl-num">24px 16px</span>;
+  <span class="hl-attr">display</span>: <span class="hl-val">flex</span>;
+  <span class="hl-attr">gap</span>: <span class="hl-num">20px</span>;
+  <span class="hl-attr">align-items</span>: <span class="hl-val">flex-start</span>;
+}
+<span class="hl-prop">img</span> {
+  <span class="hl-attr">width</span>: <span class="hl-num">120px</span>;
+  <span class="hl-attr">height</span>: <span class="hl-num">170px</span>;
+  <span class="hl-attr">border</span>: <span class="hl-num">3px</span> <span class="hl-val">solid</span> <span class="hl-str">#e8a020</span>;
+  <span class="hl-attr">border-radius</span>: <span class="hl-num">8px</span>;
+}
+<span class="hl-prop">.autor</span> {
+  <span class="hl-attr">font-weight</span>: <span class="hl-val">bold</span>;
+  <span class="hl-attr">color</span>: <span class="hl-str">#888888</span>;
+  <span class="hl-attr">font-size</span>: <span class="hl-num">13px</span>;
+}
+<span class="hl-prop">button</span> {
+  <span class="hl-attr">padding</span>: <span class="hl-num">8px 16px</span>;
+  <span class="hl-attr">border</span>: <span class="hl-num">1px</span> <span class="hl-val">solid</span> <span class="hl-str">#ddd</span>;
+  <span class="hl-attr">border-radius</span>: <span class="hl-num">20px</span>;
+  <span class="hl-attr">background</span>: <span class="hl-str">#ffffff</span>;
+  <span class="hl-attr">cursor</span>: <span class="hl-val">pointer</span>;
+  <span class="hl-attr">font-size</span>: <span class="hl-num">14px</span>;
+  <span class="hl-attr">margin-top</span>: <span class="hl-num">12px</span>;
+}</div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">script.js (versão intermediária)</span>
+        <span class="code-lang js">JS</span>
+      </div>
+      <div class="code-body"><span class="hl-kw">const</span> botao = document.<span class="hl-fn">querySelector</span>(<span class="hl-str2">"button"</span>);
+botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"</span>, botaoClicado);
+
+<span class="hl-kw">function</span> <span class="hl-fn">botaoClicado</span>() {
+  <span class="hl-kw">let</span> contador = botao.<span class="hl-fn">querySelector</span>(<span class="hl-str2">"span"</span>);
+  contador.textContent++;
+}</div>
+    </div>
+
+    <div class="info-box tip">
+      <div class="ib-icon">🚀</div>
+      <div class="ib-content">
+        <div class="ib-title">Pronto para o próximo desafio!</div>
+        <p class="ib-text">Você organizou o seu projeto dividindo o código em HTML, CSS e JavaScript. Agora que cada parte está no seu devido arquivo, estamos prontos para trabalhar com múltiplos elementos no próximo módulo!</p>
+      </div>
+    </div>
+
+    <div class="info-box tip">
+      <div class="ib-icon">🎉</div>
+      <div class="ib-content">
+        <div class="ib-title">Parabéns! Sua página está completa.</div>
+        <p class="ib-text">Você criou uma página web com HTML estruturado, CSS personalizado e interatividade em JavaScript. Para continuar evoluindo, experimente: adicionar outros filmes com novos <code>&lt;div&gt;</code>, criar um arquivo <code>style.css</code> separado, ou personalizar as cores e fontes ao seu gosto.</p>
+      </div>
+    </div>
+
+    <div class="checklist">
+      <h4>Você aprendeu neste tutorial</h4>
+      <div class="check-item"><span class="check-icon">✅</span><span>Criar e estruturar arquivos HTML com <code>head</code>, <code>body</code>, <code>header</code> e <code>main</code></span></div>
+      <div class="check-item"><span class="check-icon">✅</span><span>Utilizar tags de texto: <code>h1</code>, <code>h2</code>, <code>p</code>, <code>strong</code> e <code>em</code></span></div>
+      <div class="check-item"><span class="check-icon">✅</span><span>Aplicar estilos CSS com cores, alinhamento, padding e margin</span></div>
+      <div class="check-item"><span class="check-icon">✅</span><span>Compreender o modelo de caixa (box model) e inserir imagens com <code>alt</code></span></div>
+      <div class="check-item"><span class="check-icon">✅</span><span>Usar <code>display: flex</code> e classes CSS para organizar o layout</span></div>
+      <div class="check-item"><span class="check-icon">✅</span><span>Implementar interatividade com JavaScript: <code>querySelector</code>, <code>addEventListener</code> e atualização de conteúdo</span></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(6)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(8)">Próximo: Múltiplos Elementos →</button>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 8 — EVENTOS EM MÚLTIPLOS ELEMENTOS
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-8">
+    <div class="section-header">
+      <div class="section-tag js">⚡ JavaScript</div>
+      <h1 class="section-title">Eventos em múltiplos elementos</h1>
+      <p class="section-intro">Agora que temos um botão interativo, vamos aprender a trabalhar com vários botões na mesma página utilizando o JavaScript. Veremos como selecionar todos eles de uma vez e associar um evento a cada um usando loops.</p>
+    </div>
+
+    <div class="prose">
+      <h3>O problema com querySelector</h3>
+      <p>O método <code>document.querySelector()</code> seleciona apenas o <strong>primeiro</strong> elemento que corresponde ao seletor. Se nossa página tiver vários botões e tentarmos usá-lo, o JavaScript só vai controlar o primeiro botão de todos, ignorando os outros.</p>
+      <p>Para selecionar todos os botões de uma vez, precisamos usar o <code>document.querySelectorAll()</code>. Ele nos retorna uma lista contendo todos os elementos que correspondem ao seletor.</p>
+    </div>
+
+    <!-- DIAGRAMA querySelector vs querySelectorAll -->
+    <div class="diagram-wrapper">
+      <svg width="100%" viewBox="0 0 680 200" role="img">
+        <title>querySelector vs querySelectorAll</title>
+        <defs>
+          <marker id="arrSelect" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#9e9b94" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <!-- Left side: querySelector -->
+        <rect x="30" y="20" width="280" height="155" rx="10" fill="#fdf7e3" stroke="#e8d080" stroke-width="0.5"/>
+        <text x="170" y="42" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#9a7015">querySelector("button")</text>
+        <!-- Buttons on left -->
+        <rect x="50" y="60" width="100" height="30" rx="15" fill="#eef2fc" stroke="#1a5fa8" stroke-width="1"/>
+        <text x="100" y="79" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#1a5fa8">❤️ <span>0</span></text>
+        <rect x="50" y="105" width="100" height="30" rx="15" fill="#fff" stroke="#9e9b94" stroke-width="0.5"/>
+        <text x="100" y="124" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#5a5750">👍 <span>0</span></text>
+        <!-- Selection arrow -->
+        <path d="M 240 85 L 160 75" fill="none" stroke="#1a5fa8" stroke-width="1.5" marker-end="url(#arrSelect)"/>
+        <text x="245" y="90" font-family="Inter,sans-serif" font-size="11" fill="#1a5fa8">Apenas o 1º</text>
+        
+        <!-- Right side: querySelectorAll -->
+        <rect x="370" y="20" width="280" height="155" rx="10" fill="#eef8f2" stroke="#a0c8b0" stroke-width="0.5"/>
+        <text x="510" y="42" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#1e7a4a">querySelectorAll("button")</text>
+        <!-- Buttons on right -->
+        <rect x="390" y="60" width="100" height="30" rx="15" fill="#eef8f2" stroke="#1e7a4a" stroke-width="1.5"/>
+        <text x="440" y="79" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#1e7a4a">❤️ <span>0</span></text>
+        <rect x="390" y="105" width="100" height="30" rx="15" fill="#eef8f2" stroke="#1e7a4a" stroke-width="1.5"/>
+        <text x="440" y="124" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#1e7a4a">👍 <span>0</span></text>
+        <!-- Selection arrows -->
+        <path d="M 550 95 L 500 75" fill="none" stroke="#1e7a4a" stroke-width="1.5" marker-end="url(#arrSelect)"/>
+        <path d="M 550 95 L 500 120" fill="none" stroke="#1e7a4a" stroke-width="1.5" marker-end="url(#arrSelect)"/>
+        <text x="555" y="98" font-family="Inter,sans-serif" font-size="11" fill="#1e7a4a">Todos (Lista)</text>
+      </svg>
+      <p class="diagram-caption"><code>querySelector</code> seleciona apenas a primeira ocorrência, enquanto <code>querySelectorAll</code> seleciona todos os elementos em uma lista.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Passo 1: Adicionar um segundo botão no HTML</h3>
+      <p>No seu arquivo <code>index.html</code>, adicione um segundo botão de reação dentro do <code>&lt;div&gt;</code> do filme (por exemplo, um joinha 👍):</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">index.html — adicionando segundo botão</span>
+        <span class="code-lang html">HTML</span>
+      </div>
+      <div class="code-body"><span class="hl-tag">&lt;div&gt;</span>
+  <span class="hl-tag">&lt;h2&gt;</span>Filme em Destaque<span class="hl-tag">&lt;/h2&gt;</span>
+  <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: <span class="hl-tag">&lt;strong&gt;</span>Maria Souza<span class="hl-tag">&lt;/strong&gt;</span><span class="hl-tag">&lt;/p&gt;</span>
+  <span class="hl-tag">&lt;p&gt;</span>Uma viagem épica pelo espaço...<span class="hl-tag">&lt;/p&gt;</span>
+
+  <span class="hl-tag">&lt;button&gt;</span>❤️ <span class="hl-tag">&lt;span&gt;</span>0<span class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
+  <span class="hl-tag">&lt;button&gt;</span>👍 <span class="hl-tag">&lt;span&gt;</span>0<span class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
+<span class="hl-tag">&lt;/div&gt;</span></div>
+    </div>
+
+    <div class="prose">
+      <h3>Passo 2: Usar forEach para percorrer os botões</h3>
+      <p>Como o <code>querySelectorAll</code> nos dá uma lista de botões, precisamos usar o método <code>forEach</code>. Ele executa uma função para cada elemento individual da nossa lista:</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">script.js — iterando com forEach</span>
+        <span class="code-lang js">JS</span>
+      </div>
+      <div class="code-body"><span class="hl-cmt">// 1. Seleciona todos os botões da página</span>
+<span class="hl-kw">const</span> botoes = document.<span class="hl-fn">querySelectorAll</span>(<span class="hl-str2">"button"</span>);
+
+<span class="hl-cmt">// 2. Percorre a lista de botões usando forEach</span>
+botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(botao) {
+  <span class="hl-cmt">// Adiciona o evento de escuta para cada botão individual</span>
+  botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"</span>, botaoClicado);
+
+  <span class="hl-cmt">// 3. Função que será executada ao clicar no botão específico</span>
+  <span class="hl-kw">function</span> <span class="hl-fn">botaoClicado</span>() {
+    <span class="hl-kw">let</span> contador = botao.<span class="hl-fn">querySelector</span>(<span class="hl-str2">"span"</span>);
+    contador.textContent++;  <span class="hl-cmt">// Incrementa apenas o span deste botão</span>
+  }
+});</div>
+    </div>
+
+    <div class="info-box concept">
+      <div class="ib-icon">🧩</div>
+      <div class="ib-content">
+        <div class="ib-title">Por que definir a função dentro do forEach?</div>
+        <p class="ib-text">Ao declarar a função <code>botaoClicado</code> dentro do <code>forEach</code>, ela ganha acesso direto à variável <code>botao</code> correspondente daquela iteração (um conceito chamado <em>closure</em> ou escopo fechado). Isso garante que o contador correto seja incrementado!</p>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(7)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(9)">Próximo: Lógica de curtidas →</button>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 9 — LÓGICA DE CURTIDAS
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-9">
+    <div class="section-header">
+      <div class="section-tag js">⚡ JavaScript</div>
+      <h1 class="section-title">Lógica e limite de curtidas</h1>
+      <p class="section-intro">Para finalizar nosso projeto, vamos adicionar um segundo post ao blog, ajustando a estrutura do layout com a tag semântica <code>&lt;article&gt;</code>. Também criaremos uma lógica para limitar as curtidas a apenas uma por post, usando booleanos e condicionais.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Criando o segundo post no blog</h3>
+      <p>Um blog real possui vários posts. Vamos duplicar o conteúdo dentro do nosso <code>&lt;main&gt;</code> para criar um segundo post de filme (ex: <em>Avatar</em>). Porém, se fizermos isso agora com a estrutura antiga, os posts vão quebrar visualmente porque o CSS original do <code>main</code> possui <code>display: flex</code>.</p>
+      <p>Para corrigir isso, utilizaremos a tag semântica <code>&lt;article&gt;</code> para envolver cada post completo. No CSS, moveremos o comportamento do Flexbox do <code>main</code> para o <code>article</code>. Dessa forma, as imagens e textos ficarão lado a lado em cada post individual, mas os posts em si ficarão empilhados verticalmente!</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">CSS — Novo layout com article</span>
+        <span class="code-lang css">CSS</span>
+      </div>
+      <div class="code-body"><span class="hl-prop">main</span> {
+  <span class="hl-attr">background-color</span>: <span class="hl-str">#ffffff</span>;
+  <span class="hl-attr">color</span>: <span class="hl-str">#1a2744</span>;
+  <span class="hl-attr">max-width</span>: <span class="hl-num">800px</span>;
+  <span class="hl-attr">margin</span>: <span class="hl-num">0</span> <span class="hl-val">auto</span>;
+  <span class="hl-attr">padding</span>: <span class="hl-num">24px 16px</span>;
+}
+
+<span class="hl-prop">article</span> {
+  <span class="hl-attr">display</span>: <span class="hl-val">flex</span>;           <span class="hl-cmt">/* ← Coloca a imagem e o texto lado a lado */</span>
+  <span class="hl-attr">gap</span>: <span class="hl-num">20px</span>;
+  <span class="hl-attr">align-items</span>: <span class="hl-val">flex-start</span>;
+  <span class="hl-attr">margin-bottom</span>: <span class="hl-num">32px</span>;     <span class="hl-cmt">/* ← Espaço entre posts */</span>
+  <span class="hl-attr">padding-bottom</span>: <span class="hl-num">24px</span>;
+  <span class="hl-attr">border-bottom</span>: <span class="hl-num">1px</span> <span class="hl-val">solid</span> <span class="hl-str">#eee</span>;
+}</div>
+    </div>
+
+    <div class="prose">
+      <h3>Controlando as interações com Booleanos</h3>
+      <p>Em redes sociais reais, você só pode curtir uma publicação uma vez. Se clicar novamente, a curtida é desfeita ou ignorada. Para implementar isso, vamos usar variáveis <strong>booleanas</strong> (que assumem apenas os valores <code>true</code> ou <code>false</code>) e a condicional <code>if</code>.</p>
+      <p>Criaremos uma variável de controle chamada <code>curtiu</code>, iniciada como <code>false</code>. Quando o usuário clica, verificamos se <code>curtiu === false</code>. Se for verdade, incrementamos a curtida e mudamos a variável para <code>true</code>. Cliques seguintes serão ignorados porque o valor agora é <code>true</code>!</p>
+    </div>
+
+    <!-- DIAGRAMA DA LÓGICA -->
+    <div class="diagram-wrapper">
+      <svg width="100%" viewBox="0 0 680 160" role="img">
+        <title>Lógica do Limite de Curtidas com Booleano</title>
+        <defs>
+          <marker id="arrLogic" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#9e9b94" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <!-- State 1 -->
+        <rect x="40" y="40" width="160" height="70" rx="8" fill="#eef2fc" stroke="#7ab8f5" stroke-width="1"/>
+        <text x="120" y="68" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#1a5fa8">curtiu = false</text>
+        <text x="120" y="86" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5a90c8">Estado Inicial</text>
+        
+        <!-- Click 1 -->
+        <line x1="200" y1="75" x2="252" y2="75" stroke="#9e9b94" stroke-width="1" marker-end="url(#arrLogic)"/>
+        <text x="226" y="65" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#9e9b94">Clique 1</text>
+        
+        <!-- State 2 -->
+        <rect x="260" y="40" width="160" height="70" rx="8" fill="#eef8f2" stroke="#80c8a0" stroke-width="1.5"/>
+        <text x="340" y="68" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#1e7a4a">curtiu = true</text>
+        <text x="340" y="86" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#50a070">Likes + 1</text>
+        
+        <!-- Click 2 -->
+        <line x1="420" y1="75" x2="472" y2="75" stroke="#9e9b94" stroke-width="1" marker-end="url(#arrLogic)"/>
+        <text x="446" y="65" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#9e9b94">Clique 2</text>
+        
+        <!-- State 3 -->
+        <rect x="480" y="40" width="160" height="70" rx="8" fill="#fdf7e3" stroke="#e8d080" stroke-width="1"/>
+        <text x="560" y="68" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#9a7015">curtiu === true</text>
+        <text x="560" y="86" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#a08030">Nada acontece</text>
+      </svg>
+      <p class="diagram-caption">A variável booleana de controle impede curtidas repetidas no mesmo elemento.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Código completo final com múltiplos posts e limite de likes</h3>
+      <p>Abaixo está o código final do seu blog de filmes, totalmente finalizado com múltiplos posts e a lógica de curtidas limite:</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">index.html — Versão Final Consolidada</span>
+        <span class="code-lang html">HTML</span>
+      </div>
+      <div class="code-body"><span class="hl-tag">&lt;!DOCTYPE html&gt;</span>
+<span class="hl-tag">&lt;html</span> <span class="hl-attr">lang</span>=<span class="hl-str">"pt-BR"</span><span class="hl-tag">&gt;</span>
+<span class="hl-tag">&lt;head&gt;</span>
+  <span class="hl-tag">&lt;meta</span> <span class="hl-attr">charset</span>=<span class="hl-str">"UTF-8"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;meta</span> <span class="hl-attr">name</span>=<span class="hl-str">"viewport"</span> <span class="hl-attr">content</span>=<span class="hl-str">"width=device-width, initial-scale=1.0"</span><span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;title&gt;</span>Meu Blog de Filmes<span class="hl-tag">&lt;/title&gt;</span>
+  <span class="hl-tag">&lt;link</span> <span class="hl-attr">rel</span>=<span class="hl-str">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-str">"styles.css"</span><span class="hl-tag">&gt;</span>
+<span class="hl-tag">&lt;/head&gt;</span>
+<span class="hl-tag">&lt;body&gt;</span>
+
+  <span class="hl-tag">&lt;header&gt;</span>
+    <span class="hl-tag">&lt;h1&gt;</span>🎬 Meu Blog de Filmes<span class="hl-tag">&lt;/h1&gt;</span>
+    <span class="hl-tag">&lt;p&gt;</span>Dicas e recomendações para todos os gostos<span class="hl-tag">&lt;/p&gt;</span>
+  <span class="hl-tag">&lt;/header&gt;</span>
+
+  <span class="hl-tag">&lt;main&gt;</span>
+    <span class="hl-cmt">&lt;!-- Post 1 --&gt;</span>
+    <span class="hl-tag">&lt;article&gt;</span>
+      <span class="hl-tag">&lt;img</span> <span class="hl-attr">src</span>=<span class="hl-str">"https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg"</span> <span class="hl-attr">alt</span>=<span class="hl-str">"Pôster de Interestelar"</span><span class="hl-tag">&gt;</span>
+      <span class="hl-tag">&lt;div&gt;</span>
+        <span class="hl-tag">&lt;h2&gt;</span>Filme em Destaque: Interestelar<span class="hl-tag">&lt;/h2&gt;</span>
+        <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: <span class="hl-tag">&lt;strong&gt;</span>Maria Souza<span class="hl-tag">&lt;/strong&gt;</span><span class="hl-tag">&lt;/p&gt;</span>
+        <span class="hl-tag">&lt;p&gt;</span>Uma viagem épica pelo espaço que desafia os limites da ciência.<span class="hl-tag">&lt;/p&gt;</span>
+        <span class="hl-tag">&lt;button&gt;</span>❤️ <span class="hl-tag">&lt;span&gt;</span>0<span class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
+        <span class="hl-tag">&lt;button&gt;</span>👍 <span class="hl-tag">&lt;span&gt;</span>0<span class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
+      <span class="hl-tag">&lt;/div&gt;</span>
+    <span class="hl-tag">&lt;/article&gt;</span>
+
+    <span class="hl-cmt">&lt;!-- Post 2 --&gt;</span>
+    <span class="hl-tag">&lt;article&gt;</span>
+      <span class="hl-tag">&lt;img</span> <span class="hl-attr">src</span>=<span class="hl-str">"https://upload.wikimedia.org/wikipedia/en/d/d6/Avatar2009poster.jpg"</span> <span class="hl-attr">alt</span>=<span class="hl-str">"Pôster de Avatar"</span><span class="hl-tag">&gt;</span>
+      <span class="hl-tag">&lt;div&gt;</span>
+        <span class="hl-tag">&lt;h2&gt;</span>Outra Recomendação: Avatar<span class="hl-tag">&lt;/h2&gt;</span>
+        <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: <span class="hl-tag">&lt;strong&gt;</span>Marcelo Paludetto<span class="hl-tag">&lt;/strong&gt;</span><span class="hl-tag">&lt;/p&gt;</span>
+        <span class="hl-tag">&lt;p&gt;</span>Uma jornada espetacular no mundo de Pandora, descobrindo novas culturas.<span class="hl-tag">&lt;/p&gt;</span>
+        <span class="hl-tag">&lt;button&gt;</span>❤️ <span class="hl-tag">&lt;span&gt;</span>0<span class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
+        <span class="hl-tag">&lt;button&gt;</span>👍 <span class="hl-tag">&lt;span&gt;</span>0<span class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
+      <span class="hl-tag">&lt;/div&gt;</span>
+    <span class="hl-tag">&lt;/article&gt;</span>
+  <span class="hl-tag">&lt;/main&gt;</span>
+
+  <span class="hl-tag">&lt;script</span> <span class="hl-attr">src</span>=<span class="hl-str">"script.js"</span><span class="hl-tag">&gt;&lt;/script&gt;</span>
+<span class="hl-tag">&lt;/body&gt;</span>
+<span class="hl-tag">&lt;/html&gt;</span></div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">styles.css — Versão Final Consolidada</span>
+        <span class="code-lang css">CSS</span>
+      </div>
+      <div class="code-body"><span class="hl-prop">header</span> {
+  <span class="hl-attr">background-color</span>: <span class="hl-str">#1a2744</span>;
+  <span class="hl-attr">color</span>: <span class="hl-str">#ffffff</span>;
+  <span class="hl-attr">text-align</span>: <span class="hl-val">center</span>;
+  <span class="hl-attr">max-width</span>: <span class="hl-num">800px</span>;
+  <span class="hl-attr">margin</span>: <span class="hl-num">0</span> <span class="hl-val">auto</span>;
+  <span class="hl-attr">padding</span>: <span class="hl-num">24px 16px</span>;
+}
+
+<span class="hl-prop">main</span> {
+  <span class="hl-attr">background-color</span>: <span class="hl-str">#ffffff</span>;
+  <span class="hl-attr">color</span>: <span class="hl-str">#1a2744</span>;
+  <span class="hl-attr">max-width</span>: <span class="hl-num">800px</span>;
+  <span class="hl-attr">margin</span>: <span class="hl-num">0</span> <span class="hl-val">auto</span>;
+  <span class="hl-attr">padding</span>: <span class="hl-num">24px 16px</span>;
+}
+
+<span class="hl-prop">article</span> {
+  <span class="hl-attr">display</span>: <span class="hl-val">flex</span>;
+  <span class="hl-attr">gap</span>: <span class="hl-num">20px</span>;
+  <span class="hl-attr">align-items</span>: <span class="hl-val">flex-start</span>;
+  <span class="hl-attr">margin-bottom</span>: <span class="hl-num">32px</span>;
+  <span class="hl-attr">padding-bottom</span>: <span class="hl-num">24px</span>;
+  <span class="hl-attr">border-bottom</span>: <span class="hl-num">1px</span> <span class="hl-val">solid</span> <span class="hl-str">#eee</span>;
+}
+
+<span class="hl-prop">img</span> {
+  <span class="hl-attr">width</span>: <span class="hl-num">120px</span>;
+  <span class="hl-attr">height</span>: <span class="hl-num">170px</span>;
+  <span class="hl-attr">border</span>: <span class="hl-num">3px</span> <span class="hl-val">solid</span> <span class="hl-str">#e8a020</span>;
+  <span class="hl-attr">border-radius</span>: <span class="hl-num">8px</span>;
+}
+
+<span class="hl-prop">.autor</span> {
+  <span class="hl-attr">font-weight</span>: <span class="hl-val">bold</span>;
+  <span class="hl-attr">color</span>: <span class="hl-str">#888888</span>;
+  <span class="hl-attr">font-size</span>: <span class="hl-num">13px</span>;
+}
+
+<span class="hl-prop">button</span> {
+  <span class="hl-attr">padding</span>: <span class="hl-num">8px 16px</span>;
+  <span class="hl-attr">border</span>: <span class="hl-num">1px</span> <span class="hl-val">solid</span> <span class="hl-str">#ddd</span>;
+  <span class="hl-attr">border-radius</span>: <span class="hl-num">20px</span>;
+  <span class="hl-attr">background</span>: <span class="hl-str">#ffffff</span>;
+  <span class="hl-attr">cursor</span>: <span class="hl-val">pointer</span>;
+  <span class="hl-attr">font-size</span>: <span class="hl-num">14px</span>;
+  <span class="hl-attr">margin-top</span>: <span class="hl-num">12px</span>;
+  <span class="hl-attr">margin-right</span>: <span class="hl-num">8px</span>;
+}</div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">script.js — Versão Final Consolidada</span>
+        <span class="code-lang js">JS</span>
+      </div>
+      <div class="code-body"><span class="hl-kw">const</span> botoes = document.<span class="hl-fn">querySelectorAll</span>(<span class="hl-str2">"button"</span>);
+
+botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(botao) {
+  <span class="hl-cmt">// Cada botão da lista possui sua própria variável de controle (booleana)</span>
+  <span class="hl-kw">let</span> curtiu = <span class="hl-kw">false</span>;
+
+  botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"</span>, botaoClicado);
+
+  <span class="hl-kw">function</span> <span class="hl-fn">botaoClicado</span>() {
+    <span class="hl-kw">let</span> contador = botao.<span class="hl-fn">querySelector</span>(<span class="hl-str2">"span"</span>);
+    
+    <span class="hl-cmt">// Condicional que verifica se o usuário ainda não curtiu</span>
+    <span class="hl-kw">if</span> (curtiu === <span class="hl-kw">false</span>) {
+      contador.textContent++;  <span class="hl-cmt">// Incrementa o contador do botão</span>
+      curtiu = <span class="hl-kw">true</span>;          <span class="hl-cmt">// Marca como curtido</span>
+    }
+  }
+});</div>
+    </div>
+
+    <div class="info-box tip">
+      <div class="ib-icon">🎉</div>
+      <div class="ib-content">
+        <div class="ib-title">Parabéns! O seu Blog está finalizado.</div>
+        <p class="ib-text">Você estruturou múltiplos posts semanticamente com a tag <code>&lt;article&gt;</code>, aplicou o modelo do Flexbox individualmente a cada um deles e programou uma lógica interativa complexa em JavaScript para limitar curtidas. Você aprendeu a usar listas, iterações e booleanos!</p>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(8)">← Anterior</button>
+      <button class="btn btn-ghost" disabled>Fim do tutorial ✓</button>
+    </div>
+  </section>
+
+</div><!-- /content-area -->
+</main>
+
+<script>
+  const totalSections = 10;
+  let currentSection = 0;
+
+  function goTo(idx) {
+    document.querySelectorAll('.section').forEach((s,i) => {
+      s.classList.toggle('active', i === idx);
+    });
+    document.querySelectorAll('.nav-item').forEach((item, i) => {
+      item.classList.toggle('active', i === idx);
+    });
+    currentSection = idx;
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return false;
+  }
+
+  function updateProgress() {
+    const pct = Math.round((currentSection / (totalSections - 1)) * 100);
+    document.getElementById('prog-bar').style.width = pct + '%';
+    document.getElementById('progress-pct').textContent = pct + '%';
+  }
+
+  updateProgress();
+</script>
+</body>
+</html>
