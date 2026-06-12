@@ -534,6 +534,14 @@
     <span>🔒</span> Lógica de curtidas <span class="nav-badge js">JS</span>
   </a>
 
+  <div class="nav-section-label">Agrinho 2026</div>
+  <a class="nav-item" onclick="goTo(10)" href="#">
+    <span>🌱</span> Concurso <span class="nav-badge css">E.M.</span>
+  </a>
+  <a class="nav-item" onclick="goTo(11)" href="#">
+    <span>🚀</span> Publicação <span class="nav-badge html">Git</span>
+  </a>
+
   <div class="sidebar-progress">
     <div class="progress-label">Progresso: <span id="progress-pct">0%</span></div>
     <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-bar"></div></div>
@@ -1915,6 +1923,138 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(bo
 
     <div class="nav-buttons">
       <button class="btn btn-ghost" onclick="goTo(8)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(10)">Próximo: Concurso Agrinho →</button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 10 — CONCURSO AGRINHO
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-10">
+    <div class="section-header">
+      <div class="section-tag css">🌱 Projeto Final</div>
+      <h1 class="section-title">Concurso Agrinho 2026</h1>
+      <p class="section-intro">Agora que você aprendeu os fundamentos do desenvolvimento web, é hora de colocar a mão na massa! Participe do Concurso Agrinho e mostre suas habilidades desenvolvendo um projeto sobre sustentabilidade.</p>
+    </div>
+
+    <div class="prose">
+      <h3>O Tema</h3>
+      <p>O tema do projeto é: <strong>"Agro forte, futuro sustentável: equilíbrio entre produção e meio ambiente"</strong>. Você deverá desenvolver um site com essa temática, usando exclusivamente HTML, CSS e JavaScript puros.</p>
+    </div>
+
+    <div class="checklist">
+      <h4>Regras da Subcategoria 3 (Ensino Médio)</h4>
+      <div class="check-item"><span class="check-icon">🚫</span><span>É vedado o uso de frameworks (como Tailwind, Bootstrap, React).</span></div>
+      <div class="check-item"><span class="check-icon">🚫</span><span>Não será aceita programação inline ou interna de CSS/JS (use arquivos separados).</span></div>
+      <div class="check-item"><span class="check-icon">🌐</span><span>O projeto deve ser hospedado publicamente no GitHub e publicado (GitHub Pages ou Vercel).</span></div>
+      <div class="check-item"><span class="check-icon">🏷️</span><span>A tag <code>agrinho</code> deve ser adicionada aos "topics" do repositório no GitHub.</span></div>
+      <div class="check-item"><span class="check-icon">📄</span><span>O repositório deve conter um arquivo <code>README.md</code> bem estruturado.</span></div>
+    </div>
+
+    <div class="prose">
+      <h3>Como serei avaliado?</h3>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Complexidade dos Códigos</div>
+          <div class="step-desc">Seu HTML deve ter uma estrutura semântica (tags corretas). O CSS deve organizar o layout (Flexbox/Grid) e o JavaScript deve ter funções operantes e manipular o DOM.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Usabilidade</div>
+          <div class="step-desc">O site deve se adaptar a diferentes telas (responsividade via Media Queries), ter navegação fluida, interface intuitiva e efeitos visuais agradáveis.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Originalidade</div>
+          <div class="step-desc">Use imagens autorais ou dê os devidos créditos. A identidade visual deve ser própria (evite layouts genéricos). O texto deve ser criativo e alinhado ao tema.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box tip">
+      <div class="ib-icon">📅</div>
+      <div class="ib-content">
+        <div class="ib-title">Prazo Importante</div>
+        <p class="ib-text">A inscrição do projeto é feita pelo envio do link no Ambiente Virtual da Alura até as <strong>23h59 do dia 14/06/2026</strong>. Nenhuma alteração no código do GitHub poderá ser feita após esse prazo.</p>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(9)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(11)">Próximo: Publicação no GitHub →</button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 11 — PUBLICAÇÃO NO GITHUB
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-11">
+    <div class="section-header">
+      <div class="section-tag html">🚀 Deploy</div>
+      <h1 class="section-title">Como publicar no GitHub Pages</h1>
+      <p class="section-intro">Uma exigência do Concurso Agrinho é que seu site esteja acessível online e configurado com a tag correta. O GitHub Pages permite colocar sua página no ar gratuitamente em minutos.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Passo a Passo da Publicação</h3>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Crie uma conta e um Repositório</div>
+          <div class="step-desc">Se ainda não tiver, crie uma conta no <a href="https://github.com" target="_blank" style="color:var(--navy);font-weight:600;">GitHub</a>. No seu painel, clique em <strong>New repository</strong> (Novo repositório), dê um nome ao seu projeto (ex: <em>agrinho-2026</em>), certifique-se de que ele seja <strong>Public</strong> (Público) e clique em <em>Create repository</em>.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Faça o upload dos arquivos</div>
+          <div class="step-desc">Na tela do repositório, clique em <strong>"uploading an existing file"</strong> e envie todos os arquivos do seu site (<code>index.html</code>, <code>styles.css</code>, <code>script.js</code> e as pastas de imagens). Role a página para baixo e clique em <em>Commit changes</em>.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Crie o arquivo README.md</div>
+          <div class="step-desc">O edital exige um arquivo de explicação. Clique em <strong>"Add a README"</strong> e descreva o seu projeto: qual é o tema, quais tecnologias você usou e instruções de uso. Salve clicando em <em>Commit changes</em>.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Ative o GitHub Pages</div>
+          <div class="step-desc">Vá até a aba <strong>Settings</strong> (Configurações) do repositório, clique em <strong>Pages</strong> (no menu lateral esquerdo). Onde diz <em>Source</em> (ou Branch), mude de <code>None</code> para <code>main</code> (ou <code>master</code>) e clique em <em>Save</em>. Em alguns minutos, seu site estará online em um link como <code>https://seu-usuario.github.io/agrinho-2026/</code>.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">Adicione a Tag (Topic) "agrinho"</div>
+          <div class="step-desc">Volte para a página inicial do seu repositório (aba Code). No lado direito, perto de <strong>About</strong>, clique no ícone da engrenagem ⚙️. No campo "Topics", digite <code>agrinho</code> e salve. Coloque também o link do seu site finalizado no campo "Website".</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box warn">
+      <div class="ib-icon">⚠️</div>
+      <div class="ib-content">
+        <div class="ib-title">Confira antes de enviar!</div>
+        <p class="ib-text">Se o seu repositório estiver "Privado", os avaliadores não conseguirão ver o código nem o site. Você será desclassificado. Verifique se o link final abre corretamente no celular ou numa janela anônima.</p>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(10)">← Anterior</button>
       <button class="btn btn-ghost" disabled>Fim do tutorial ✓</button>
     </div>
   </section>
@@ -1923,7 +2063,7 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(bo
 </main>
 
 <script>
-  const totalSections = 10;
+  const totalSections = 12;
   let currentSection = 0;
 
   function goTo(idx) {
