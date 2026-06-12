@@ -541,6 +541,9 @@
   <a class="nav-item" onclick="goTo(11)" href="#">
     <span>🚀</span> Publicação <span class="nav-badge html">Git</span>
   </a>
+  <a class="nav-item" onclick="goTo(12)" href="#">
+    <span>🤖</span> Temas e IA <span class="nav-badge js">Dica</span>
+  </a>
 
   <div class="sidebar-progress">
     <div class="progress-label">Progresso: <span id="progress-pct">0%</span></div>
@@ -2055,6 +2058,68 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(bo
 
     <div class="nav-buttons">
       <button class="btn btn-ghost" onclick="goTo(10)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(12)">Próximo: Temas e Uso de IA →</button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 12 — TEMAS E USO DE IA
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-12">
+    <div class="section-header">
+      <div class="section-tag js">🤖 Dicas Extras</div>
+      <h1 class="section-title">Ideias de Temas e o Uso de IA</h1>
+      <p class="section-intro">Está sem ideias para o tema "Agro forte, futuro sustentável" morando no meio urbano? Aqui vão algumas sugestões e dicas cruciais sobre como usar Inteligências Artificiais (como o Gemini) para te ajudar na programação.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Ideias de Projetos Urbanos</h3>
+      <p>A sustentabilidade e a agricultura estão presentes no nosso dia a dia, mesmo na cidade! Aqui estão 3 ideias de sites que você pode construir:</p>
+    </div>
+
+    <div class="info-box concept">
+      <div class="ib-icon">♻️</div>
+      <div class="ib-content">
+        <div class="ib-title">Calculadora de Compostagem Doméstica</div>
+        <p class="ib-text">Um site que ensina famílias a transformar lixo orgânico em adubo. O usuário digita quantas pessoas moram na casa e o site calcula (usando JavaScript) o tamanho ideal da composteira e quanto adubo será gerado por mês.</p>
+      </div>
+    </div>
+
+    <div class="info-box concept">
+      <div class="ib-icon">🌿</div>
+      <div class="ib-content">
+        <div class="ib-title">Guia de Defensivos Naturais (Hortas Domésticas e de Quintal)</div>
+        <p class="ib-text">Um catálogo interativo de receitas caseiras para afastar pragas de pequenas hortas (ex: óleo de neem). O usuário escolhe o tipo de praga que tem na horta e o JavaScript filtra a receita agroecológica ideal para combater o problema.</p>
+      </div>
+    </div>
+
+    <div class="info-box concept">
+      <div class="ib-icon">🛒</div>
+      <div class="ib-content">
+        <div class="ib-title">Mapa de Feiras Orgânicas Locais</div>
+        <p class="ib-text">Um site focado na valorização da agricultura familiar da sua cidade. Um filtro onde o usuário seleciona o tipo de alimento (ex: hortaliças, mel) e o site mostra, usando listas no JS, em quais feiras locais encontrar os produtos.</p>
+      </div>
+    </div>
+
+    <div class="prose">
+      <h3>Turbinando seu código com o Google Gemini (IA)</h3>
+      <p>Você não precisa fazer tudo sozinho! Inteligências Artificiais como o <strong>Google Gemini</strong> podem ser usadas como o seu "parceiro de programação". Se você travou na lógica do JavaScript, você pode pedir ao Gemini:</p>
+      <ul>
+        <li><em>"Me ajude a criar uma função em JavaScript que pegue o valor de um input e multiplique por 2"</em></li>
+        <li><em>"Meu CSS não está centralizando a div, o que pode estar errado?"</em></li>
+        <li><em>"Como faço para esconder um elemento da tela usando JS?"</em></li>
+      </ul>
+    </div>
+
+    <div class="checklist">
+      <h4>Boas Práticas e Regras do Concurso sobre IA</h4>
+      <div class="check-item"><span class="check-icon">🧠</span><span><strong>Entenda o código:</strong> Não copie e cole às cegas. Leia e estude a explicação que a IA te deu para aprender de verdade.</span></div>
+      <div class="check-item"><span class="check-icon">🎨</span><span><strong>Modifique:</strong> Personalize cores, textos e a estrutura do código gerado para garantir que o projeto tenha a sua própria identidade (o edital exige isso).</span></div>
+      <div class="check-item"><span class="check-icon">⚠️</span><span><strong>A Regra de Ouro (Penalização de Notas):</strong> Segundo o edital, qualquer elemento do site gerado ou alterado por IA <strong>PRECISA TER O PROMPT DESCRITO</strong> no arquivo <code>README.md</code> do repositório ou como comentário no próprio código. Se você usar IA e não der os devidos créditos nem descrever o que pediu para ela fazer, a sua nota no quesito "Originalidade" cairá drasticamente ou você poderá até ser desclassificado!</span></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(11)">← Anterior</button>
       <button class="btn btn-ghost" disabled>Fim do tutorial ✓</button>
     </div>
   </section>
@@ -2063,7 +2128,7 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(bo
 </main>
 
 <script>
-  const totalSections = 12;
+  const totalSections = 13;
   let currentSection = 0;
 
   function goTo(idx) {
