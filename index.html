@@ -496,7 +496,7 @@
     <div class="logo-sub">Tutorial completo · 9 módulos</div>
   </div>
 
-  <div class="nav-section-label">Introdução</div>
+  <div class="nav-section-label">T2 - Parte 1: Início</div>
   <a class="nav-item active" onclick="goTo(0)" href="#">
     <span>🚀</span> Boas-vindas <span class="nav-badge">Início</span>
   </a>
@@ -543,6 +543,33 @@
   </a>
   <a class="nav-item" onclick="goTo(12)" href="#">
     <span>🤖</span> Temas e IA <span class="nav-badge js">Dica</span>
+  </a>
+
+  
+  <div class="nav-section-label">T2 - Parte 2: Aprimorando</div>
+  <a class="nav-item" onclick="goTo(13)" href="#">
+    <span>🔍</span> Planejamento
+  </a>
+  <a class="nav-item" onclick="goTo(14)" href="#">
+    <span>📁</span> Organização
+  </a>
+  <a class="nav-item" onclick="goTo(15)" href="#">
+    <span>📝</span> Conteúdo
+  </a>
+  <a class="nav-item" onclick="goTo(16)" href="#">
+    <span>📐</span> Layout
+  </a>
+  <a class="nav-item" onclick="goTo(17)" href="#">
+    <span>🔗</span> Links
+  </a>
+  <a class="nav-item" onclick="goTo(18)" href="#">
+    <span>🎨</span> Estilização
+  </a>
+  <a class="nav-item" onclick="goTo(19)" href="#">
+    <span>⚡</span> JavaScript
+  </a>
+  <a class="nav-item" onclick="goTo(20)" href="#">
+    <span>✨</span> Acabamento
   </a>
 
   <div class="sidebar-progress">
@@ -2120,7 +2147,385 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(bo
 
     <div class="nav-buttons">
       <button class="btn btn-ghost" onclick="goTo(11)">← Anterior</button>
-      <button class="btn btn-ghost" disabled>Fim do tutorial ✓</button>
+      <button class="btn btn-primary" onclick="goTo(13)">Próximo: Planejamento →</button>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 13 — AULA 33
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-13">
+    <div class="section-header">
+      <div class="section-tag intro">🔍 Planejamento</div>
+      <h1 class="section-title">Aprimorando o projeto</h1>
+      <p class="section-intro">Nesta unidade, aprimoraremos o projeto construído anteriormente, o blog de tech. Para isso, revisaremos o código, adicionando e organizando estilos e efeitos, além de implementar um modo escuro, utilizando conhecimentos em JavaScript, CSS e HTML.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Identificando melhorias</h3>
+      <p>Iniciaremos a análise do projeto "Meu blog tech", dividindo a tela do navegador entre a visualização do blog criado anteriormente e um arquivo contendo uma listagem dos pontos observados, para anotar as melhorias a serem realizadas.</p>
+      <p>Ao analisar um projeto desenvolvido anteriormente ou construído por outra pessoa, é uma boa prática de programação fazer a revisão de todo o código. Por isso, esse é o primeiro aspecto da lista de melhorias a serem realizadas.</p>
+    </div>
+
+    <div class="info-box note">
+      <div class="ib-icon">📝</div>
+      <div class="ib-content">
+        <div class="ib-title">Lista de Melhorias</div>
+        <p class="ib-text">
+          <strong>1. Layout:</strong> Os textos estão muito pequenos, exigindo zoom. É preciso melhorar a legibilidade. Além disso, em tela cheia, há muito espaço vazio nas laterais que será ajustado de forma responsiva.<br>
+          <strong>2. Conteúdo:</strong> O blog tem duas postagens com conteúdo repetido. Incluiremos novos conteúdos, adicionaremos mais postagens e reorganizaremos as páginas em formato de cards.<br>
+          <strong>3. Interação:</strong> Verificaremos os botões vinculados ao código JavaScript. Implementaremos um modo escuro (fundo escuro e textos claros) ativado por um botão.
+        </p>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(12)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(14)">Próximo: Arquivos independentes →</button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 14 — AULA 34
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-14">
+    <div class="section-header">
+      <div class="section-tag css">📁 Organização</div>
+      <h1 class="section-title">Arquivos independentes</h1>
+      <p class="section-intro">Após a análise do projeto e identificação de melhorias, iniciaremos a revisão e a organização do código. Separaremos os arquivos de HTML, CSS e JavaScript para tornar o projeto estruturado e legível.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Separando meus arquivos</h3>
+      <p>Continuaremos a revisão com a tela dividida entre o editor de código e a visualização do arquivo <code>index.html</code>. Observe que o conteúdo da tag <code>&lt;head&gt;</code> está extenso e contém a tag <code>&lt;style&gt;</code> com as definições de layout.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Criando o arquivo CSS</div>
+          <div class="step-desc">Selecione todo o conteúdo dentro de <code>&lt;style&gt;</code> e recorte (Ctrl + X). Crie um novo arquivo chamado <code>style.css</code> e cole o código. Para ajustar a indentação, use Alt + Shift + F.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Conectando o CSS ao HTML</div>
+          <div class="step-desc">Retorne ao <code>index.html</code>, apague a tag vazia <code>&lt;style&gt;</code> e adicione <code>&lt;link rel="stylesheet" href="style.css"&gt;</code> dentro do <code>&lt;head&gt;</code>.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Criando o arquivo JavaScript</div>
+          <div class="step-desc">Localize a tag <code>&lt;script&gt;</code> antes de <code>&lt;/body&gt;</code>. Recorte seu conteúdo, crie um arquivo <code>script.js</code> e cole o código. Depois, no HTML, use <code>&lt;script src="script.js"&gt;&lt;/script&gt;</code>.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box tip">
+      <div class="ib-icon">✅</div>
+      <div class="ib-content">
+        <div class="ib-title">Manutenção de código</div>
+        <p class="ib-text">Após organizar o código em arquivos separados, o blog deverá estar visualmente igual e funcionando perfeitamente. Essa separação facilita futuras manutenções e o trabalho em equipe.</p>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(13)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(15)">Próximo: Ampliando postagens →</button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 15 — AULA 35
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-15">
+    <div class="section-header">
+      <div class="section-tag html">📝 Conteúdo</div>
+      <h1 class="section-title">Ampliando as postagens</h1>
+      <p class="section-intro">Nesta aula, continuaremos com o aprimoramento do blog, adicionando novas postagens, enriquecendo o conteúdo e incluindo referências às informações utilizadas de forma colaborativa.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Personalizando meu blog</h3>
+      <p>Com o arquivo <code>index.html</code> selecionado, localize a tag <code>&lt;main&gt;</code>. Cada <code>&lt;article&gt;</code> delimita uma postagem, com imagem, título, autoria, texto e botões.</p>
+      <p>Para adicionar uma nova postagem, copie a tag <code>&lt;article&gt;</code> de um post existente e cole logo abaixo. Em seguida, atualize o título, autoria, imagem e o texto.</p>
+    </div>
+
+    <div class="info-box note">
+      <div class="ib-icon">📏</div>
+      <div class="ib-content">
+        <div class="ib-title">Quebras de linha</div>
+        <p class="ib-text">Se você colar um texto muito longo, ele pode ficar condensado em um único bloco. Para separar os parágrafos, insira duas tags <code>&lt;br&gt;</code> onde deseja uma quebra de linha. Isso melhora a legibilidade.</p>
+      </div>
+    </div>
+
+    <div class="prose">
+      <h3>Referenciando Fontes</h3>
+      <p>Outra melhoria importante é a inclusão das fontes utilizadas. É possível adicionar uma tag <code>&lt;p class="artigo-fonte"&gt;</code> após o texto, inserindo a origem da informação (ex: <em>Fonte: The National Museum of Computing</em>). Isso reforça a credibilidade do conteúdo e respeita a autoria original.</p>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(14)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(16)">Próximo: Bordas e Flexbox →</button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 16 — AULA 36
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-16">
+    <div class="section-header">
+      <div class="section-tag css">📐 Layout</div>
+      <h1 class="section-title">Página responsiva</h1>
+      <p class="section-intro">Agora que criamos as postagens, vamos organizar sua disposição na tela utilizando o Flexbox para que se comportem como cards responsivos que se adaptam a diferentes tamanhos de tela.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Utilizando Flexbox CSS</h3>
+      <p>As melhorias no layout do blog serão iniciadas no arquivo <code>style.css</code>. Para que o blog se adapte ao tamanho da tela, adicionaremos no seletor <code>body</code> a propriedade <code>max-width: 100vw;</code>, indicando que ocupará até 100% da largura da tela.</p>
+      <p>Em seguida, remova a propriedade <code>max-width: 800px;</code> dos seletores <code>header</code> e <code>main</code> para evitar conflitos.</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">style.css</span>
+        <span class="code-lang css">CSS</span>
+      </div>
+      <div class="code-body"><span class="hl-prop">main</span> {
+  <span class="hl-attr">background-color</span>: <span class="hl-val">var</span>(--cor-fundo);
+  <span class="hl-attr">color</span>: <span class="hl-val">var</span>(--cor-primaria);
+  <span class="hl-attr">margin</span>: <span class="hl-num">0</span> <span class="hl-val">auto</span>;
+  <span class="hl-attr">padding</span>: <span class="hl-num">16px</span>;
+  
+  <span class="hl-attr">display</span>: <span class="hl-val">flex</span>;
+  <span class="hl-attr">flex-wrap</span>: <span class="hl-val">wrap</span>; <span class="hl-cmt">/* Quebra a linha quando ultrapassar a largura */</span>
+}</div>
+    </div>
+
+    <div class="prose">
+      <h3>Organizando os Cards</h3>
+      <p>No seletor <code>article</code>, além de bordas e margens, utilizaremos a propriedade <code>flex: 1 1 25%;</code> para definir como os cards podem crescer, diminuir e ocupar o espaço disponível, tendo como base 25% da largura. Também alinharemos o conteúdo ao centro usando <code>flex-direction: column</code> e <code>align-items: center</code>.</p>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(15)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(17)">Próximo: Atributos e classes →</button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 17 — AULA 37
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-17">
+    <div class="section-header">
+      <div class="section-tag html">🔗 Links</div>
+      <h1 class="section-title">Atributos e classes</h1>
+      <p class="section-intro">Revisaremos conceitos de atributos (src, alt, href, target e rel) e classes HTML para garantir que o comportamento dos links funcione corretamente e de maneira otimizada para o usuário.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Abrindo links em nova aba</h3>
+      <p>Quando adicionamos um link usando a tag <code>&lt;a href="..."&gt;</code>, por padrão, ele substitui a página atual. Para que o link de referência não faça o usuário sair do nosso blog, utilizamos o atributo <code>target="_blank"</code>.</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">index.html</span>
+        <span class="code-lang html">HTML</span>
+      </div>
+      <div class="code-body"><span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span class="hl-str">"artigo-fonte"</span><span class="hl-tag">&gt;</span>Fonte: <span class="hl-tag">&lt;a</span> <span class="hl-attr">href</span>=<span class="hl-str">"http://www.tnmoc.org/colossus"</span> <span class="hl-attr">target</span>=<span class="hl-str">"_blank"</span><span class="hl-tag">&gt;</span>The National Museum of Computing<span class="hl-tag">&lt;/a&gt;&lt;/p&gt;</span></div>
+    </div>
+
+    <div class="info-box concept">
+      <div class="ib-icon">🧠</div>
+      <div class="ib-content">
+        <div class="ib-title">Atributos HTML Essenciais</div>
+        <p class="ib-text">
+          <strong>src:</strong> Caminho do arquivo externo (como imagens ou scripts).<br>
+          <strong>href:</strong> Caminho de destino de um hiperlink ou folha de estilo.<br>
+          <strong>alt:</strong> Texto alternativo para acessibilidade e caso a imagem não carregue.<br>
+          <strong>rel:</strong> Define a relação entre a página e o link (ex: stylesheet).<br>
+          <strong>class:</strong> Usado para agrupar elementos e aplicar estilos via CSS.
+        </p>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(18)">Próximo: Cores e temas →</button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 18 — AULA 38
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-18">
+    <div class="section-header">
+      <div class="section-tag css">🎨 Estilização</div>
+      <h1 class="section-title">Cores e temas</h1>
+      <p class="section-intro">Aprenderemos a criar uma identidade visual utilizando variáveis CSS. Isso nos permitirá alterar cores rapidamente em toda a página e preparar o terreno para a implementação de um tema escuro (Dark Mode).</p>
+    </div>
+
+    <div class="prose">
+      <h3>Variáveis CSS</h3>
+      <p>No arquivo <code>style.css</code>, usaremos a pseudo-classe <code>:root</code> para declarar variáveis globais de cor, substituindo as cores fixas espalhadas pelo código.</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">style.css</span>
+        <span class="code-lang css">CSS</span>
+      </div>
+      <div class="code-body"><span class="hl-prop">:root</span> {
+  <span class="hl-attr">--cor-primaria</span>: <span class="hl-str">#183C63</span>;
+  <span class="hl-attr">--cor-secundaria</span>: <span class="hl-str">#3782d2</span>;
+  <span class="hl-attr">--cor-fundo</span>: <span class="hl-str">#ffffff</span>;
+  <span class="hl-attr">--cor-texto</span>: <span class="hl-str">#151428</span>;
+  <span class="hl-attr">--cor-contraste</span>: <span class="hl-str">#f3eef7</span>;
+  <span class="hl-attr">--cor-botao</span>: <span class="hl-str">#f9f9f9</span>;
+  <span class="hl-attr">--fonte-texto</span>: <span class="hl-str">'Segoe UI'</span>, <span class="hl-val">sans-serif</span>;
+}</div>
+    </div>
+
+    <div class="prose">
+      <h3>O Tema Escuro</h3>
+      <p>Para aplicar o modo escuro, criamos a classe <code>.tema-escuro</code> invertendo as cores das variáveis. Ao adicionar essa classe na tag <code>&lt;body&gt;</code>, todo o estilo será alterado instantaneamente!</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">style.css</span>
+        <span class="code-lang css">CSS</span>
+      </div>
+      <div class="code-body"><span class="hl-prop">.tema-escuro</span> {
+  <span class="hl-attr">--cor-primaria</span>: <span class="hl-str">#A6CEFE</span>;
+  <span class="hl-attr">--cor-secundaria</span>: <span class="hl-str">#98caff</span>;
+  <span class="hl-attr">--cor-fundo</span>: <span class="hl-str">#0f172a</span>;
+  <span class="hl-attr">--cor-texto</span>: <span class="hl-str">#ffffff</span>;
+  <span class="hl-attr">--cor-contraste</span>: <span class="hl-str">#1e293b</span>;
+  <span class="hl-attr">--cor-botao</span>: <span class="hl-str">#151428</span>;
+}</div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(17)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(19)">Próximo: Botão Dark Mode →</button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 19 — AULA 39
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-19">
+    <div class="section-header">
+      <div class="section-tag js">⚡ JavaScript</div>
+      <h1 class="section-title">Tema escuro</h1>
+      <p class="section-intro">Nesta aula, daremos continuidade ao desenvolvimento do modo escuro. Vamos criar um botão e utilizar o JavaScript para manipular o DOM e permitir que o usuário alterne ativamente entre os temas claro e escuro.</p>
+    </div>
+
+    <div class="prose">
+      <h3>O Botão de Troca de Tema</h3>
+      <p>No arquivo <code>index.html</code>, adicione a tag <code>&lt;button class="btn-tema-escuro"&gt;🌗&lt;/button&gt;</code> logo antes de fechar a tag <code>&lt;/main&gt;</code>.</p>
+      <p>Para posicioná-lo no canto inferior direito da tela, fixe-o utilizando CSS:</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">style.css</span>
+        <span class="code-lang css">CSS</span>
+      </div>
+      <div class="code-body"><span class="hl-prop">.btn-tema-escuro</span> {
+  <span class="hl-attr">position</span>: <span class="hl-val">fixed</span>;
+  <span class="hl-attr">bottom</span>: <span class="hl-num">20px</span>;
+  <span class="hl-attr">right</span>: <span class="hl-num">20px</span>;
+  <span class="hl-attr">padding</span>: <span class="hl-num">12px</span>;
+  <span class="hl-attr">border-radius</span>: <span class="hl-num">50%</span>;
+  <span class="hl-attr">font-size</span>: <span class="hl-num">24px</span>;
+}</div>
+    </div>
+
+    <div class="prose">
+      <h3>Implementando a Lógica em JS</h3>
+      <p>No arquivo <code>script.js</code>, utilizaremos <code>querySelector</code> para selecionar o botão. Adicionaremos um escutador de eventos (<code>addEventListener</code>) para que, ao clicar, seja ativada uma função que liga ou desliga a classe <code>tema-escuro</code> na tag <code>&lt;body&gt;</code>.</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">script.js</span>
+        <span class="code-lang js">JS</span>
+      </div>
+      <div class="code-body"><span class="hl-kw">const</span> btnTemaEscuro = document.<span class="hl-fn">querySelector</span>(<span class="hl-str2">".btn-tema-escuro"</span>);
+
+btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"</span>, mudaTema);
+
+<span class="hl-kw">function</span> <span class="hl-fn">mudaTema</span>() {
+  document.body.classList.<span class="hl-fn">toggle</span>(<span class="hl-str2">"tema-escuro"</span>);
+}</div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(18)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(20)">Próximo: Efeitos e sombras →</button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SEÇÃO 20 — AULA 40
+  ════════════════════════════════════════ -->
+  <section class="section" id="sec-20">
+    <div class="section-header">
+      <div class="section-tag css">✨ Acabamento</div>
+      <h1 class="section-title">Efeitos e sombras</h1>
+      <p class="section-intro">Para finalizar nosso projeto com chave de ouro, vamos revisar nossas implementações e adicionar um acabamento elegante ao layout do blog: efeitos de transição CSS para o tema escuro e sombreamento para destacar as postagens.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Transição Suave de Temas</h3>
+      <p>A alternância de cores entre o tema claro e escuro pode ser abrupta. Para suavizar essa mudança, aplicaremos a propriedade <code>transition</code> a todos os elementos usando o seletor universal (<code>*</code>).</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">style.css</span>
+        <span class="code-lang css">CSS</span>
+      </div>
+      <div class="code-body"><span class="hl-prop">*</span> {
+  <span class="hl-attr">transition</span>: <span class="hl-val">background-color</span> <span class="hl-num">0.3s</span> <span class="hl-val">ease</span>;
+}</div>
+    </div>
+
+    <div class="prose">
+      <h3>Profundidade com Sombras</h3>
+      <p>Em vez de usar uma simples linha de borda (<code>border</code>) para delimitar as postagens (cards), a propriedade <code>box-shadow</code> cria um efeito de profundidade, deixando a interface mais moderna e atrativa.</p>
+    </div>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-filename">style.css</span>
+        <span class="code-lang css">CSS</span>
+      </div>
+      <div class="code-body"><span class="hl-prop">article</span> {
+  <span class="hl-cmt">/* Remova a propriedade border e adicione a sombra */</span>
+  <span class="hl-attr">box-shadow</span>: <span class="hl-num">0 4px 8px</span> <span class="hl-val">rgba</span>(<span class="hl-num">0,0,0,0.1</span>);
+  <span class="hl-attr">border-radius</span>: <span class="hl-num">8px</span>;
+}</div>
+    </div>
+
+    <div class="info-box tip">
+      <div class="ib-icon">🎉</div>
+      <div class="ib-content">
+        <div class="ib-title">Missão Cumprida!</div>
+        <p class="ib-text">Você revisou o projeto, organizou o código em arquivos HTML, CSS e JS separados, adicionou modo responsivo e Dark Mode interativo. Seu blog agora está digno de um desenvolvedor front-end!</p>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="goTo(19)">← Anterior</button>
+      <button class="btn btn-primary" onclick="goTo(10)">Finalizar no Agrinho →</button>
     </div>
   </section>
 
@@ -2128,7 +2533,7 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(bo
 </main>
 
 <script>
-  const totalSections = 13;
+  const totalSections = 21;
   let currentSection = 0;
 
   function goTo(idx) {
