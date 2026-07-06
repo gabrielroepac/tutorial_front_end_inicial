@@ -3001,20 +3001,17 @@ btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">
             <span class="code-filename">script.js (Exemplo de funcionamento)</span>
             <span class="code-lang js">JS</span>
           </div>
-          <pre class="code-body"><span class="hl-cmt">// Lógica para curtir os posts</span>
-<span class="hl-kw">const</span> botoes = <span class="hl-fn">document</span>.<span class="hl-fn">querySelectorAll</span>(<span class="hl-str">"article button"</span>);
-
+         <pre class="code-body"><span class="hl-kw">const</span> botoes = document.<span class="hl-fn">querySelectorAll</span>(<span class="hl-str2">"button"</span>);
 botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(botao) {
+  <span class="hl-cmt">// Cada botão da lista possui sua própria variável de controle (booleana)</span>
   <span class="hl-kw">let</span> curtiu = <span class="hl-kw">false</span>;
-
-  botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str">"click"</span>, botaoClicado);
-
+  botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"</span>, botaoClicado);
   <span class="hl-kw">function</span> <span class="hl-fn">botaoClicado</span>() {
-    <span class="hl-kw">let</span> contador = botao.<span class="hl-fn">querySelector</span>(<span class="hl-str">"span"</span>);
-    
+    <span class="hl-kw">let</span> contador = botao.<span class="hl-fn">querySelector</span>(<span class="hl-str2">"span"</span>);
+    <span class="hl-cmt">// Condicional que verifica se o usuário ainda não curtiu</span>
     <span class="hl-kw">if</span> (curtiu === <span class="hl-kw">false</span>) {
-      contador.<span class="hl-prop">textContent</span>++; 
-      curtiu = <span class="hl-kw">true</span>;          
+      contador.textContent++; <span class="hl-cmt">// Incrementa o contador do botão</span>
+      curtiu = <span class="hl-kw">true</span>; <span class="hl-cmt">// Marca como curtido</span>
     }
   }
 });</pre>
