@@ -2942,8 +2942,8 @@ btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">
       <span class="hl-tag">&lt;img</span> <span class="hl-attr">src</span>=<span class="hl-str">"link.jpg"</span>
         <span class="hl-attr">alt</span>=<span class="hl-str">"Descrição detalhada"</span><span
         class="hl-tag">&gt;</span>
-      <span class="hl-tag">&lt;button&gt;</span>👍 Like<span class="hl-tag">&lt;/button&gt;</span>
-      <span class="hl-tag">&lt;button&gt;</span>❤️ Amei<span class="hl-tag">&lt;/button&gt;</span>
+      <span class="hl-tag">&lt;button&gt;</span>❤️ <span class="hl-tag">&lt;span&gt;</span>0<span class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
+      <span class="hl-tag">&lt;button&gt;</span>👍 <span class="hl-tag">&lt;span&gt;</span>0<span class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
     <span class="hl-tag">&lt;/article&gt;</span>
     <span class="hl-tag">&lt;br&gt;</span> <span class="hl-cmt">&lt;!-- Opcional para separar --&gt;</span>
     <span class="hl-tag">&lt;article&gt;</span>
@@ -3003,26 +3003,22 @@ btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">
             <span class="code-filename">script.js (Exemplo de funcionamento)</span>
             <span class="code-lang js">JS</span>
           </div>
-          <pre class="code-body"><span class="hl-cmt">// Selecionar botões e adicionar evento de clique</span>
-<span class="hl-kw">const</span> botoesLike = <span class="hl-fn">document</span>.<span
-  class="hl-fn">querySelectorAll</span>(<span class="hl-str">'button:first-of-type'</span>);
-<span class="hl-kw">const</span> botoesCoracao = <span class="hl-fn">document</span>.<span
-  class="hl-fn">querySelectorAll</span>(<span class="hl-str">'button:last-of-type'</span>);
-botoesLike.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(botao) {
-  <span class="hl-kw">let</span> curtidas = <span class="hl-num">0</span>;
-  botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str">'click'</span>, <span
-    class="hl-kw">function</span>() {
-    curtidas++;
-    botao.<span class="hl-prop">innerText</span> = <span class="hl-str">'👍 Like '</span> + curtidas;
-  });
-});
-botoesCoracao.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(botao) {
-  <span class="hl-kw">let</span> amei = <span class="hl-num">0</span>;
-  botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str">'click'</span>, <span
-    class="hl-kw">function</span>() {
-    amei++;
-    botao.<span class="hl-prop">innerText</span> = <span class="hl-str">'❤️ Amei '</span> + amei;
-  });
+          <pre class="code-body"><span class="hl-cmt">// Lógica para curtir os posts</span>
+<span class="hl-kw">const</span> botoes = <span class="hl-fn">document</span>.<span class="hl-fn">querySelectorAll</span>(<span class="hl-str">"article button"</span>);
+
+botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(botao) {
+  <span class="hl-kw">let</span> curtiu = <span class="hl-kw">false</span>;
+
+  botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str">"click"</span>, botaoClicado);
+
+  <span class="hl-kw">function</span> <span class="hl-fn">botaoClicado</span>() {
+    <span class="hl-kw">let</span> contador = botao.<span class="hl-fn">querySelector</span>(<span class="hl-str">"span"</span>);
+    
+    <span class="hl-kw">if</span> (curtiu === <span class="hl-kw">false</span>) {
+      contador.<span class="hl-prop">textContent</span>++; 
+      curtiu = <span class="hl-kw">true</span>;          
+    }
+  }
 });</pre>
         </div>
 
