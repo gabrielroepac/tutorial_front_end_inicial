@@ -97,26 +97,26 @@
       user-select: none;
       transition: color 0.18s;
     }
-    
+
     .nav-section-label:hover {
       color: rgba(255, 255, 255, 0.6);
     }
-    
+
     .nav-section-label .toggle-icon {
       font-size: 10px;
       transition: transform 0.3s ease;
     }
-    
+
     .nav-section-label.collapsed .toggle-icon {
       transform: rotate(-90deg);
     }
-    
+
     .nav-group {
       overflow: hidden;
       transition: max-height 0.3s ease-in-out;
       max-height: 500px;
     }
-    
+
     .nav-group.collapsed {
       max-height: 0;
     }
@@ -1087,7 +1087,7 @@
             <div class="step-content">
               <div class="step-title">Abra o arquivo index.html</div>
               <div class="step-desc">No painel de arquivos, clique em <strong>index.html</strong>. Este será o arquivo
-                principal de sua página. Apague todo o conteúdo existente — começaremos do zero.
+                principal de sua página. Ao abrir o arquivo, apague tudo que está dentro dele, pois começaremos do zero.
                 <img src="stackblitz-arquivos.png" alt="Painel de arquivos do StackBlitz" class="step-img" />
               </div>
             </div>
@@ -2234,7 +2234,9 @@ botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"<
         <div class="prose">
           <h3>Passo 2: Usar forEach para percorrer os botões</h3>
           <p>Como o <code>querySelectorAll</code> nos dá uma lista de botões, precisamos usar o método
-            <code>forEach</code>. O <code>forEach</code> funciona como um "carteiro" que visita cada botão da lista um por um e executa uma tarefa. Neste caso, ele atribui o evento de clique a todos os botões, sem que você precise escrever um por um.
+            <code>forEach</code>. O <code>forEach</code> funciona como um "carteiro" que visita cada botão da lista um
+            por um e executa uma tarefa. Neste caso, ele atribui o evento de clique a todos os botões, sem que você
+            precise escrever um por um.
           </p>
         </div>
 
@@ -2952,7 +2954,46 @@ btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">
           <div class="section-tag intro">🎓 Avaliação - 2,0 pontos</div>
           <h1 class="section-title">Guia da 1ª entrega parcial - 2,0 pontos</h1>
           <p class="section-intro">Esta seção contém todas as instruções e requisitos para a entrega da primeira parte
-            do projeto. A entrega deve ser feita fornecendo o link do seu projeto finalizado no StackBlitz.</p>
+            do projeto. A entrega deve ser feita fornecendo o link do seu projeto finalizado no StackBlitz, como no
+            exemplo:</p>
+
+          <div
+            style="background: #f1f1f1; border: 1px solid #d1d1d1; border-radius: 8px; max-width: 100%; margin: 20px 0; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <div
+              style="display: flex; align-items: center; padding: 10px 15px; background: #e0e0e0; border-bottom: 1px solid #d1d1d1;">
+              <div style="display: flex; gap: 6px; margin-right: 15px;">
+                <div style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f56;"></div>
+                <div style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></div>
+                <div style="width: 12px; height: 12px; border-radius: 50%; background: #27c93f;"></div>
+              </div>
+              <div
+                style="background: #fff; padding: 6px 15px; border-radius: 20px; flex-grow: 1; font-family: monospace; font-size: 14px; color: #555; display: flex; align-items: center; gap: 8px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.6;">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <div style="position: relative; display: inline-flex; align-items: center;">
+                  <!-- Menu flutuante "Copiar" -->
+                  <div
+                    style="position: absolute; bottom: -38px; left: 50%; transform: translateX(-50%); background: #2c2c2e; color: #fff; padding: 6px 14px; border-radius: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.3px; box-shadow: 0 4px 16px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 6px; white-space: nowrap; z-index: 10; cursor: default;">
+                    Copiar
+                    <!-- Seta apontando para cima -->
+                    <div
+                      style="position: absolute; top: -6px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 6px solid #2c2c2e;">
+                    </div>
+                  </div>
+                  <!-- Texto selecionado -->
+                  <span
+                    style="background-color: #b3d4fc; color: #000; padding: 0 2px;">https://stackblitz.com/edit/stackblitzXYZ</span>
+                </div>
+              </div>
+            </div>
+            <div
+              style="padding: 20px; background: #fff; text-align: center; color: #666; font-style: italic; min-height: 100px; display: flex; align-items: center; justify-content: center;">
+              (Seu projeto no Stackblitz aparecerá aqui)
+            </div>
+          </div>
         </div>
 
         <div class="prose">
@@ -2963,6 +3004,14 @@ btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">
             <li><code>styles.css</code> (ou <code>style.css</code>) - A estilização visual.</li>
             <li><code>script.js</code> - A interatividade.</li>
           </ul>
+
+          <div class="info-box tip" style="border-left-color: #f39c12; background-color: #fff9eb;">
+            <div class="ib-icon">⚠️</div>
+            <div class="ib-content">
+              <div class="ib-title" style="color: #d35400;">Importante: Não apague os arquivos .json!</div>
+              <p class="ib-text">O seu projeto contém alguns arquivos de configuração (como <code>package.json</code>). <strong>Não os apague nem os altere!</strong> Eles são responsáveis por rodar a "máquina virtual" do StackBlitz que permite que você escreva o código direto no navegador. Se removê-los, o projeto pode quebrar.</p>
+            </div>
+          </div>
 
           <h3>📝 Requisitos do HTML</h3>
           <p>Seu arquivo HTML deve ter o esqueleto básico (<code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>) e as
@@ -3199,7 +3248,7 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(bo
 
     function toggleNavGroup(groupId, labelEl) {
       const group = document.getElementById(groupId);
-      if(group) {
+      if (group) {
         group.classList.toggle('collapsed');
         labelEl.classList.toggle('collapsed');
       }
