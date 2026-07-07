@@ -84,12 +84,41 @@
     }
 
     .nav-section-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.35);
       padding: 12px 24px 6px;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.18s;
+    }
+    
+    .nav-section-label:hover {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .nav-section-label .toggle-icon {
+      font-size: 10px;
+      transition: transform 0.3s ease;
+    }
+    
+    .nav-section-label.collapsed .toggle-icon {
+      transform: rotate(-90deg);
+    }
+    
+    .nav-group {
+      overflow: hidden;
+      transition: max-height 0.3s ease-in-out;
+      max-height: 500px;
+    }
+    
+    .nav-group.collapsed {
+      max-height: 0;
     }
 
     .nav-item {
@@ -542,6 +571,16 @@
       color: var(--gray-600);
     }
 
+    .step-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--gray-200);
+      margin-top: 12px;
+      display: block;
+      box-shadow: var(--shadow);
+    }
+
     /* ── Preview card ── */
     .preview-card {
       border: 2px dashed var(--gray-200);
@@ -741,10 +780,75 @@
       margin-top: 1px;
     }
 
+    .mobile-menu-btn {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1000;
+      background: var(--navy);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu-btn.scrolled {
+      padding: 10px;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      justify-content: center;
+    }
+
+    .mobile-menu-btn.scrolled .btn-text {
+      display: none;
+    }
+
+    body.mobile-nav-open .mobile-menu-btn {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 998;
+      backdrop-filter: blur(3px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    body.mobile-nav-open .sidebar-overlay {
+      opacity: 1;
+      visibility: visible;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 800px) {
       .sidebar {
         transform: translateX(-260px);
+        z-index: 999;
+      }
+
+      body.mobile-nav-open .sidebar {
+        transform: translateX(0);
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
       }
 
       .main {
@@ -752,7 +856,7 @@
       }
 
       .content-area {
-        padding: 28px 20px 60px;
+        padding: 70px 20px 60px;
       }
     }
   </style>
@@ -760,83 +864,126 @@
 
 <body>
 
+  <!-- ── MOBILE MENU ── -->
+  <button class="mobile-menu-btn" onclick="toggleMobileNav()">
+    <span>☰</span> <span class="btn-text">Menu</span>
+  </button>
+  <div class="sidebar-overlay" onclick="toggleMobileNav()"></div>
+
   <!-- ── SIDEBAR ── -->
   <nav class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-      <div class="logo-title">Criando sua<br>Primeira Página Web</div>
-      <div class="logo-sub">Tutorial completo · 9 módulos</div>
+      <div class="logo-title">Criando sua<br>primeira página web</div>
+      <div class="logo-sub">Tutorial completo - html, css e js</div>
     </div>
 
-    <div class="nav-section-label">Parte 1: Início</div>
-    <a class="nav-item active" onclick="goTo(0)" href="#">
-      <span>🚀</span> Boas-vindas <span class="nav-badge">Início</span>
-    </a>
-    <a class="nav-item" onclick="goTo(1)" href="#">
-      <span>🛠️</span> O StackBlitz
-    </a>
+    <div class="nav-section-label" onclick="toggleNavGroup('grp-inicio', this)">
+      <span>Parte 1: Início</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div id="grp-inicio" class="nav-group">
+      <a class="nav-item active" onclick="goTo(0)" href="#">
+        <span>🚀</span> Boas-vindas <span class="nav-badge">Início</span>
+      </a>
+      <a class="nav-item" onclick="goTo(1)" href="#">
+        <span>🛠️</span> O StackBlitz
+      </a>
+    </div>
 
-    <div class="nav-section-label">HTML</div>
-    <a class="nav-item" onclick="goTo(2)" href="#">
-      <span>📄</span> Estrutura HTML <span class="nav-badge html">HTML</span>
-    </a>
-    <a class="nav-item" onclick="goTo(3)" href="#">
-      <span>✏️</span> Tags de texto <span class="nav-badge html">HTML</span>
-    </a>
+    <div class="nav-section-label" onclick="toggleNavGroup('grp-html', this)">
+      <span>HTML</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div id="grp-html" class="nav-group">
+      <a class="nav-item" onclick="goTo(2)" href="#">
+        <span>📄</span> Estrutura HTML <span class="nav-badge html">HTML</span>
+      </a>
+      <a class="nav-item" onclick="goTo(3)" href="#">
+        <span>✏️</span> Tags de texto <span class="nav-badge html">HTML</span>
+      </a>
+    </div>
 
-    <div class="nav-section-label">CSS</div>
-    <a class="nav-item" onclick="goTo(4)" href="#">
-      <span>🎨</span> Estilizando com CSS <span class="nav-badge css">CSS</span>
-    </a>
-    <a class="nav-item" onclick="goTo(5)" href="#">
-      <span>📦</span> Box model e imagens <span class="nav-badge css">CSS</span>
-    </a>
-    <a class="nav-item" onclick="goTo(6)" href="#">
-      <span>🔲</span> Flexbox e classes <span class="nav-badge css">CSS</span>
-    </a>
+    <div class="nav-section-label" onclick="toggleNavGroup('grp-css', this)">
+      <span>CSS</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div id="grp-css" class="nav-group">
+      <a class="nav-item" onclick="goTo(4)" href="#">
+        <span>🎨</span> Estilizando com CSS <span class="nav-badge css">CSS</span>
+      </a>
+      <a class="nav-item" onclick="goTo(5)" href="#">
+        <span>📦</span> Box model e imagens <span class="nav-badge css">CSS</span>
+      </a>
+      <a class="nav-item" onclick="goTo(6)" href="#">
+        <span>🔲</span> Flexbox e classes <span class="nav-badge css">CSS</span>
+      </a>
+    </div>
 
-    <div class="nav-section-label">JavaScript</div>
-    <a class="nav-item" onclick="goTo(7)" href="#">
-      <span>⚡</span> Contador de likes <span class="nav-badge js">JS</span>
-    </a>
-    <a class="nav-item" onclick="goTo(8)" href="#">
-      <span>👥</span> Múltiplos elementos <span class="nav-badge js">JS</span>
-    </a>
-    <a class="nav-item" onclick="goTo(9)" href="#">
-      <span>🔒</span> Lógica de curtidas <span class="nav-badge js">JS</span>
-    </a>
+    <div class="nav-section-label" onclick="toggleNavGroup('grp-js', this)">
+      <span>JavaScript</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div id="grp-js" class="nav-group">
+      <a class="nav-item" onclick="goTo(7)" href="#">
+        <span>⚡</span> Contador de likes <span class="nav-badge js">JS</span>
+      </a>
+      <a class="nav-item" onclick="goTo(8)" href="#">
+        <span>👥</span> Múltiplos elementos <span class="nav-badge js">JS</span>
+      </a>
+      <a class="nav-item" onclick="goTo(9)" href="#">
+        <span>🔒</span> Lógica de curtidas <span class="nav-badge js">JS</span>
+      </a>
+    </div>
 
-    <div class="nav-section-label">Parte 2: Aprimorando</div>
-    <a class="nav-item" onclick="goTo(10)" href="#">
-      <span>🔍</span> Planejamento
-    </a>
-    <a class="nav-item" onclick="goTo(11)" href="#">
-      <span>📝</span> Conteúdo
-    </a>
-    <a class="nav-item" onclick="goTo(12)" href="#">
-      <span>📐</span> Layout
-    </a>
-    <a class="nav-item" onclick="goTo(13)" href="#">
-      <span>🔗</span> Links
-    </a>
-    <a class="nav-item" onclick="goTo(14)" href="#">
-      <span>🎨</span> Estilização
-    </a>
-    <a class="nav-item" onclick="goTo(15)" href="#">
-      <span>⚡</span> JavaScript
-    </a>
-    <a class="nav-item" onclick="goTo(16)" href="#">
-      <span>✨</span> Acabamento
-    </a>
+    <div class="nav-section-label" onclick="toggleNavGroup('grp-aval', this)">
+      <span>Avaliação - 2,0 pontos</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div id="grp-aval" class="nav-group">
+      <a class="nav-item" onclick="goTo(10)" href="#">
+        <span>🎓</span> Entrega Parcial I
+      </a>
+    </div>
 
-    <div class="nav-section-label">Publicação</div>
-    <a class="nav-item" onclick="goTo(17)" href="#">
-      <span>🚀</span> Deploy no GitHub <span class="nav-badge html">Git</span>
-    </a>
+    <div class="nav-section-label" onclick="toggleNavGroup('grp-extra', this)">
+      <span>Extra: Publicação</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div id="grp-extra" class="nav-group">
+      <a class="nav-item" onclick="goTo(11)" href="#">
+        <span>🚀</span> Deploy no GitHub <span class="nav-badge html">Git</span>
+      </a>
+    </div>
 
-    <div class="nav-section-label">Avaliação</div>
-    <a class="nav-item" onclick="goTo(18)" href="#">
-      <span>🎓</span> Entrega Parcial
-    </a>
+    <div style="display: none;">
+      <div class="nav-section-label" onclick="toggleNavGroup('grp-p2', this)">
+        <span>Parte 2: Aprimorando</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div id="grp-p2" class="nav-group">
+        <a class="nav-item" onclick="goTo(12)" href="#">
+          <span>🔍</span> Planejamento
+        </a>
+        <a class="nav-item" onclick="goTo(13)" href="#">
+          <span>📝</span> Conteúdo
+        </a>
+        <a class="nav-item" onclick="goTo(14)" href="#">
+          <span>📐</span> Layout
+        </a>
+        <a class="nav-item" onclick="goTo(15)" href="#">
+          <span>🔗</span> Links
+        </a>
+        <a class="nav-item" onclick="goTo(16)" href="#">
+          <span>🎨</span> Estilização
+        </a>
+        <a class="nav-item" onclick="goTo(17)" href="#">
+          <span>⚡</span> JavaScript
+        </a>
+        <a class="nav-item" onclick="goTo(18)" href="#">
+          <span>✨</span> Acabamento
+        </a>
+      </div>
+    </div>
 
     <div class="sidebar-progress">
       <div class="progress-label">Progresso: <span id="progress-pct">0%</span></div>
@@ -855,17 +1002,17 @@
       <section class="section active" id="sec-0">
         <div class="section-header">
           <div class="section-tag intro">🚀 Início</div>
-          <h1 class="section-title">Boas-vindas ao Curso</h1>
-          <p class="section-intro">Bem-vindo(a) ao tutorial onde você aprenderá a construir seu primeiro Blog de Filmes
-            do zero! Aqui, você dará seus primeiros passos no mundo do desenvolvimento web, aprendendo HTML, CSS e
-            JavaScript na prática.</p>
+          <h1 class="section-title">Tutorial: construção de um blog</h1>
+          <p class="section-intro">Bem-vindo(a) ao tutorial onde você aprenderá a construir seu primeiro blog do zero!
+            Aqui, você dará seus primeiros passos no mundo do desenvolvimento web, aprendendo HTML, CSS e JavaScript na
+            prática.</p>
         </div>
 
         <div class="info-box tip">
           <div class="ib-icon">🎬</div>
           <div class="ib-content">
             <div class="ib-title">O que vamos construir?</div>
-            <p class="ib-text">Um blog responsivo com postagens de filmes, imagens estilizadas e um sistema de
+            <p class="ib-text">Um blog responsivo com postagens, imagens estilizadas e um sistema de
               "curtidas" interativo. Prepare-se para ver seu código ganhar vida!</p>
           </div>
         </div>
@@ -915,7 +1062,12 @@
             <div class="step-content">
               <div class="step-title">Selecione "HTML/CSS/JS"</div>
               <div class="step-desc">Na tela inicial, clique em <strong>"New Project"</strong> e escolha a opção
-                <strong>"HTML/CSS/JS"</strong>. Esse é o ponto de partida para páginas web simples.
+                <strong><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"
+                    style="height: 1.56em; width: auto; fill: var(--tag-html, #e55a2b); vertical-align: -0.32em; margin-right: 4px; display: inline-block;"><!--!Font Awesome Free v7.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+                    <path
+                      d="M128 96L162.9 491.8L319.5 544L477.1 491.8L512 96L128 96zM436.2 223.9L252.4 223.9L256.5 273.3L432.1 273.3L418.5 421.7L320.6 448.7L320.6 449L319.5 449L220.8 421.7L214.8 345.9L262.5 345.9L266 384L319.5 398.5L373.2 384L379.2 321.8L212.3 321.8L199.5 176.2L440.6 176.2L436.2 223.9z" />
+                  </svg>"Static - HTML/CSS/JS"</strong>. Esse é o ponto de partida
+                para páginas web simples.
               </div>
             </div>
           </div>
@@ -925,7 +1077,9 @@
               <div class="step-title">Explore a interface</div>
               <div class="step-desc">O StackBlitz mostrará três painéis: à esquerda os <strong>arquivos</strong> do
                 projeto, ao centro o <strong>editor de código</strong> e à direita uma <strong>pré-visualização</strong>
-                da página.</div>
+                da página.
+                <img src="stackblitz-interface.png" alt="Interface do StackBlitz" class="step-img" />
+              </div>
             </div>
           </div>
           <div class="step">
@@ -933,78 +1087,23 @@
             <div class="step-content">
               <div class="step-title">Abra o arquivo index.html</div>
               <div class="step-desc">No painel de arquivos, clique em <strong>index.html</strong>. Este será o arquivo
-                principal de sua página. Apague todo o conteúdo existente — começaremos do zero.</div>
+                principal de sua página. Apague todo o conteúdo existente — começaremos do zero.
+                <img src="stackblitz-arquivos.png" alt="Painel de arquivos do StackBlitz" class="step-img" />
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="diagram-wrapper">
-          <svg width="100%" viewBox="0 0 680 200" role="img">
-            <title>Interface do StackBlitz dividida em três painéis</title>
-            <defs>
-              <marker id="arr1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6"
-                orient="auto-start-reverse">
-                <path d="M2 1L8 5L2 9" fill="none" stroke="#1a2744" stroke-width="1.5" stroke-linecap="round"
-                  stroke-linejoin="round" />
-              </marker>
-            </defs>
-            <!-- Panels -->
-            <rect x="40" y="30" width="160" height="140" rx="8" fill="#e8ecf5" stroke="#b0bacf" stroke-width="0.5" />
-            <rect x="40" y="30" width="160" height="22" rx="8" fill="#1a2744" />
-            <rect x="40" y="44" width="160" height="8" rx="0" fill="#1a2744" />
-            <text x="120" y="46" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600"
-              fill="#fff">Arquivos</text>
-            <text x="55" y="75" font-family="'Source Code Pro',monospace" font-size="11" fill="#3a4a6a">📁
-              projeto/</text>
-            <text x="65" y="93" font-family="'Source Code Pro',monospace" font-size="11" fill="#1a5fa8">📄
-              index.html</text>
-            <text x="65" y="111" font-family="'Source Code Pro',monospace" font-size="11" fill="#5a6a8a">🎨
-              styles.css</text>
 
-            <rect x="220" y="30" width="220" height="140" rx="8" fill="#1e2438" stroke="#3a4458" stroke-width="0.5" />
-            <rect x="220" y="30" width="220" height="22" rx="8" fill="#151b2e" />
-            <rect x="220" y="44" width="220" height="8" rx="0" fill="#151b2e" />
-            <text x="330" y="46" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600"
-              fill="rgba(255,255,255,0.7)">Editor de código</text>
-            <text x="232" y="75" font-family="'Source Code Pro',monospace" font-size="10"
-              fill="#79c0ff">&lt;h1&gt;</text>
-            <text x="264" y="75" font-family="'Source Code Pro',monospace" font-size="10" fill="#c9d1d9">Meu Blog</text>
-            <text x="232" y="91" font-family="'Source Code Pro',monospace" font-size="10"
-              fill="#79c0ff">&lt;/h1&gt;</text>
-            <text x="232" y="107" font-family="'Source Code Pro',monospace" font-size="10"
-              fill="#79c0ff">&lt;p&gt;</text>
-            <text x="256" y="107" font-family="'Source Code Pro',monospace" font-size="10"
-              fill="#c9d1d9">Bem-vindo!</text>
-            <text x="232" y="123" font-family="'Source Code Pro',monospace" font-size="10"
-              fill="#79c0ff">&lt;/p&gt;</text>
 
-            <rect x="460" y="30" width="180" height="140" rx="8" fill="#fff" stroke="#dde2ec" stroke-width="0.5" />
-            <rect x="460" y="30" width="180" height="22" rx="8" fill="#f3f2ef" />
-            <rect x="460" y="44" width="180" height="8" rx="0" fill="#f3f2ef" />
-            <text x="550" y="46" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600"
-              fill="#5a5750">Pré-visualização</text>
-            <text x="475" y="78" font-family="'Lora',serif" font-size="14" font-weight="700" fill="#1a2744">Meu
-              Blog</text>
-            <text x="475" y="97" font-family="Inter,sans-serif" font-size="11" fill="#5a5750">Bem-vindo!</text>
-
-            <!-- Labels below -->
-            <text x="120" y="188" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9e9b94">①
-              Arquivos</text>
-            <text x="330" y="188" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9e9b94">②
-              Editor</text>
-            <text x="550" y="188" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9e9b94">③
-              Resultado</text>
-          </svg>
-          <p class="diagram-caption">Interface do StackBlitz: arquivos à esquerda, código ao centro, resultado ao vivo à
-            direita</p>
-        </div>
-
-        <div class="info-box tip">
-          <div class="ib-icon">✅</div>
+        <div class="info-box warn">
+          <div class="ib-icon">⚠️</div>
           <div class="ib-content">
-            <div class="ib-title">Salvamento automático</div>
-            <p class="ib-text">No StackBlitz, as alterações são salvas e refletidas na pré-visualização automaticamente,
-              sem necessidade de pressionar nenhuma tecla especial.</p>
+            <div class="ib-title">Lembre-se de salvar!</div>
+            <p class="ib-text">Para não perder suas atualizações, lembre-se sempre de salvar o projeto clicando no botão
+              <strong>"Save"</strong> (no menu superior esquerdo) ou utilizando o atalho de teclado <strong>Ctrl +
+                S</strong>.
+            </p>
           </div>
         </div>
 
@@ -1030,7 +1129,8 @@
           <p>HTML (HyperText Markup Language) é a linguagem que define o <strong>conteúdo e a estrutura</strong> de uma
             página web. Tudo que você vê em um site — textos, títulos, imagens — é criado com HTML.</p>
           <p>No HTML, utilizamos <strong>tags</strong> para organizar o conteúdo. Uma tag é composta por um nome entre
-            sinais de menor e maior: <code>&lt;tag&gt;</code>. A maioria das tags possui abertura e fechamento:</p>
+            sinais de menor e maior: <code>&lt;tag&gt;</code>. A <u>maioria</u> das tags possui abertura e
+            fechamento:</p>
         </div>
 
         <div class="diagram-wrapper">
@@ -1057,14 +1157,15 @@
             <text x="530" y="20" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#5a6a9a">Tag
               de fechamento</text>
           </svg>
-          <p class="diagram-caption">Toda tag HTML possui uma abertura <code>&lt;tag&gt;</code>, um conteúdo e um
-            fechamento <code>&lt;/tag&gt;</code></p>
         </div>
 
         <div class="prose">
           <h3>A estrutura completa</h3>
-          <p>Cole o código abaixo no seu arquivo <code>index.html</code> no StackBlitz. Este é o ponto de partida do
-            nosso blog de filmes:</p>
+          <p>Abra o seu arquivo <code>index.html</code> no StackBlitz. Este é o ponto de partida do
+            nosso blog. Você pode fazer sobre qualquer assunto de seu interesse: filmes, séries, animes, comidas,
+            lugares, etc. O exemplo
+            abaixo é sobre filmes. Para começarmos, apague todo o conteudo do arquivo e cole o codigo a seguir:
+          </p>
         </div>
 
         <div class="code-block">
@@ -1090,7 +1191,7 @@
         class="hl-tag">&lt;/p&gt;</span>
     <span class="hl-tag">&lt;/header&gt;</span>
     <span class="hl-tag">&lt;main&gt;</span>
-      <span class="hl-tag">&lt;h2&gt;</span>Filme em Destaque<span class="hl-tag">&lt;/h2&gt;</span>
+      <span class="hl-tag">&lt;h2&gt;</span>Interestelar<span class="hl-tag">&lt;/h2&gt;</span>
       <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span
         class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: Maria Souza<span
         class="hl-tag">&lt;/p&gt;</span>
@@ -1218,7 +1319,7 @@
             <!-- strong -->
             <rect x="360" y="20" width="280" height="50" rx="8" fill="#eef2fc" stroke="#b0c4e8" stroke-width="0.5" />
             <text x="380" y="42" font-family="Inter,sans-serif" font-size="13" fill="#2c2b28">Texto em <tspan
-                font-weight="700" fill="#1a2744">negrito</tspan> aqui</text>
+                font-weight="700" fill="#1a2744">destaque</tspan> aqui</text>
             <text x="380" y="60" font-family="'Source Code Pro',monospace" font-size="11"
               fill="#1a5fa8">&lt;strong&gt;</text>
             <text x="440" y="60" font-family="Inter,sans-serif" font-size="11" fill="#9e9b94">— importância</text>
@@ -1257,7 +1358,7 @@
             <span class="code-lang html">HTML</span>
           </div>
           <pre class="code-body"><span class="hl-tag">&lt;main&gt;</span>
-  <span class="hl-tag">&lt;h2&gt;</span>Filme em Destaque<span class="hl-tag">&lt;/h2&gt;</span>
+  <span class="hl-tag">&lt;h2&gt;</span>Interestelar<span class="hl-tag">&lt;/h2&gt;</span>
   <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span
     class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: <span
     class="hl-tag">&lt;strong&gt;</span>Maria Souza<span class="hl-tag">&lt;/strong&gt;</span><span
@@ -1278,7 +1379,8 @@
           <div class="ib-content">
             <div class="ib-title">Semântica importa</div>
             <p class="ib-text">Use <code>&lt;strong&gt;</code> para indicar <em>importância real</em> do conteúdo (não
-              apenas para deixar negrito). Use <code>&lt;em&gt;</code> para indicar <em>ênfase</em> (não apenas itálico
+              apenas para deixar destacado). Use <code>&lt;em&gt;</code> para indicar <em>ênfase</em> (não apenas
+              itálico
               decorativo). O Google e os leitores de tela entendem essa diferença.</p>
           </div>
         </div>
@@ -1488,7 +1590,8 @@
 
         <div class="prose">
           <h3>Adicionando uma imagem ao blog</h3>
-          <p>A tag <code>&lt;img&gt;</code> insere imagens na página. Ela possui dois atributos essenciais:</p>
+          <p>A tag <code>&lt;img&gt;</code> insere imagens na página. Ela não precisa de tag de fechamento e possui dois
+            atributos essenciais:</p>
           <ul>
             <li><code>src</code> — o caminho ou endereço da imagem</li>
             <li><code>alt</code> — texto alternativo que descreve a imagem (essencial para acessibilidade)</li>
@@ -1508,7 +1611,7 @@
     <span class="hl-attr">alt</span>=<span class="hl-str">"Pôster do filme Interestelar: nave espacial sobre um
   planeta alienígena"</span>
   <span class="hl-tag">&gt;</span>
-  <span class="hl-tag">&lt;h2&gt;</span>Filme em Destaque<span class="hl-tag">&lt;/h2&gt;</span>
+  <span class="hl-tag">&lt;h2&gt;</span>Interestelar<span class="hl-tag">&lt;/h2&gt;</span>
   <span class="hl-cmt">&lt;!-- ... restante do conteúdo ... --&gt;</span>
 <span class="hl-tag">&lt;/main&gt;</span></pre>
         </div>
@@ -1523,8 +1626,9 @@
             <span class="code-lang css">CSS</span>
           </div>
           <pre class="code-body"><span class="hl-prop">img</span> {
-  <span class="hl-attr">width</span>: <span class="hl-num">120px</span>;
-  <span class="hl-attr">height</span>: <span class="hl-num">170px</span>;
+  <span class="hl-attr">width</span>: <span class="hl-num">100%</span>;
+  <span class="hl-attr">max-width</span>: <span class="hl-num">600px</span>;
+  <span class="hl-attr">height</span>: <span class="hl-val">auto</span>;
   <span class="hl-attr">border</span>: <span class="hl-num">3px</span> <span class="hl-val">solid</span> <span
   class="hl-str">#e8a020</span>;
   <span class="hl-attr">border-radius</span>: <span class="hl-num">8px</span>;
@@ -1533,6 +1637,21 @@
   <span class="hl-cmt">/* adicionar ao bloco existente: */</span>
   <span class="hl-attr">padding</span>: <span class="hl-num">24px 16px</span>;
 }</pre>
+        </div>
+
+        <div class="prose">
+          <p><strong>Por que usamos <code>width: 100%</code> e <code>max-width: 600px</code>?</strong></p>
+          <ul>
+            <li><strong>Responsividade:</strong> Com <code>width: 100%</code>, a imagem torna-se flexível e diminui para
+              caber em telas menores (como celulares), evitando que ela estoure a largura do dispositivo e crie barras
+              de rolagem horizontais.</li>
+            <li><strong>Controle em telas grandes:</strong> O <code>max-width: 600px</code> serve como um "teto". Ele
+              impede que a imagem se estique demais em monitores de computador, o que a deixaria distorcida, pixelada ou
+              ocupando espaço excessivo.</li>
+            <li><strong>Proporções mantidas:</strong> Ao omitir uma altura fixa ou usar <code>height: auto</code>, o
+              navegador calcula a altura proporcional com base na largura atual, evitando que a imagem fique achatada ou
+              esticada.</li>
+          </ul>
         </div>
 
         <div class="info-box note">
@@ -1606,9 +1725,21 @@
         </div>
 
         <div class="prose">
-          <h3>Organizando o card do filme com div e Flexbox</h3>
-          <p>Primeiro, no HTML, envolva a imagem e os textos do filme em uma <code>&lt;div&gt;</code>. Isso nos permite
-            aplicar Flexbox apenas nesse grupo:</p>
+          <h3>Organizando o card com a tag article e Flexbox</h3>
+          <p>Para estruturar nosso post de forma semântica, utilizaremos a tag <code>&lt;article&gt;</code> em vez de
+            uma simples <code>&lt;div&gt;</code>.</p>
+          <p><strong>Por que usar a tag <code>&lt;article&gt;</code>?</strong></p>
+          <ul>
+            <li><strong>Significado Semântico:</strong> A tag <code>&lt;article&gt;</code> indica ao navegador, motores
+              de busca (como o Google) e leitores de tela que aquele bloco é uma unidade de conteúdo independente e
+              autocontida, que faz sentido por si só (como uma postagem ou notícia). A tag <code>&lt;div&gt;</code>, por
+              outro lado, é genérica e não tem significado estrutural.</li>
+            <li><strong>Acessibilidade e SEO:</strong> Usar tags semânticas corretas ajuda na indexação do seu site pelo
+              Google e melhora a navegação para pessoas com deficiência visual que utilizam softwares de leitura de
+              tela.</li>
+          </ul>
+          <p>No seu HTML, envolva o conteúdo e a imagem do card dentro de uma tag <code>&lt;article&gt;</code>,
+            colocando a imagem no final (depois do texto do filme):</p>
         </div>
 
         <div class="code-block">
@@ -1617,46 +1748,46 @@
             <span class="code-lang html">HTML</span>
           </div>
           <pre class="code-body"><span class="hl-tag">&lt;main&gt;</span>
-  <span class="hl-tag">&lt;img</span>
-    <span class="hl-attr">src</span>=<span
-    class="hl-str">"https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg"</span>
-    <span class="hl-attr">alt</span>=<span class="hl-str">"Pôster do filme Interestelar"</span>
-  <span class="hl-tag">&gt;</span>
-  <span class="hl-tag">&lt;div&gt;</span>
-    <span class="hl-tag">&lt;h2&gt;</span>Filme em Destaque<span class="hl-tag">&lt;/h2&gt;</span>
+  <span class="hl-tag">&lt;article&gt;</span>
+    <span class="hl-tag">&lt;h2&gt;</span>Interestelar<span class="hl-tag">&lt;/h2&gt;</span>
     <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span
       class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: <span
       class="hl-tag">&lt;strong&gt;</span>Maria Souza<span class="hl-tag">&lt;/strong&gt;</span><span
       class="hl-tag">&lt;/p&gt;</span>
     <span class="hl-tag">&lt;p&gt;</span>Uma viagem épica pelo espaço...<span class="hl-tag">&lt;/p&gt;</span>
-  <span class="hl-tag">&lt;/div&gt;</span>
+    <span class="hl-tag">&lt;img</span>
+      <span class="hl-attr">src</span>=<span
+      class="hl-str">"https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg"</span>
+      <span class="hl-attr">alt</span>=<span class="hl-str">"Pôster do filme Interestelar"</span>
+    <span class="hl-tag">&gt;</span>
+  <span class="hl-tag">&lt;/article&gt;</span>
 <span class="hl-tag">&lt;/main&gt;</span></pre>
         </div>
 
         <div class="prose">
-          <p>Agora, no CSS, aplique <code>display: flex</code> ao <code>&lt;main&gt;</code> e estilize a classe
-            <code>.autor</code>:
-          </p>
+          <p>Agora, no CSS, aplique <code>display: flex</code> ao <code>&lt;article&gt;</code> (com direção em coluna
+            para empilhar os elementos verticalmente e centralizá-los, exatamente como no nosso protótipo) e estilize a
+            classe <code>.autor</code>:</p>
         </div>
 
         <div class="code-block">
           <div class="code-header">
-            <span class="code-filename">styles.css — atualizar main e adicionar .autor</span>
+            <span class="code-filename">styles.css — adicionar estilos do article e .autor</span>
             <span class="code-lang css">CSS</span>
           </div>
-          <pre class="code-body"><span class="hl-prop">main</span> {
+          <pre class="code-body"><span class="hl-prop">article</span> {
   <span class="hl-attr">background-color</span>: <span class="hl-str">#ffffff</span>;
   <span class="hl-attr">color</span>: <span class="hl-str">#1a2744</span>;
   <span class="hl-attr">max-width</span>: <span class="hl-num">800px</span>;
   <span class="hl-attr">margin</span>: <span class="hl-num">0</span> <span class="hl-val">auto</span>;
-  <span class="hl-attr">padding</span>: <span class="hl-num">24px 16px</span>;
-  <span class="hl-attr">display</span>: <span class="hl-val">flex</span>; <span class="hl-cmt">/* ← posiciona
-  img e div lado a lado */</span>
-  <span class="hl-attr">gap</span>: <span class="hl-num">20px</span>; <span class="hl-cmt">/* ← espaço entre
-  os itens */</span>
-  <span class="hl-attr">align-items</span>: <span class="hl-val">flex-start</span>; <span class="hl-cmt">/* ←
-  alinha pelo topo */</span>
-  <span class="hl-attr">text-align</span>: <span class="hl-val">left</span>;
+  <span class="hl-attr">padding</span>: <span class="hl-num">24px</span>;
+  <span class="hl-attr">display</span>: <span class="hl-val">flex</span>;
+  <span class="hl-attr">flex-direction</span>: <span class="hl-val">column</span>; <span class="hl-cmt">/* ← posiciona os itens em coluna */</span>
+  <span class="hl-attr">align-items</span>: <span class="hl-val">center</span>; <span class="hl-cmt">/* ← centraliza horizontalmente */</span>
+  <span class="hl-attr">text-align</span>: <span class="hl-val">center</span>; <span class="hl-cmt">/* ← centraliza os textos */</span>
+  <span class="hl-attr">gap</span>: <span class="hl-num">16px</span>; <span class="hl-cmt">/* ← espaço entre os elementos */</span>
+  <span class="hl-attr">border-radius</span>: <span class="hl-num">8px</span>;
+  <span class="hl-attr">box-shadow</span>: <span class="hl-num">0 4px 12px</span> <span class="hl-val">rgba(0, 0, 0, 0.08)</span>;
 }
 <span class="hl-prop">.autor</span> { <span class="hl-cmt">/* ← seletor de classe com ponto */</span>
   <span class="hl-attr">font-weight</span>: <span class="hl-val">bold</span>;
@@ -1737,8 +1868,8 @@
 
         <div class="prose">
           <h3>Passo 1: Adicionar o botão no HTML</h3>
-          <p>Dentro do <code>&lt;div&gt;</code> que contém os textos do filme, adicione um botão com um emoji de coração
-            e um <code>&lt;span&gt;</code> para exibir o contador:</p>
+          <p>Dentro da tag <code>&lt;article&gt;</code> que criamos, adicione um botão com um emoji de coração
+            e um <code>&lt;span&gt;</code> para exibir o contador (sugerimos colocá-lo antes da imagem):</p>
         </div>
 
         <div class="code-block">
@@ -1746,8 +1877,8 @@
             <span class="code-filename">index.html — botão de curtir</span>
             <span class="code-lang html">HTML</span>
           </div>
-          <pre class="code-body"><span class="hl-tag">&lt;div&gt;</span>
-  <span class="hl-tag">&lt;h2&gt;</span>Filme em Destaque<span class="hl-tag">&lt;/h2&gt;</span>
+          <pre class="code-body"><span class="hl-tag">&lt;article&gt;</span>
+  <span class="hl-tag">&lt;h2&gt;</span>Interestelar<span class="hl-tag">&lt;/h2&gt;</span>
   <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span
     class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: <span
     class="hl-tag">&lt;strong&gt;</span>Maria Souza<span class="hl-tag">&lt;/strong&gt;</span><span
@@ -1755,7 +1886,8 @@
   <span class="hl-tag">&lt;p&gt;</span>Uma viagem épica pelo espaço...<span class="hl-tag">&lt;/p&gt;</span>
   <span class="hl-tag">&lt;button&gt;</span>❤️ <span class="hl-tag">&lt;span&gt;</span>0<span
     class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
-<span class="hl-tag">&lt;/div&gt;</span></pre>
+  <span class="hl-tag">&lt;img</span> <span class="hl-attr">src</span>=<span class="hl-str">"..."</span> <span class="hl-attr">alt</span>=<span class="hl-str">"..."</span><span class="hl-tag">&gt;</span>
+<span class="hl-tag">&lt;/article&gt;</span></pre>
         </div>
 
         <div class="prose">
@@ -1917,12 +2049,8 @@ botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"<
         class="hl-tag">&lt;/p&gt;</span>
     <span class="hl-tag">&lt;/header&gt;</span>
     <span class="hl-tag">&lt;main&gt;</span>
-      <span class="hl-tag">&lt;img</span> <span class="hl-attr">src</span>=<span
-        class="hl-str">"https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg"</span> <span
-        class="hl-attr">alt</span>=<span class="hl-str">"Pôster de Interestelar"</span><span
-        class="hl-tag">&gt;</span>
-      <span class="hl-tag">&lt;div&gt;</span>
-        <span class="hl-tag">&lt;h2&gt;</span>Filme em Destaque<span class="hl-tag">&lt;/h2&gt;</span>
+      <span class="hl-tag">&lt;article&gt;</span>
+        <span class="hl-tag">&lt;h2&gt;</span>Interestelar<span class="hl-tag">&lt;/h2&gt;</span>
         <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span
           class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: <span
           class="hl-tag">&lt;strong&gt;</span>Maria Souza<span class="hl-tag">&lt;/strong&gt;</span><span
@@ -1930,7 +2058,11 @@ botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"<
         <span class="hl-tag">&lt;p&gt;</span>Uma viagem épica pelo espaço...<span class="hl-tag">&lt;/p&gt;</span>
         <span class="hl-tag">&lt;button&gt;</span>❤️ <span class="hl-tag">&lt;span&gt;</span>0<span
           class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
-      <span class="hl-tag">&lt;/div&gt;</span>
+        <span class="hl-tag">&lt;img</span> <span class="hl-attr">src</span>=<span
+          class="hl-str">"https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg"</span> <span
+          class="hl-attr">alt</span>=<span class="hl-str">"Pôster de Interestelar"</span><span
+          class="hl-tag">&gt;</span>
+      <span class="hl-tag">&lt;/article&gt;</span>
     <span class="hl-tag">&lt;/main&gt;</span>
     <span class="hl-tag">&lt;script</span> <span class="hl-attr">src</span>=<span
       class="hl-str">"script.js"</span><span class="hl-tag">&gt;&lt;/script&gt;</span>
@@ -1952,18 +2084,25 @@ botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"<
   <span class="hl-attr">padding</span>: <span class="hl-num">24px 16px</span>;
 }
 <span class="hl-prop">main</span> {
-  <span class="hl-attr">background-color</span>: <span class="hl-str">#ffffff</span>;
-  <span class="hl-attr">color</span>: <span class="hl-str">#1a2744</span>;
   <span class="hl-attr">max-width</span>: <span class="hl-num">800px</span>;
   <span class="hl-attr">margin</span>: <span class="hl-num">0</span> <span class="hl-val">auto</span>;
   <span class="hl-attr">padding</span>: <span class="hl-num">24px 16px</span>;
+}
+<span class="hl-prop">article</span> {
+  <span class="hl-attr">background-color</span>: <span class="hl-str">#ffffff</span>;
+  <span class="hl-attr">color</span>: <span class="hl-str">#1a2744</span>;
+  <span class="hl-attr">padding</span>: <span class="hl-num">24px</span>;
   <span class="hl-attr">display</span>: <span class="hl-val">flex</span>;
-  <span class="hl-attr">gap</span>: <span class="hl-num">20px</span>;
-  <span class="hl-attr">align-items</span>: <span class="hl-val">flex-start</span>;
+  <span class="hl-attr">flex-direction</span>: <span class="hl-val">column</span>;
+  <span class="hl-attr">align-items</span>: <span class="hl-val">center</span>;
+  <span class="hl-attr">text-align</span>: <span class="hl-val">center</span>;
+  <span class="hl-attr">gap</span>: <span class="hl-num">16px</span>;
+  <span class="hl-attr">border-radius</span>: <span class="hl-num">8px</span>;
+  <span class="hl-attr">box-shadow</span>: <span class="hl-num">0 4px 12px</span> <span class="hl-val">rgba(0, 0, 0, 0.08)</span>;
 }
 <span class="hl-prop">img</span> {
-  <span class="hl-attr">width</span>: <span class="hl-num">120px</span>;
-  <span class="hl-attr">height</span>: <span class="hl-num">170px</span>;
+  <span class="hl-attr">width</span>: <span class="hl-num">100%</span>;
+  <span class="hl-attr">max-width</span>: <span class="hl-num">600px</span>;
   <span class="hl-attr">border</span>: <span class="hl-num">3px</span> <span class="hl-val">solid</span> <span
   class="hl-str">#e8a020</span>;
   <span class="hl-attr">border-radius</span>: <span class="hl-num">8px</span>;
@@ -2069,7 +2208,7 @@ botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"<
         <div class="prose">
           <h3>Passo 1: Adicionar um segundo botão no HTML</h3>
           <p>No seu arquivo <code>index.html</code>, adicione um segundo botão de reação dentro do
-            <code>&lt;div&gt;</code> do filme (por exemplo, um joinha 👍):
+            <code>&lt;article&gt;</code> do filme (por exemplo, um joinha 👍):
           </p>
         </div>
 
@@ -2078,8 +2217,8 @@ botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"<
             <span class="code-filename">index.html — adicionando segundo botão</span>
             <span class="code-lang html">HTML</span>
           </div>
-          <pre class="code-body"><span class="hl-tag">&lt;div&gt;</span>
-  <span class="hl-tag">&lt;h2&gt;</span>Filme em Destaque<span class="hl-tag">&lt;/h2&gt;</span>
+          <pre class="code-body"><span class="hl-tag">&lt;article&gt;</span>
+  <span class="hl-tag">&lt;h2&gt;</span>Interestelar<span class="hl-tag">&lt;/h2&gt;</span>
   <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span
     class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: <span
     class="hl-tag">&lt;strong&gt;</span>Maria Souza<span class="hl-tag">&lt;/strong&gt;</span><span
@@ -2089,13 +2228,13 @@ botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"<
     class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
   <span class="hl-tag">&lt;button&gt;</span>👍 <span class="hl-tag">&lt;span&gt;</span>0<span
     class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
-<span class="hl-tag">&lt;/div&gt;</span></pre>
+<span class="hl-tag">&lt;/article&gt;</span></pre>
         </div>
 
         <div class="prose">
           <h3>Passo 2: Usar forEach para percorrer os botões</h3>
           <p>Como o <code>querySelectorAll</code> nos dá uma lista de botões, precisamos usar o método
-            <code>forEach</code>. Ele executa uma função para cada elemento individual da nossa lista:
+            <code>forEach</code>. O <code>forEach</code> funciona como um "carteiro" que visita cada botão da lista um por um e executa uma tarefa. Neste caso, ele atribui o evento de clique a todos os botões, sem que você precise escrever um por um.
           </p>
         </div>
 
@@ -2106,7 +2245,7 @@ botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"<
           </div>
           <pre class="code-body"><span class="hl-cmt">// 1. Seleciona todos os botões da página</span>
 <span class="hl-kw">const</span> botoes = document.<span class="hl-fn">querySelectorAll</span>(<span
-  class="hl-str2">"button"</span>);
+  class="hl-str2">"article button"</span>);
 <span class="hl-cmt">// 2. Percorre a lista de botões usando forEach</span>
 botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(botao) {
   <span class="hl-cmt">// Adiciona o evento de escuta para cada botão individual</span>
@@ -2151,39 +2290,23 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(bo
 
         <div class="prose">
           <h3>Criando o segundo post no blog</h3>
-          <p>Um blog real possui vários posts. Vamos duplicar o conteúdo dentro do nosso <code>&lt;main&gt;</code> para
-            criar um segundo post de filme (ex: <em>Avatar</em>). Porém, se fizermos isso agora com a estrutura antiga,
-            os posts vão quebrar visualmente porque o CSS original do <code>main</code> possui
-            <code>display: flex</code>.
+          <p>Um blog real possui vários posts. Como já utilizamos a tag semântica <code>&lt;article&gt;</code> para
+            organizar nosso card de filme, adicionar outro é muito fácil! Basta duplicar todo o bloco do
+            <code>&lt;article&gt;</code> dentro do nosso <code>&lt;main&gt;</code>, alterando os dados para um novo
+            filme (ex: <em>Avatar</em>).
           </p>
-          <p>Para corrigir isso, utilizaremos a tag semântica <code>&lt;article&gt;</code> para envolver cada post
-            completo. No CSS, moveremos o comportamento do Flexbox do <code>main</code> para o <code>article</code>.
-            Dessa forma, as imagens e textos ficarão lado a lado em cada post individual, mas os posts em si ficarão
-            empilhados verticalmente!</p>
+          <p>Para que os posts não fiquem colados uns nos outros, vamos adicionar um espaço entre eles atualizando a
+            regra do nosso <code>article</code> no CSS:</p>
         </div>
 
         <div class="code-block">
           <div class="code-header">
-            <span class="code-filename">CSS — Novo layout com article</span>
+            <span class="code-filename">CSS — Espaçando os articles</span>
             <span class="code-lang css">CSS</span>
           </div>
-          <pre class="code-body"><span class="hl-prop">main</span> {
-  <span class="hl-attr">background-color</span>: <span class="hl-str">#ffffff</span>;
-  <span class="hl-attr">color</span>: <span class="hl-str">#1a2744</span>;
-  <span class="hl-attr">max-width</span>: <span class="hl-num">800px</span>;
-  <span class="hl-attr">margin</span>: <span class="hl-num">0</span> <span class="hl-val">auto</span>;
-  <span class="hl-attr">padding</span>: <span class="hl-num">24px 16px</span>;
-}
-<span class="hl-prop">article</span> {
-  <span class="hl-attr">display</span>: <span class="hl-val">flex</span>; <span class="hl-cmt">/* ← Coloca a
-  imagem e o texto lado a lado */</span>
-  <span class="hl-attr">gap</span>: <span class="hl-num">20px</span>;
-  <span class="hl-attr">align-items</span>: <span class="hl-val">flex-start</span>;
-  <span class="hl-attr">margin-bottom</span>: <span class="hl-num">32px</span>; <span class="hl-cmt">/* ←
-  Espaço entre posts */</span>
-  <span class="hl-attr">padding-bottom</span>: <span class="hl-num">24px</span>;
-  <span class="hl-attr">border-bottom</span>: <span class="hl-num">1px</span> <span
-  class="hl-val">solid</span> <span class="hl-str">#eee</span>;
+          <pre class="code-body"><span class="hl-prop">article</span> {
+  <span class="hl-cmt">/* ... propriedades existentes ... */</span>
+  <span class="hl-attr">margin-bottom</span>: <span class="hl-num">32px</span>; <span class="hl-cmt">/* ← Espaço entre os posts */</span>
 }</pre>
         </div>
 
@@ -2278,42 +2401,38 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(bo
     <span class="hl-tag">&lt;main&gt;</span>
       <span class="hl-cmt">&lt;!-- Post 1 --&gt;</span>
       <span class="hl-tag">&lt;article&gt;</span>
+        <span class="hl-tag">&lt;h2&gt;</span>Interestelar<span class="hl-tag">&lt;/h2&gt;</span>
+        <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span
+          class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: <span
+          class="hl-tag">&lt;strong&gt;</span>Maria Souza<span class="hl-tag">&lt;/strong&gt;</span><span
+          class="hl-tag">&lt;/p&gt;</span>
+        <span class="hl-tag">&lt;p&gt;</span>Uma viagem épica pelo espaço que desafia os limites da ciência.<span
+          class="hl-tag">&lt;/p&gt;</span>
+        <span class="hl-tag">&lt;button&gt;</span>❤️ <span class="hl-tag">&lt;span&gt;</span>0<span
+          class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
+        <span class="hl-tag">&lt;button&gt;</span>👍 <span class="hl-tag">&lt;span&gt;</span>0<span
+          class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
         <span class="hl-tag">&lt;img</span> <span class="hl-attr">src</span>=<span
           class="hl-str">"https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg"</span> <span
           class="hl-attr">alt</span>=<span class="hl-str">"Pôster de Interestelar"</span><span
           class="hl-tag">&gt;</span>
-        <span class="hl-tag">&lt;div&gt;</span>
-          <span class="hl-tag">&lt;h2&gt;</span>Filme em Destaque: Interestelar<span class="hl-tag">&lt;/h2&gt;</span>
-          <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span
-            class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: <span
-            class="hl-tag">&lt;strong&gt;</span>Maria Souza<span class="hl-tag">&lt;/strong&gt;</span><span
-            class="hl-tag">&lt;/p&gt;</span>
-          <span class="hl-tag">&lt;p&gt;</span>Uma viagem épica pelo espaço que desafia os limites da ciência.<span
-            class="hl-tag">&lt;/p&gt;</span>
-          <span class="hl-tag">&lt;button&gt;</span>❤️ <span class="hl-tag">&lt;span&gt;</span>0<span
-            class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
-          <span class="hl-tag">&lt;button&gt;</span>👍 <span class="hl-tag">&lt;span&gt;</span>0<span
-            class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
-        <span class="hl-tag">&lt;/div&gt;</span>
       <span class="hl-tag">&lt;/article&gt;</span>
       <span class="hl-cmt">&lt;!-- Post 2 --&gt;</span>
       <span class="hl-tag">&lt;article&gt;</span>
+        <span class="hl-tag">&lt;h2&gt;</span>Avatar<span class="hl-tag">&lt;/h2&gt;</span>
+        <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span
+          class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: <span
+          class="hl-tag">&lt;strong&gt;</span>Marcelo Paludetto<span class="hl-tag">&lt;/strong&gt;</span><span
+          class="hl-tag">&lt;/p&gt;</span>
+        <span class="hl-tag">&lt;p&gt;</span>Uma jornada espetacular no mundo de Pandora, descobrindo novas
+        culturas.<span class="hl-tag">&lt;/p&gt;</span>
+        <span class="hl-tag">&lt;button&gt;</span>❤️ <span class="hl-tag">&lt;span&gt;</span>0<span
+          class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
+        <span class="hl-tag">&lt;button&gt;</span>👍 <span class="hl-tag">&lt;span&gt;</span>0<span
+          class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
         <span class="hl-tag">&lt;img</span> <span class="hl-attr">src</span>=<span
           class="hl-str">"https://upload.wikimedia.org/wikipedia/en/d/d6/Avatar2009poster.jpg"</span> <span
           class="hl-attr">alt</span>=<span class="hl-str">"Pôster de Avatar"</span><span class="hl-tag">&gt;</span>
-        <span class="hl-tag">&lt;div&gt;</span>
-          <span class="hl-tag">&lt;h2&gt;</span>Outra Recomendação: Avatar<span class="hl-tag">&lt;/h2&gt;</span>
-          <span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span
-            class="hl-str">"autor"</span><span class="hl-tag">&gt;</span>Por: <span
-            class="hl-tag">&lt;strong&gt;</span>Marcelo Paludetto<span class="hl-tag">&lt;/strong&gt;</span><span
-            class="hl-tag">&lt;/p&gt;</span>
-          <span class="hl-tag">&lt;p&gt;</span>Uma jornada espetacular no mundo de Pandora, descobrindo novas
-          culturas.<span class="hl-tag">&lt;/p&gt;</span>
-          <span class="hl-tag">&lt;button&gt;</span>❤️ <span class="hl-tag">&lt;span&gt;</span>0<span
-            class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
-          <span class="hl-tag">&lt;button&gt;</span>👍 <span class="hl-tag">&lt;span&gt;</span>0<span
-            class="hl-tag">&lt;/span&gt;&lt;/button&gt;</span>
-        <span class="hl-tag">&lt;/div&gt;</span>
       <span class="hl-tag">&lt;/article&gt;</span>
     <span class="hl-tag">&lt;/main&gt;</span>
     <span class="hl-tag">&lt;script</span> <span class="hl-attr">src</span>=<span
@@ -2336,24 +2455,26 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(bo
   <span class="hl-attr">padding</span>: <span class="hl-num">24px 16px</span>;
 }
 <span class="hl-prop">main</span> {
-  <span class="hl-attr">background-color</span>: <span class="hl-str">#ffffff</span>;
-  <span class="hl-attr">color</span>: <span class="hl-str">#1a2744</span>;
   <span class="hl-attr">max-width</span>: <span class="hl-num">800px</span>;
   <span class="hl-attr">margin</span>: <span class="hl-num">0</span> <span class="hl-val">auto</span>;
   <span class="hl-attr">padding</span>: <span class="hl-num">24px 16px</span>;
 }
 <span class="hl-prop">article</span> {
+  <span class="hl-attr">background-color</span>: <span class="hl-str">#ffffff</span>;
+  <span class="hl-attr">color</span>: <span class="hl-str">#1a2744</span>;
+  <span class="hl-attr">padding</span>: <span class="hl-num">24px</span>;
   <span class="hl-attr">display</span>: <span class="hl-val">flex</span>;
-  <span class="hl-attr">gap</span>: <span class="hl-num">20px</span>;
-  <span class="hl-attr">align-items</span>: <span class="hl-val">flex-start</span>;
+  <span class="hl-attr">flex-direction</span>: <span class="hl-val">column</span>;
+  <span class="hl-attr">align-items</span>: <span class="hl-val">center</span>;
+  <span class="hl-attr">text-align</span>: <span class="hl-val">center</span>;
+  <span class="hl-attr">gap</span>: <span class="hl-num">16px</span>;
+  <span class="hl-attr">border-radius</span>: <span class="hl-num">8px</span>;
+  <span class="hl-attr">box-shadow</span>: <span class="hl-num">0 4px 12px</span> <span class="hl-val">rgba(0, 0, 0, 0.08)</span>;
   <span class="hl-attr">margin-bottom</span>: <span class="hl-num">32px</span>;
-  <span class="hl-attr">padding-bottom</span>: <span class="hl-num">24px</span>;
-  <span class="hl-attr">border-bottom</span>: <span class="hl-num">1px</span> <span
-  class="hl-val">solid</span> <span class="hl-str">#eee</span>;
 }
 <span class="hl-prop">img</span> {
-  <span class="hl-attr">width</span>: <span class="hl-num">120px</span>;
-  <span class="hl-attr">height</span>: <span class="hl-num">170px</span>;
+  <span class="hl-attr">width</span>: <span class="hl-num">100%</span>;
+  <span class="hl-attr">max-width</span>: <span class="hl-num">600px</span>;
   <span class="hl-attr">border</span>: <span class="hl-num">3px</span> <span class="hl-val">solid</span> <span
   class="hl-str">#e8a020</span>;
   <span class="hl-attr">border-radius</span>: <span class="hl-num">8px</span>;
@@ -2381,13 +2502,15 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(bo
             <span class="code-filename">script.js — Versão Final Consolidada</span>
             <span class="code-lang js">JS</span>
           </div>
-          <pre class="code-body"><span class="hl-kw">const</span> botoes = document.<span class="hl-fn">querySelectorAll</span>(<span class="hl-str2">'button'</span>);
-botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span> (botao) {
+          <pre class="code-body"><span class="hl-kw">const</span> botoes = document.<span
+  class="hl-fn">querySelectorAll</span>(<span class="hl-str2">"article button"</span>);
+botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(botao) {
   <span class="hl-cmt">// Cada botão da lista possui sua própria variável de controle (booleana)</span>
   <span class="hl-kw">let</span> curtiu = <span class="hl-kw">false</span>;
-  botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">'click'</span>, botaoClicado);
+  botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"</span>, botaoClicado);
   <span class="hl-kw">function</span> <span class="hl-fn">botaoClicado</span>() {
-    <span class="hl-kw">let</span> contador = botao.<span class="hl-fn">querySelector</span>(<span class="hl-str2">'span'</span>);
+    <span class="hl-kw">let</span> contador = botao.<span class="hl-fn">querySelector</span>(<span
+      class="hl-str2">"span"</span>);
     <span class="hl-cmt">// Condicional que verifica se o usuário ainda não curtiu</span>
     <span class="hl-kw">if</span> (curtiu === <span class="hl-kw">false</span>) {
       contador.textContent++; <span class="hl-cmt">// Incrementa o contador do botão</span>
@@ -2408,124 +2531,132 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span> (b
         </div>
 
         <div class="nav-buttons">
-          <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
-          <button class="btn btn-primary" onclick="goTo(10)">Próximo: Planejamento →</button>
+          <button class="btn btn-ghost" onclick="goTo(8)">← Anterior</button>
+          <button class="btn btn-primary" onclick="goTo(10)">Próximo: Entrega Parcial →</button>
         </div>
       </section>
 
-      <!-- ════════════════════════════════════════
+      <div style="display: none;">
+        <!-- ════════════════════════════════════════
        SEÇÃO 10 — PLANEJAMENTO
   ════════════════════════════════════════ -->
-      <section class="section" id="sec-10">
-        <div class="section-header">
-          <div class="section-tag intro">🔍 Planejamento</div>
-          <h1 class="section-title">Aprimorando o projeto</h1>
-          <p class="section-intro">Nesta unidade, aprimoraremos o projeto construído anteriormente, o blog de filmes.
-            Para isso, revisaremos o código, implementando um modo escuro com efeitos responsivos e adicionando conteúdo
-            novo, utilizando conhecimentos em JavaScript, CSS e HTML.</p>
-        </div>
-
-        <div class="prose">
-          <h3>Identificando melhorias</h3>
-          <p>Iniciaremos a análise do projeto "Meu blog tech", dividindo a tela do navegador entre a visualização do
-            blog criado anteriormente e um arquivo contendo uma listagem dos pontos observados, para anotar as melhorias
-            a serem realizadas.</p>
-
-        </div>
-
-        <div class="info-box note">
-          <div class="ib-icon">📝</div>
-          <div class="ib-content">
-            <div class="ib-title">Lista de Melhorias</div>
-            <p class="ib-text">
-              <strong>1. Layout:</strong> Transformaremos a lista de postagens em "cards" responsivos usando Flexbox,
-              aproveitando melhor o espaço da tela cheia.<br>
-              <strong>2. Conteúdo:</strong> O blog tem duas postagens com conteúdo repetido. Incluiremos novos
-              conteúdos, adicionaremos mais postagens e reorganizaremos as páginas em formato de cards.<br>
-              <strong>3. Interação:</strong> Verificaremos os botões vinculados ao código JavaScript. Implementaremos um
-              modo escuro (fundo escuro e textos claros) ativado por um botão.
-            </p>
+        <section class="hidden-section" id="sec-10">
+          <div class="section-header">
+            <div class="section-tag intro">🔍 Planejamento</div>
+            <h1 class="section-title">Aprimorando o projeto</h1>
+            <p class="section-intro">Nesta unidade, aprimoraremos o projeto construído anteriormente, o blog de filmes.
+              Para isso, revisaremos o código, implementando um modo escuro com efeitos responsivos e adicionando
+              conteúdo
+              novo, utilizando conhecimentos em JavaScript, CSS e HTML.</p>
           </div>
-        </div>
 
-        <div class="nav-buttons">
-          <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
-          <button class="btn btn-primary" onclick="goTo(11)">Próximo: Conteúdo →</button>
-        </div>
-      </section>
+          <div class="prose">
+            <h3>Identificando melhorias</h3>
+            <p>Iniciaremos a análise do projeto "Meu blog tech", dividindo a tela do navegador entre a visualização do
+              blog criado anteriormente e um arquivo contendo uma listagem dos pontos observados, para anotar as
+              melhorias
+              a serem realizadas.</p>
 
-      <!-- ════════════════════════════════════════
+          </div>
+
+          <div class="info-box note">
+            <div class="ib-icon">📝</div>
+            <div class="ib-content">
+              <div class="ib-title">Lista de Melhorias</div>
+              <p class="ib-text">
+                <strong>1. Layout:</strong> Transformaremos a lista de postagens em "cards" responsivos usando Flexbox,
+                aproveitando melhor o espaço da tela cheia.<br>
+                <strong>2. Conteúdo:</strong> O blog tem duas postagens com conteúdo repetido. Incluiremos novos
+                conteúdos, adicionaremos mais postagens e reorganizaremos as páginas em formato de cards.<br>
+                <strong>3. Interação:</strong> Verificaremos os botões vinculados ao código JavaScript. Implementaremos
+                um
+                modo escuro (fundo escuro e textos claros) ativado por um botão.
+              </p>
+            </div>
+          </div>
+
+          <div class="nav-buttons">
+            <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
+            <button class="btn btn-primary" onclick="goTo(11)">Próximo: Conteúdo →</button>
+          </div>
+        </section>
+
+        <!-- ════════════════════════════════════════
        SEÇÃO 11 — CONTEÚDO
   ════════════════════════════════════════ -->
-      <section class="section" id="sec-11">
-        <div class="section-header">
-          <div class="section-tag html">📝 Conteúdo</div>
-          <h1 class="section-title">Ampliando as postagens</h1>
-          <p class="section-intro">Nesta aula, continuaremos com o aprimoramento do blog, adicionando novas postagens,
-            enriquecendo o conteúdo e incluindo referências às informações utilizadas de forma colaborativa.</p>
-        </div>
-
-        <div class="prose">
-          <h3>Personalizando meu blog</h3>
-          <p>Com o arquivo <code>index.html</code> selecionado, localize a tag <code>&lt;main&gt;</code>. Cada
-            <code>&lt;article&gt;</code> delimita uma postagem, com imagem, título, autoria, texto e botões.
-          </p>
-          <p>Para adicionar uma nova postagem, copie a tag <code>&lt;article&gt;</code> de um post existente e cole logo
-            abaixo. Em seguida, atualize o título, autoria, imagem e o texto.</p>
-        </div>
-
-        <div class="info-box note">
-          <div class="ib-icon">📏</div>
-          <div class="ib-content">
-            <div class="ib-title">Quebras de linha</div>
-            <p class="ib-text">Se você colar um texto muito longo, ele pode ficar condensado em um único bloco. Para
-              separar os parágrafos, insira duas tags <code>&lt;br&gt;</code> onde deseja uma quebra de linha. Isso
-              melhora a legibilidade.</p>
+        <section class="hidden-section" id="sec-11">
+          <div class="section-header">
+            <div class="section-tag html">📝 Conteúdo</div>
+            <h1 class="section-title">Ampliando as postagens</h1>
+            <p class="section-intro">Nesta aula, continuaremos com o aprimoramento do blog, adicionando novas postagens,
+              enriquecendo o conteúdo e incluindo referências às informações utilizadas de forma colaborativa.</p>
           </div>
-        </div>
 
-        <div class="prose">
-          <h3>Referenciando Fontes</h3>
-          <p>Outra melhoria importante é a inclusão das fontes utilizadas. É possível adicionar uma tag
-            <code>&lt;p class="artigo-fonte"&gt;</code> após o texto, inserindo a origem da informação (ex: <em>Fonte:
-              The National Museum of Computing</em>). Isso reforça a credibilidade do conteúdo e respeita a autoria
-            original.
-          </p>
-        </div>
+          <div class="prose">
+            <h3>Personalizando meu blog</h3>
+            <p>Com o arquivo <code>index.html</code> selecionado, localize a tag <code>&lt;main&gt;</code>. Cada
+              <code>&lt;article&gt;</code> delimita uma postagem, com imagem, título, autoria, texto e botões.
+            </p>
+            <p>Para adicionar uma nova postagem, copie a tag <code>&lt;article&gt;</code> de um post existente e cole
+              logo
+              abaixo. Em seguida, atualize o título, autoria, imagem e o texto.</p>
+          </div>
 
-        <div class="nav-buttons">
-          <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
-          <button class="btn btn-primary" onclick="goTo(12)">Próximo: Layout →</button>
-        </div>
-      </section>
+          <div class="info-box note">
+            <div class="ib-icon">📏</div>
+            <div class="ib-content">
+              <div class="ib-title">Quebras de linha</div>
+              <p class="ib-text">Se você colar um texto muito longo, ele pode ficar condensado em um único bloco. Para
+                separar os parágrafos, insira duas tags <code>&lt;br&gt;</code> onde deseja uma quebra de linha. Isso
+                melhora a legibilidade.</p>
+            </div>
+          </div>
 
-      <!-- ════════════════════════════════════════
+          <div class="prose">
+            <h3>Referenciando Fontes</h3>
+            <p>Outra melhoria importante é a inclusão das fontes utilizadas. É possível adicionar uma tag
+              <code>&lt;p class="artigo-fonte"&gt;</code> após o texto, inserindo a origem da informação (ex: <em>Fonte:
+                The National Museum of Computing</em>). Isso reforça a credibilidade do conteúdo e respeita a autoria
+              original.
+            </p>
+          </div>
+
+          <div class="nav-buttons">
+            <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
+            <button class="btn btn-primary" onclick="goTo(12)">Próximo: Layout →</button>
+          </div>
+        </section>
+
+        <!-- ════════════════════════════════════════
        SEÇÃO 12 — LAYOUT
   ════════════════════════════════════════ -->
-      <section class="section" id="sec-12">
-        <div class="section-header">
-          <div class="section-tag css">📐 Layout</div>
-          <h1 class="section-title">Página responsiva</h1>
-          <p class="section-intro">Agora que criamos as postagens, vamos organizar sua disposição na tela utilizando o
-            Flexbox para que se comportem como cards responsivos que se adaptam a diferentes tamanhos de tela.</p>
-        </div>
-
-        <div class="prose">
-          <h3>Utilizando Flexbox CSS</h3>
-          <p>As melhorias no layout do blog serão iniciadas no arquivo <code>style.css</code>. Para que o blog se adapte
-            ao tamanho da tela, adicionaremos no seletor <code>body</code> a propriedade <code>max-width: 100vw;</code>,
-            indicando que ocupará até 100% da largura da tela.</p>
-          <p>Em seguida, remova a propriedade <code>max-width: 800px;</code> dos seletores <code>header</code> e
-            <code>main</code> para evitar conflitos.
-          </p>
-        </div>
-
-        <div class="code-block">
-          <div class="code-header">
-            <span class="code-filename">style.css</span>
-            <span class="code-lang css">CSS</span>
+        <section class="hidden-section" id="sec-12">
+          <div class="section-header">
+            <div class="section-tag css">📐 Layout</div>
+            <h1 class="section-title">Página responsiva</h1>
+            <p class="section-intro">Agora que criamos as postagens, vamos organizar sua disposição na tela utilizando o
+              Flexbox para que se comportem como cards responsivos que se adaptam a diferentes tamanhos de tela.</p>
           </div>
-          <pre class="code-body"><span class="hl-prop">main</span> {
+
+          <div class="prose">
+            <h3>Utilizando Flexbox CSS</h3>
+            <p>As melhorias no layout do blog serão iniciadas no arquivo <code>style.css</code>. Para que o blog se
+              adapte
+              ao tamanho da tela, adicionaremos no seletor <code>body</code> a propriedade
+              <code>max-width: 100vw;</code>,
+              indicando que ocupará até 100% da largura da tela.
+            </p>
+            <p>Em seguida, remova a propriedade <code>max-width: 800px;</code> dos seletores <code>header</code> e
+              <code>main</code> para evitar conflitos.
+            </p>
+          </div>
+
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-filename">style.css</span>
+              <span class="code-lang css">CSS</span>
+            </div>
+            <pre class="code-body"><span class="hl-prop">main</span> {
   <span class="hl-attr">background-color</span>: <span class="hl-val">var</span>(--cor-fundo);
   <span class="hl-attr">color</span>: <span class="hl-val">var</span>(--cor-primaria);
   <span class="hl-attr">margin</span>: <span class="hl-num">0</span> <span class="hl-val">auto</span>;
@@ -2534,99 +2665,101 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span> (b
   <span class="hl-attr">flex-wrap</span>: <span class="hl-val">wrap</span>; <span class="hl-cmt">/* Quebra a
   linha quando ultrapassar a largura */</span>
 }</pre>
-        </div>
+          </div>
 
-        <div class="prose">
-          <h3>Organizando os Cards</h3>
-          <p>No seletor <code>article</code>, além de bordas e margens, utilizaremos a propriedade
-            <code>flex: 1 1 25%;</code> para definir como os cards podem crescer, diminuir e ocupar o espaço disponível,
-            tendo como base 25% da largura. Também alinharemos o conteúdo ao centro usando
-            <code>flex-direction: column</code> e <code>align-items: center</code>.
-          </p>
-        </div>
+          <div class="prose">
+            <h3>Organizando os Cards</h3>
+            <p>No seletor <code>article</code>, além de bordas e margens, utilizaremos a propriedade
+              <code>flex: 1 1 25%;</code> para definir como os cards podem crescer, diminuir e ocupar o espaço
+              disponível,
+              tendo como base 25% da largura. Também alinharemos o conteúdo ao centro usando
+              <code>flex-direction: column</code> e <code>align-items: center</code>.
+            </p>
+          </div>
 
-        <div class="nav-buttons">
-          <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
-          <button class="btn btn-primary" onclick="goTo(13)">Próximo: Links →</button>
-        </div>
-      </section>
+          <div class="nav-buttons">
+            <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
+            <button class="btn btn-primary" onclick="goTo(13)">Próximo: Links →</button>
+          </div>
+        </section>
 
-      <!-- ════════════════════════════════════════
+        <!-- ════════════════════════════════════════
        SEÇÃO 13 — LINKS
   ════════════════════════════════════════ -->
-      <section class="section" id="sec-13">
-        <div class="section-header">
-          <div class="section-tag html">🔗 Links</div>
-          <h1 class="section-title">Atributos e classes</h1>
-          <p class="section-intro">Revisaremos conceitos de atributos (src, alt, href, target e rel) e classes HTML para
-            garantir que o comportamento dos links funcione corretamente e de maneira otimizada para o usuário.</p>
-        </div>
-
-        <div class="prose">
-          <h3>Abrindo links em nova aba</h3>
-          <p>Quando adicionamos um link usando a tag <code>&lt;a href="..."&gt;</code>, por padrão, ele substitui a
-            página atual. Para que o link de referência não faça o usuário sair do nosso blog, utilizamos o atributo
-            <code>target="_blank"</code>.
-          </p>
-        </div>
-
-        <div class="code-block">
-          <div class="code-header">
-            <span class="code-filename">index.html</span>
-            <span class="code-lang html">HTML</span>
+        <section class="hidden-section" id="sec-13">
+          <div class="section-header">
+            <div class="section-tag html">🔗 Links</div>
+            <h1 class="section-title">Atributos e classes</h1>
+            <p class="section-intro">Revisaremos conceitos de atributos (src, alt, href, target e rel) e classes HTML
+              para
+              garantir que o comportamento dos links funcione corretamente e de maneira otimizada para o usuário.</p>
           </div>
-          <pre class="code-body"><span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span
+
+          <div class="prose">
+            <h3>Abrindo links em nova aba</h3>
+            <p>Quando adicionamos um link usando a tag <code>&lt;a href="..."&gt;</code>, por padrão, ele substitui a
+              página atual. Para que o link de referência não faça o usuário sair do nosso blog, utilizamos o atributo
+              <code>target="_blank"</code>.
+            </p>
+          </div>
+
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-filename">index.html</span>
+              <span class="code-lang html">HTML</span>
+            </div>
+            <pre class="code-body"><span class="hl-tag">&lt;p</span> <span class="hl-attr">class</span>=<span
   class="hl-str">"artigo-fonte"</span><span class="hl-tag">&gt;</span>Fonte: <span
   class="hl-tag">&lt;a</span> <span class="hl-attr">href</span>=<span
   class="hl-str">"http://www.tnmoc.org/colossus"</span> <span class="hl-attr">target</span>=<span
   class="hl-str">"_blank"</span><span class="hl-tag">&gt;</span>The National Museum of Computing<span
   class="hl-tag">&lt;/a&gt;&lt;/p&gt;</span></pre>
-        </div>
-
-        <div class="info-box concept">
-          <div class="ib-icon">🧠</div>
-          <div class="ib-content">
-            <div class="ib-title">Atributos HTML Essenciais</div>
-            <p class="ib-text">
-              <strong>src:</strong> Caminho do arquivo externo (como imagens ou scripts).<br>
-              <strong>href:</strong> Caminho de destino de um hiperlink ou folha de estilo.<br>
-              <strong>alt:</strong> Texto alternativo para acessibilidade e caso a imagem não carregue.<br>
-              <strong>rel:</strong> Define a relação entre a página e o link (ex: stylesheet).<br>
-              <strong>class:</strong> Usado para agrupar elementos e aplicar estilos via CSS.
-            </p>
           </div>
-        </div>
 
-        <div class="nav-buttons">
-          <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
-          <button class="btn btn-primary" onclick="goTo(14)">Próximo: Estilização →</button>
-        </div>
-      </section>
+          <div class="info-box concept">
+            <div class="ib-icon">🧠</div>
+            <div class="ib-content">
+              <div class="ib-title">Atributos HTML Essenciais</div>
+              <p class="ib-text">
+                <strong>src:</strong> Caminho do arquivo externo (como imagens ou scripts).<br>
+                <strong>href:</strong> Caminho de destino de um hiperlink ou folha de estilo.<br>
+                <strong>alt:</strong> Texto alternativo para acessibilidade e caso a imagem não carregue.<br>
+                <strong>rel:</strong> Define a relação entre a página e o link (ex: stylesheet).<br>
+                <strong>class:</strong> Usado para agrupar elementos e aplicar estilos via CSS.
+              </p>
+            </div>
+          </div>
 
-      <!-- ════════════════════════════════════════
+          <div class="nav-buttons">
+            <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
+            <button class="btn btn-primary" onclick="goTo(14)">Próximo: Estilização →</button>
+          </div>
+        </section>
+
+        <!-- ════════════════════════════════════════
        SEÇÃO 14 — ESTILIZAÇÃO
   ════════════════════════════════════════ -->
-      <section class="section" id="sec-14">
-        <div class="section-header">
-          <div class="section-tag css">🎨 Estilização</div>
-          <h1 class="section-title">Cores e temas</h1>
-          <p class="section-intro">Aprenderemos a criar uma identidade visual utilizando variáveis CSS. Isso nos
-            permitirá alterar cores rapidamente em toda a página e preparar o terreno para a implementação de um tema
-            escuro (Dark Mode).</p>
-        </div>
-
-        <div class="prose">
-          <h3>Variáveis CSS</h3>
-          <p>No arquivo <code>style.css</code>, usaremos a pseudo-classe <code>:root</code> para declarar variáveis
-            globais de cor, substituindo as cores fixas espalhadas pelo código.</p>
-        </div>
-
-        <div class="code-block">
-          <div class="code-header">
-            <span class="code-filename">style.css</span>
-            <span class="code-lang css">CSS</span>
+        <section class="hidden-section" id="sec-14">
+          <div class="section-header">
+            <div class="section-tag css">🎨 Estilização</div>
+            <h1 class="section-title">Cores e temas</h1>
+            <p class="section-intro">Aprenderemos a criar uma identidade visual utilizando variáveis CSS. Isso nos
+              permitirá alterar cores rapidamente em toda a página e preparar o terreno para a implementação de um tema
+              escuro (Dark Mode).</p>
           </div>
-          <pre class="code-body"><span class="hl-prop">:root</span> {
+
+          <div class="prose">
+            <h3>Variáveis CSS</h3>
+            <p>No arquivo <code>style.css</code>, usaremos a pseudo-classe <code>:root</code> para declarar variáveis
+              globais de cor, substituindo as cores fixas espalhadas pelo código.</p>
+          </div>
+
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-filename">style.css</span>
+              <span class="code-lang css">CSS</span>
+            </div>
+            <pre class="code-body"><span class="hl-prop">:root</span> {
   <span class="hl-attr">--cor-primaria</span>: <span class="hl-str">#183C63</span>;
   <span class="hl-attr">--cor-secundaria</span>: <span class="hl-str">#3782d2</span>;
   <span class="hl-attr">--cor-fundo</span>: <span class="hl-str">#ffffff</span>;
@@ -2636,32 +2769,34 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span> (b
   <span class="hl-attr">--fonte-texto</span>: <span class="hl-str">'Segoe UI'</span>, <span
   class="hl-val">sans-serif</span>;
 }</pre>
-        </div>
+          </div>
 
-        <div class="prose">
-          <h3>O Tema Escuro</h3>
-          <p>Para aplicar o modo escuro, criamos a classe <code>.tema-escuro</code> invertendo as cores das variáveis.
-            Ao adicionar essa classe na tag <code>&lt;body&gt;</code>, todo o estilo será alterado instantaneamente!</p>
-        </div>
-
-        <div class="info-box tip">
-          <div class="ib-icon">✨</div>
-          <div class="ib-content">
-            <div class="ib-title">Aplicando as Variáveis</div>
-            <p class="ib-text">Agora que definimos as variáveis no <code>:root</code>, substitua as cores antigas no seu
-              código CSS por elas! Por exemplo: no <code>header</code> e no <code>main</code>, troque
-              <code>#ffffff</code> por <code>var(--cor-fundo)</code>. Nos botões, adicione
-              <code>background-color: var(--cor-botao);</code> e <code>color: var(--cor-texto);</code>.
+          <div class="prose">
+            <h3>O Tema Escuro</h3>
+            <p>Para aplicar o modo escuro, criamos a classe <code>.tema-escuro</code> invertendo as cores das variáveis.
+              Ao adicionar essa classe na tag <code>&lt;body&gt;</code>, todo o estilo será alterado instantaneamente!
             </p>
           </div>
-        </div>
 
-        <div class="code-block">
-          <div class="code-header">
-            <span class="code-filename">style.css</span>
-            <span class="code-lang css">CSS</span>
+          <div class="info-box tip">
+            <div class="ib-icon">✨</div>
+            <div class="ib-content">
+              <div class="ib-title">Aplicando as Variáveis</div>
+              <p class="ib-text">Agora que definimos as variáveis no <code>:root</code>, substitua as cores antigas no
+                seu
+                código CSS por elas! Por exemplo: no <code>header</code> e no <code>main</code>, troque
+                <code>#ffffff</code> por <code>var(--cor-fundo)</code>. Nos botões, adicione
+                <code>background-color: var(--cor-botao);</code> e <code>color: var(--cor-texto);</code>.
+              </p>
+            </div>
           </div>
-          <pre class="code-body"><span class="hl-prop">.tema-escuro</span> {
+
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-filename">style.css</span>
+              <span class="code-lang css">CSS</span>
+            </div>
+            <pre class="code-body"><span class="hl-prop">.tema-escuro</span> {
   <span class="hl-attr">--cor-primaria</span>: <span class="hl-str">#A6CEFE</span>;
   <span class="hl-attr">--cor-secundaria</span>: <span class="hl-str">#98caff</span>;
   <span class="hl-attr">--cor-fundo</span>: <span class="hl-str">#0f172a</span>;
@@ -2669,41 +2804,41 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span> (b
   <span class="hl-attr">--cor-contraste</span>: <span class="hl-str">#1e293b</span>;
   <span class="hl-attr">--cor-botao</span>: <span class="hl-str">#151428</span>;
 }</pre>
-        </div>
+          </div>
 
-        <div class="nav-buttons">
-          <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
-          <button class="btn btn-primary" onclick="goTo(15)">Próximo: Tema Escuro →</button>
-        </div>
-      </section>
+          <div class="nav-buttons">
+            <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
+            <button class="btn btn-primary" onclick="goTo(15)">Próximo: Tema Escuro →</button>
+          </div>
+        </section>
 
-      <!-- ════════════════════════════════════════
+        <!-- ════════════════════════════════════════
        SEÇÃO 15 — TEMA ESCURO
   ════════════════════════════════════════ -->
-      <section class="section" id="sec-15">
-        <div class="section-header">
-          <div class="section-tag js">⚡ JavaScript</div>
-          <h1 class="section-title">Tema escuro</h1>
-          <p class="section-intro">Nesta aula, daremos continuidade ao desenvolvimento do modo escuro. Vamos criar um
-            botão e utilizar o JavaScript para manipular o DOM e permitir que o usuário alterne ativamente entre os
-            temas claro e escuro.</p>
-        </div>
-
-        <div class="prose">
-          <h3>O Botão de Troca de Tema</h3>
-          <p>No arquivo <code>index.html</code>, adicione a tag
-            <code>&lt;button class="btn-tema-escuro"&gt;🌗&lt;/button&gt;</code> logo antes de fechar a tag
-            <code>&lt;/main&gt;</code>.
-          </p>
-          <p>Para posicioná-lo no canto inferior direito da tela, fixe-o utilizando CSS:</p>
-        </div>
-
-        <div class="code-block">
-          <div class="code-header">
-            <span class="code-filename">style.css</span>
-            <span class="code-lang css">CSS</span>
+        <section class="hidden-section" id="sec-15">
+          <div class="section-header">
+            <div class="section-tag js">⚡ JavaScript</div>
+            <h1 class="section-title">Tema escuro</h1>
+            <p class="section-intro">Nesta aula, daremos continuidade ao desenvolvimento do modo escuro. Vamos criar um
+              botão e utilizar o JavaScript para manipular o DOM e permitir que o usuário alterne ativamente entre os
+              temas claro e escuro.</p>
           </div>
-          <pre class="code-body"><span class="hl-prop">.btn-tema-escuro</span> {
+
+          <div class="prose">
+            <h3>O Botão de Troca de Tema</h3>
+            <p>No arquivo <code>index.html</code>, adicione a tag
+              <code>&lt;button class="btn-tema-escuro"&gt;🌗&lt;/button&gt;</code> logo antes de fechar a tag
+              <code>&lt;/main&gt;</code>.
+            </p>
+            <p>Para posicioná-lo no canto inferior direito da tela, fixe-o utilizando CSS:</p>
+          </div>
+
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-filename">style.css</span>
+              <span class="code-lang css">CSS</span>
+            </div>
+            <pre class="code-body"><span class="hl-prop">.btn-tema-escuro</span> {
   <span class="hl-attr">position</span>: <span class="hl-val">fixed</span>;
   <span class="hl-attr">bottom</span>: <span class="hl-num">20px</span>;
   <span class="hl-attr">right</span>: <span class="hl-num">20px</span>;
@@ -2711,193 +2846,111 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span> (b
   <span class="hl-attr">border-radius</span>: <span class="hl-num">50%</span>;
   <span class="hl-attr">font-size</span>: <span class="hl-num">24px</span>;
 }</pre>
-        </div>
-
-        <div class="prose">
-          <h3>Implementando a Lógica em JS</h3>
-          <p>No arquivo <code>script.js</code>, utilizaremos <code>querySelector</code> para selecionar o botão.
-            Adicionaremos um escutador de eventos (<code>addEventListener</code>) para que, ao clicar, seja ativada uma
-            função que liga ou desliga a classe <code>tema-escuro</code> na tag <code>&lt;body&gt;</code>.</p>
-        </div>
-
-        <div class="code-block">
-          <div class="code-header">
-            <span class="code-filename">script.js</span>
-            <span class="code-lang js">JS</span>
           </div>
-          <pre class="code-body"><span class="hl-kw">const</span> btnTemaEscuro = document.<span
+
+          <div class="prose">
+            <h3>Implementando a Lógica em JS</h3>
+            <p>No arquivo <code>script.js</code>, utilizaremos <code>querySelector</code> para selecionar o botão.
+              Adicionaremos um escutador de eventos (<code>addEventListener</code>) para que, ao clicar, seja ativada
+              uma
+              função que liga ou desliga a classe <code>tema-escuro</code> na tag <code>&lt;body&gt;</code>.</p>
+          </div>
+
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-filename">script.js</span>
+              <span class="code-lang js">JS</span>
+            </div>
+            <pre class="code-body"><span class="hl-kw">const</span> btnTemaEscuro = document.<span
   class="hl-fn">querySelector</span>(<span class="hl-str2">".btn-tema-escuro"</span>);
 btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"</span>, mudaTema);
 <span class="hl-kw">function</span> <span class="hl-fn">mudaTema</span>() {
   document.body.classList.<span class="hl-fn">toggle</span>(<span class="hl-str2">"tema-escuro"</span>);
 }</pre>
-        </div>
+          </div>
 
-        <div class="nav-buttons">
-          <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
-          <button class="btn btn-primary" onclick="goTo(16)">Próximo: Acabamento →</button>
-        </div>
-      </section>
+          <div class="nav-buttons">
+            <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
+            <button class="btn btn-primary" onclick="goTo(16)">Próximo: Acabamento →</button>
+          </div>
+        </section>
 
-      <!-- ════════════════════════════════════════
+        <!-- ════════════════════════════════════════
        SEÇÃO 16 — ACABAMENTO
   ════════════════════════════════════════ -->
-      <section class="section" id="sec-16">
-        <div class="section-header">
-          <div class="section-tag css">✨ Acabamento</div>
-          <h1 class="section-title">Efeitos e sombras</h1>
-          <p class="section-intro">Para finalizar nosso projeto com chave de ouro, vamos revisar nossas implementações e
-            adicionar um acabamento elegante ao layout do blog: efeitos de transição CSS para o tema escuro e
-            sombreamento para destacar as postagens.</p>
-        </div>
-
-        <div class="prose">
-          <h3>Transição Suave de Temas</h3>
-          <p>A alternância de cores entre o tema claro e escuro pode ser abrupta. Para suavizar essa mudança,
-            aplicaremos a propriedade <code>transition</code> a todos os elementos usando o seletor universal
-            (<code>*</code>).</p>
-        </div>
-
-        <div class="code-block">
-          <div class="code-header">
-            <span class="code-filename">style.css</span>
-            <span class="code-lang css">CSS</span>
+        <section class="hidden-section" id="sec-16">
+          <div class="section-header">
+            <div class="section-tag css">✨ Acabamento</div>
+            <h1 class="section-title">Efeitos e sombras</h1>
+            <p class="section-intro">Para finalizar nosso projeto com chave de ouro, vamos revisar nossas implementações
+              e
+              adicionar um acabamento elegante ao layout do blog: efeitos de transição CSS para o tema escuro e
+              sombreamento para destacar as postagens.</p>
           </div>
-          <pre class="code-body"><span class="hl-prop">*</span> {
+
+          <div class="prose">
+            <h3>Transição Suave de Temas</h3>
+            <p>A alternância de cores entre o tema claro e escuro pode ser abrupta. Para suavizar essa mudança,
+              aplicaremos a propriedade <code>transition</code> a todos os elementos usando o seletor universal
+              (<code>*</code>).</p>
+          </div>
+
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-filename">style.css</span>
+              <span class="code-lang css">CSS</span>
+            </div>
+            <pre class="code-body"><span class="hl-prop">*</span> {
   <span class="hl-attr">transition</span>: <span class="hl-val">background-color</span> <span
   class="hl-num">0.3s</span> <span class="hl-val">ease</span>;
 }</pre>
-        </div>
-
-        <div class="prose">
-          <h3>Profundidade com Sombras</h3>
-          <p>Em vez de usar uma simples linha de borda (<code>border</code>) para delimitar as postagens (cards), a
-            propriedade <code>box-shadow</code> cria um efeito de profundidade, deixando a interface mais moderna e
-            atrativa.</p>
-        </div>
-
-        <div class="code-block">
-          <div class="code-header">
-            <span class="code-filename">style.css</span>
-            <span class="code-lang css">CSS</span>
           </div>
-          <pre class="code-body"><span class="hl-prop">article</span> {
+
+          <div class="prose">
+            <h3>Profundidade com Sombras</h3>
+            <p>Em vez de usar uma simples linha de borda (<code>border</code>) para delimitar as postagens (cards), a
+              propriedade <code>box-shadow</code> cria um efeito de profundidade, deixando a interface mais moderna e
+              atrativa.</p>
+          </div>
+
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-filename">style.css</span>
+              <span class="code-lang css">CSS</span>
+            </div>
+            <pre class="code-body"><span class="hl-prop">article</span> {
   <span class="hl-cmt">/* Remova a propriedade border e adicione a sombra */</span>
   <span class="hl-attr">box-shadow</span>: <span class="hl-num">0 4px 8px</span> <span
   class="hl-val">rgba</span>(<span class="hl-num">0,0,0,0.1</span>);
   <span class="hl-attr">border-radius</span>: <span class="hl-num">8px</span>;
 }</pre>
-        </div>
-
-        <div class="info-box tip">
-          <div class="ib-icon">🎉</div>
-          <div class="ib-content">
-            <div class="ib-title">Missão Cumprida!</div>
-            <p class="ib-text">Você revisou o projeto, organizou o código em arquivos HTML, CSS e JS separados,
-              adicionou modo responsivo e Dark Mode interativo. Seu blog agora está digno de um desenvolvedor front-end!
-            </p>
           </div>
-        </div>
 
-        <div class="nav-buttons">
-          <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
-          <button class="btn btn-primary" onclick="goTo(17)">Próximo: Deploy no GitHub →</button>
-        </div>
-      </section>
-
-      <!-- ════════════════════════════════════════
-       SEÇÃO 17 — PUBLICANDO SUA PÁGINA
-  ════════════════════════════════════════ -->
-      <section class="section" id="sec-17">
-        <div class="section-header">
-          <div class="section-tag html">🚀 Deploy</div>
-          <h1 class="section-title">Como publicar no GitHub Pages</h1>
-          <p class="section-intro">Para compartilhar seu projeto com o mundo, você precisa hospedá-lo online. O GitHub
-            Pages permite colocar sua página no ar gratuitamente em minutos, direto do seu repositório de código.</p>
-        </div>
-
-        <div class="prose">
-          <h3>Passo a Passo da Publicação</h3>
-        </div>
-
-        <div class="steps">
-          <div class="step">
-            <div class="step-num">1</div>
-            <div class="step-content">
-              <div class="step-title">Baixe seus arquivos do StackBlitz</div>
-              <div class="step-desc">No painel esquerdo do StackBlitz, localize o ícone de nuvem com uma seta para baixo
-                (<strong>Export Project</strong>). Clique nele para baixar todo o seu projeto compactado em um arquivo
-                <code>.zip</code>. Em seguida, extraia (descompacte) esse arquivo em uma pasta no seu computador.
-              </div>
+          <div class="info-box tip">
+            <div class="ib-icon">🎉</div>
+            <div class="ib-content">
+              <div class="ib-title">Missão Cumprida!</div>
+              <p class="ib-text">Você revisou o projeto, organizou o código em arquivos HTML, CSS e JS separados,
+                adicionou modo responsivo e Dark Mode interativo. Seu blog agora está digno de um desenvolvedor
+                front-end!
+              </p>
             </div>
           </div>
-          <div class="step">
-            <div class="step-num">2</div>
-            <div class="step-content">
-              <div class="step-title">Crie um Repositório no GitHub</div>
-              <div class="step-desc">Se ainda não tiver, crie uma conta no <a href="https://github.com" target="_blank"
-                  style="color:var(--navy);font-weight:600;">GitHub</a>. No seu painel, clique em <strong>New
-                  repository</strong> (Novo repositório), dê um nome ao seu projeto (ex: <em>meu-blog-filmes</em>),
-                certifique-se de que ele seja <strong>Public</strong> (Público) e clique em <em>Create repository</em>.
-              </div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">3</div>
-            <div class="step-content">
-              <div class="step-title">Faça o upload dos arquivos</div>
-              <div class="step-desc">Na tela do repositório vazio, clique no link <strong>"uploading an existing
-                  file"</strong>. Arraste e solte todos os arquivos que você extraiu no Passo 1
-                (<code>index.html</code>, <code>styles.css</code>, <code>script.js</code>, etc.). Role a página para
-                baixo e clique no botão verde <em>Commit changes</em>.</div>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-num">4</div>
-            <div class="step-content">
-              <div class="step-title">Ative o GitHub Pages</div>
-              <div class="step-desc">Vá até a aba <strong>Settings</strong> (Configurações) do seu repositório e clique
-                em <strong>Pages</strong> (no menu lateral esquerdo). Onde diz <em>Source</em> (ou Branch), mude de
-                <code>None</code> para <code>main</code> (ou <code>master</code>) e clique em <em>Save</em>. Em alguns
-                minutos, seu site estará online no link indicado!
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="info-box concept">
-          <div class="ib-icon">⚡</div>
-          <div class="ib-content">
-            <div class="ib-title">O jeito mais rápido (Integração Direta)</div>
-            <p class="ib-text">Se quiser pular o processo de baixar e subir arquivos manualmente, o StackBlitz possui um
-              botão <strong>Connect Repository</strong> no canto superior esquerdo. Com ele, você faz login com sua
-              conta do GitHub e o StackBlitz cria o repositório e envia os arquivos automaticamente por você. Depois,
-              basta ir no GitHub e ativar o Pages no Passo 4!</p>
+          <div class="nav-buttons">
+            <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
+            <button class="btn btn-primary" onclick="goTo(17)">Próximo: Deploy no GitHub →</button>
           </div>
-        </div>
-
-        <div class="info-box tip">
-          <div class="ib-icon">🌐</div>
-          <div class="ib-content">
-            <div class="ib-title">Compartilhe!</div>
-            <p class="ib-text">Pronto! Com o link do GitHub Pages, qualquer pessoa no mundo pode acessar o seu blog.
-              Envie para seus amigos e professores!</p>
-          </div>
-        </div>
-
-        <div class="nav-buttons">
-          <button class="btn btn-ghost" onclick="goTo(16)">← Anterior</button>
-          <button class="btn btn-primary" onclick="goTo(18)">Próximo: Entrega Parcial →</button>
-        </div>
-      </section>
+        </section>
+      </div><!-- /Fim do bloco oculto -->
 
       <!-- ════════════════════════════════════════
        SEÇÃO 18 — ENTREGA PARCIAL
   ════════════════════════════════════════ -->
       <section class="section" id="sec-18">
         <div class="section-header">
-          <div class="section-tag intro">🎓 Avaliação</div>
-          <h1 class="section-title">Guia de Entrega Parcial</h1>
+          <div class="section-tag intro">🎓 Avaliação - 2,0 pontos</div>
+          <h1 class="section-title">Guia da 1ª entrega parcial - 2,0 pontos</h1>
           <p class="section-intro">Esta seção contém todas as instruções e requisitos para a entrega da primeira parte
             do projeto. A entrega deve ser feita fornecendo o link do seu projeto finalizado no StackBlitz.</p>
         </div>
@@ -3001,33 +3054,124 @@ btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">
             <span class="code-filename">script.js (Exemplo de funcionamento)</span>
             <span class="code-lang js">JS</span>
           </div>
-         <pre class="code-body"><span class="hl-kw">const</span> botoes = document.<span class="hl-fn">querySelectorAll</span>(<span class="hl-str2">"button"</span>);
+          <pre class="code-body"><span class="hl-cmt">// Lógica para curtir os posts</span>
+<span class="hl-kw">const</span> botoes = <span class="hl-fn">document</span>.<span class="hl-fn">querySelectorAll</span>(<span class="hl-str">"article button"</span>);
+
 botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(botao) {
-  <span class="hl-cmt">// Cada botão da lista possui sua própria variável de controle (booleana)</span>
   <span class="hl-kw">let</span> curtiu = <span class="hl-kw">false</span>;
-  botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str2">"click"</span>, botaoClicado);
+
+  botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str">"click"</span>, botaoClicado);
+
   <span class="hl-kw">function</span> <span class="hl-fn">botaoClicado</span>() {
-    <span class="hl-kw">let</span> contador = botao.<span class="hl-fn">querySelector</span>(<span class="hl-str2">"span"</span>);
-    <span class="hl-cmt">// Condicional que verifica se o usuário ainda não curtiu</span>
+    <span class="hl-kw">let</span> contador = botao.<span class="hl-fn">querySelector</span>(<span class="hl-str">"span"</span>);
+    
     <span class="hl-kw">if</span> (curtiu === <span class="hl-kw">false</span>) {
-      contador.textContent++; <span class="hl-cmt">// Incrementa o contador do botão</span>
-      curtiu = <span class="hl-kw">true</span>; <span class="hl-cmt">// Marca como curtido</span>
+      contador.<span class="hl-prop">textContent</span>++; 
+      curtiu = <span class="hl-kw">true</span>;          
     }
   }
 });</pre>
         </div>
 
         <div class="nav-buttons">
-          <button class="btn btn-ghost" onclick="goTo(17)">← Anterior</button>
+          <button class="btn btn-ghost" onclick="goTo(9)">← Anterior</button>
+          <button class="btn btn-ghost" onclick="goTo(11)">Próximo: Publicação (Extra) →</button>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+       SEÇÃO 17 — PUBLICANDO SUA PÁGINA
+  ════════════════════════════════════════ -->
+      <section class="section" id="sec-17">
+        <div class="section-header">
+          <div class="section-tag html">🚀 Deploy</div>
+          <h1 class="section-title">Como publicar no GitHub Pages (Extra)</h1>
+          <p class="section-intro">Para compartilhar seu projeto com o mundo, você pode hospedá-lo online. O GitHub
+            Pages permite colocar sua página no ar gratuitamente em minutos, direto do seu repositório de código. Esse
+            passo é <strong>opcional</strong>, mas altamente recomendado!</p>
+        </div>
+
+        <div class="prose">
+          <h3>Passo a Passo da Publicação</h3>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <div class="step-title">Baixe seus arquivos do StackBlitz</div>
+              <div class="step-desc">No painel esquerdo do StackBlitz, localize o ícone de nuvem com uma seta para baixo
+                (<strong>Export Project</strong>). Clique nele para baixar todo o seu projeto compactado em um arquivo
+                <code>.zip</code>. Em seguida, extraia (descompacte) esse arquivo em uma pasta no seu computador.
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <div class="step-title">Crie um Repositório no GitHub</div>
+              <div class="step-desc">Se ainda não tiver, crie uma conta no <a href="https://github.com" target="_blank"
+                  style="color:var(--navy);font-weight:600;">GitHub</a>. No seu painel, clique em <strong>New
+                  repository</strong> (Novo repositório), dê um nome ao seu projeto (ex: <em>meu-blog-filmes</em>),
+                certifique-se de que ele seja <strong>Public</strong> (Público) e clique em <em>Create repository</em>.
+              </div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <div class="step-title">Faça o upload dos arquivos</div>
+              <div class="step-desc">Na tela do repositório vazio, clique no link <strong>"uploading an existing
+                  file"</strong>. Arraste e solte todos os arquivos que você extraiu no Passo 1
+                (<code>index.html</code>, <code>styles.css</code>, <code>script.js</code>, etc.). Role a página para
+                baixo e clique no botão verde <em>Commit changes</em>.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <div class="step-title">Ative o GitHub Pages</div>
+              <div class="step-desc">Vá até a aba <strong>Settings</strong> (Configurações) do seu repositório e clique
+                em <strong>Pages</strong> (no menu lateral esquerdo). Onde diz <em>Source</em> (ou Branch), mude de
+                <code>None</code> para <code>main</code> (ou <code>master</code>) e clique em <em>Save</em>. Em alguns
+                minutos, seu site estará online no link indicado!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box concept">
+          <div class="ib-icon">⚡</div>
+          <div class="ib-content">
+            <div class="ib-title">O jeito mais rápido (Integração Direta)</div>
+            <p class="ib-text">Se quiser pular o processo de baixar e subir arquivos manualmente, o StackBlitz possui um
+              botão <strong>Connect Repository</strong> no canto superior esquerdo. Com ele, você faz login com sua
+              conta do GitHub e o StackBlitz cria o repositório e envia os arquivos automaticamente por você. Depois,
+              basta ir no GitHub e ativar o Pages no Passo 4!</p>
+          </div>
+        </div>
+
+        <div class="info-box tip">
+          <div class="ib-icon">🌐</div>
+          <div class="ib-content">
+            <div class="ib-title">Compartilhe!</div>
+            <p class="ib-text">Pronto! Com o link do GitHub Pages, qualquer pessoa no mundo pode acessar o seu blog.
+              Envie para seus amigos e professores!</p>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-ghost" onclick="goTo(10)">← Anterior</button>
           <button class="btn btn-ghost" disabled>Fim do tutorial ✓</button>
         </div>
       </section>
+
 
     </div><!-- /content-area -->
   </main>
 
   <script>
-    const totalSections = 19;
+    const totalSections = 12;
     let currentSection = 0;
 
     // Adicionar botão de copiar em todos os blocos de código
@@ -3052,7 +3196,32 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(bo
       }
     });
 
+
+    function toggleNavGroup(groupId, labelEl) {
+      const group = document.getElementById(groupId);
+      if(group) {
+        group.classList.toggle('collapsed');
+        labelEl.classList.toggle('collapsed');
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      const btn = document.querySelector('.mobile-menu-btn');
+      if (window.scrollY > 40) {
+        btn.classList.add('scrolled');
+      } else {
+        btn.classList.remove('scrolled');
+      }
+    });
+
+    function toggleMobileNav() {
+      document.body.classList.toggle('mobile-nav-open');
+    }
+
     function goTo(idx) {
+      if (document.body.classList.contains('mobile-nav-open')) {
+        toggleMobileNav();
+      }
       document.querySelectorAll('.section').forEach((s, i) => {
         s.classList.toggle('active', i === idx);
       });
