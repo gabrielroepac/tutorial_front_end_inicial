@@ -5,18 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tutorial: criando sua primeira página web</title>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HPRZ1M9HTR"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-HPRZ1M9HTR');
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Source+Code+Pro:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Source+Code+Pro:wght@400;600&family=Inter:wght@400;500;600&display=swap');
 
     :root {
       --navy: #1a2744;
@@ -870,6 +860,14 @@
       }
     }
   </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HPRZ1M9HTR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HPRZ1M9HTR');
+  </script>
 </head>
 
 <body>
@@ -962,6 +960,16 @@
     <div id="grp-extra" class="nav-group">
       <a class="nav-item" onclick="goTo(11)" href="#">
         <span>🚀</span> Deploy no GitHub <span class="nav-badge html">Git</span>
+      </a>
+    </div>
+
+    <div class="nav-section-label" onclick="toggleNavGroup('grp-recuperacao', this)">
+      <span>Recuperação</span>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div id="grp-recuperacao" class="nav-group">
+      <a class="nav-item" onclick="goTo(12)" href="#">
+        <span>📋</span> Código Completo <span class="nav-badge js">Recuperação</span>
       </a>
     </div>
 
@@ -1088,7 +1096,7 @@
               <div class="step-desc">O StackBlitz mostrará três painéis: à esquerda os <strong>arquivos</strong> do
                 projeto, ao centro o <strong>editor de código</strong> e à direita uma <strong>pré-visualização</strong>
                 da página.
-                <img src="stackblitz-interface.png" alt="Interface do StackBlitz" class="step-img" loading="lazy" />
+                <img src="stackblitz-interface.png" alt="Interface do StackBlitz" class="step-img" />
               </div>
             </div>
           </div>
@@ -1098,7 +1106,7 @@
               <div class="step-title">Abra o arquivo index.html</div>
               <div class="step-desc">No painel de arquivos, clique em <strong>index.html</strong>. Este será o arquivo
                 principal de sua página. Ao abrir o arquivo, apague tudo que está dentro dele, pois começaremos do zero.
-                <img src="stackblitz-arquivos.png" alt="Painel de arquivos do StackBlitz" class="step-img" loading="lazy" />
+                <img src="stackblitz-arquivos.png" alt="Painel de arquivos do StackBlitz" class="step-img" />
               </div>
             </div>
           </div>
@@ -3210,16 +3218,269 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(bo
         </div>
 
         <div class="nav-buttons">
-          <button class="btn btn-ghost" onclick="goTo(18)">← Anterior</button>
-          <button class="btn btn-ghost" disabled>Fim do tutorial ✓</button>
+          <button class="btn btn-ghost" onclick="goTo(10)">← Anterior</button>
+          <button class="btn btn-primary" onclick="goTo(12)">Próximo: Código Completo (Recuperação) →</button>
         </div>
       </section>
 
 
+    
+      <!-- ════════════════════════════════════════
+       SEÇÃO 12 — RECUPERAÇÃO / CÓDIGO COMPLETO
+  ════════════════════════════════════════ -->
+      <section class="section" id="sec-recuperacao">
+        <div class="section-header">
+          <div class="section-tag intro">📋 Recuperação</div>
+          <h1 class="section-title">Código Completo do Projeto (Recuperação)</h1>
+          <p class="section-intro">Para os alunos que estão atrasados ou precisam fazer a recuperação do projeto, esta seção reúne o código fonte inteiro e copiavel dos 3 arquivos necessários para colocar o seu <strong>Blog</strong> para funcionar no StackBlitz.</p>
+        </div>
+
+        <div class="info-box tip">
+          <div class="ib-icon">💡</div>
+          <div class="ib-content">
+            <div class="ib-title">Como usar esta seção?</div>
+            <p class="ib-text">No seu projeto do StackBlitz, crie/abra os arquivos <code>index.html</code>, <code>styles.css</code> e <code>script.js</code>. Clique no botão <strong>"Copiar"</strong> no canto superior de cada bloco abaixo e cole o conteúdo dentro do respectivo arquivo.</p>
+          </div>
+        </div>
+
+        <!-- 1. HTML Completo -->
+        <div class="prose">
+          <h3>1. Arquivo <code>index.html</code></h3>
+          <p>Substitua todo o conteúdo do seu arquivo <code>index.html</code> pelo código abaixo:</p>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-filename">index.html</span>
+            <span class="code-lang html">HTML</span>
+          </div>
+          <pre class="code-body">&lt;<span class="hl-tag">!DOCTYPE html</span>&gt;
+&lt;<span class="hl-tag">html</span> <span class="hl-attr">lang</span>=<span class="hl-str">"pt-BR"</span>&gt;
+
+&lt;<span class="hl-tag">head</span>&gt;
+  &lt;<span class="hl-tag">meta</span> <span class="hl-attr">charset</span>=<span class="hl-str">"UTF-8"</span>&gt;
+  &lt;<span class="hl-tag">meta</span> <span class="hl-attr">name</span>=<span class="hl-str">"viewport"</span> <span class="hl-attr">content</span>=<span class="hl-str">"width=device-width, initial-scale=1.0"</span>&gt;
+  &lt;<span class="hl-tag">title</span>&gt;Título do Meu Blog&lt;/<span class="hl-tag">title</span>&gt;
+  &lt;<span class="hl-tag">link</span> <span class="hl-attr">rel</span>=<span class="hl-str">"stylesheet"</span> <span class="hl-attr">href</span>=<span class="hl-str">"styles.css"</span>&gt;
+&lt;/<span class="hl-tag">head</span>&gt;
+
+&lt;<span class="hl-tag">body</span>&gt;
+
+  &lt;<span class="hl-tag">header</span>&gt;
+    &lt;<span class="hl-tag">h1</span>&gt;🎬 Título do Meu Blog&lt;/<span class="hl-tag">h1</span>&gt;
+    &lt;<span class="hl-tag">p</span>&gt;Subtítulo ou descrição curta do seu blog&lt;/<span class="hl-tag">p</span>&gt;
+  &lt;/<span class="hl-tag">header</span>&gt;
+
+  &lt;<span class="hl-tag">main</span>&gt;
+    &lt;!--<span class="hl-cmt"> Post 1 </span>--&gt;
+    &lt;<span class="hl-tag">article</span>&gt;
+      &lt;!--<span class="hl-cmt"> Para colocar uma imagem: procure a imagem na internet, clique com o botão direito nela e selecione "Copiar endereço da imagem". Cole o link no atributo src="" abaixo: </span>--&gt;
+      &lt;<span class="hl-tag">img</span> <span class="hl-attr">src</span>=<span class="hl-str">"LINK_DA_SUA_IMAGEM_AQUI"</span> <span class="hl-attr">alt</span>=<span class="hl-str">"Descrição da imagem 1"</span>&gt;
+      &lt;<span class="hl-tag">div</span>&gt;
+        &lt;<span class="hl-tag">h2</span>&gt;Título da Postagem 1&lt;/<span class="hl-tag">h2</span>&gt;
+        &lt;<span class="hl-tag">p</span> <span class="hl-attr">class</span>=<span class="hl-str">"autor"</span>&gt;Por: &lt;<span class="hl-tag">strong</span>&gt;Seu Nome&lt;/<span class="hl-tag">strong</span>&gt;&lt;/<span class="hl-tag">p</span>&gt;
+        &lt;<span class="hl-tag">p</span>&gt;Texto da postagem aqui. Escreva aqui sobre o assunto escolhido para a sua primeira postagem.&lt;/<span class="hl-tag">p</span>&gt;
+        &lt;<span class="hl-tag">p</span> <span class="hl-attr">class</span>=<span class="hl-str">"artigo-fonte"</span>&gt;Fonte: &lt;<span class="hl-tag">a</span> <span class="hl-attr">href</span>=<span class="hl-str">"https://pt.wikipedia.org"</span> <span class="hl-attr">target</span>=<span class="hl-str">"_blank"</span>&gt;Wikipédia&lt;/<span class="hl-tag">a</span>&gt;&lt;/<span class="hl-tag">p</span>&gt;
+        &lt;<span class="hl-tag">button</span>&gt;❤️ &lt;<span class="hl-tag">span</span>&gt;0&lt;/<span class="hl-tag">span</span>&gt;&lt;/<span class="hl-tag">button</span>&gt;
+        &lt;<span class="hl-tag">button</span>&gt;👍 &lt;<span class="hl-tag">span</span>&gt;0&lt;/<span class="hl-tag">span</span>&gt;&lt;/<span class="hl-tag">button</span>&gt;
+      &lt;/<span class="hl-tag">div</span>&gt;
+    &lt;/<span class="hl-tag">article</span>&gt;
+
+    &lt;!--<span class="hl-cmt"> Post 2 </span>--&gt;
+    &lt;<span class="hl-tag">article</span>&gt;
+      &lt;!--<span class="hl-cmt"> Para colocar uma imagem: procure a imagem na internet, clique com o botão direito nela e selecione "Copiar endereço da imagem". Cole o link no atributo src="" abaixo: </span>--&gt;
+      &lt;<span class="hl-tag">img</span> <span class="hl-attr">src</span>=<span class="hl-str">"LINK_DA_SUA_IMAGEM_AQUI"</span> <span class="hl-attr">alt</span>=<span class="hl-str">"Descrição da imagem 2"</span>&gt;
+      &lt;<span class="hl-tag">div</span>&gt;
+        &lt;<span class="hl-tag">h2</span>&gt;Título da Postagem 2&lt;/<span class="hl-tag">h2</span>&gt;
+        &lt;<span class="hl-tag">p</span> <span class="hl-attr">class</span>=<span class="hl-str">"autor"</span>&gt;Por: &lt;<span class="hl-tag">strong</span>&gt;Seu Nome&lt;/<span class="hl-tag">strong</span>&gt;&lt;/<span class="hl-tag">p</span>&gt;
+        &lt;<span class="hl-tag">p</span>&gt;Texto da postagem aqui. Escreva aqui sobre o assunto escolhido para a sua segunda postagem.&lt;/<span class="hl-tag">p</span>&gt;
+        &lt;<span class="hl-tag">p</span> <span class="hl-attr">class</span>=<span class="hl-str">"artigo-fonte"</span>&gt;Fonte: &lt;<span class="hl-tag">a</span> <span class="hl-attr">href</span>=<span class="hl-str">"https://pt.wikipedia.org"</span> <span class="hl-attr">target</span>=<span class="hl-str">"_blank"</span>&gt;Wikipédia&lt;/<span class="hl-tag">a</span>&gt;&lt;/<span class="hl-tag">p</span>&gt;
+        &lt;<span class="hl-tag">button</span>&gt;❤️ &lt;<span class="hl-tag">span</span>&gt;0&lt;/<span class="hl-tag">span</span>&gt;&lt;/<span class="hl-tag">button</span>&gt;
+        &lt;<span class="hl-tag">button</span>&gt;👍 &lt;<span class="hl-tag">span</span>&gt;0&lt;/<span class="hl-tag">span</span>&gt;&lt;/<span class="hl-tag">button</span>&gt;
+      &lt;/<span class="hl-tag">div</span>&gt;
+    &lt;/<span class="hl-tag">article</span>&gt;
+
+    &lt;!--<span class="hl-cmt"> Botão Flutuante do Tema Escuro </span>--&gt;
+    &lt;<span class="hl-tag">button</span> <span class="hl-attr">class</span>=<span class="hl-str">"btn-tema-escuro"</span>&gt;🌗&lt;/<span class="hl-tag">button</span>&gt;
+  &lt;/<span class="hl-tag">main</span>&gt;
+
+  &lt;<span class="hl-tag">script</span> <span class="hl-attr">src</span>=<span class="hl-str">"script.js"</span>&gt;&lt;/<span class="hl-tag">script</span>&gt;
+&lt;/<span class="hl-tag">body</span>&gt;
+
+&lt;/<span class="hl-tag">html</span>&gt;</pre>
+        </div>
+
+        <!-- 2. CSS Completo -->
+        <div class="prose">
+          <h3>2. Arquivo <code>styles.css</code></h3>
+          <p>Substitua todo o conteúdo do seu arquivo <code>styles.css</code> pelo código abaixo:</p>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-filename">styles.css</span>
+            <span class="code-lang css">CSS</span>
+          </div>
+          <pre class="code-body"><span class="hl-tag">* </span>{
+  <span class="hl-prop">box-sizing</span>: border-box;
+  <span class="hl-prop">transition</span>: background-color <span class="hl-num">0.3s</span> ease;
+}
+
+<span class="hl-tag">body </span>{
+  <span class="hl-prop">font-family</span>: sans-serif;
+  <span class="hl-prop">background-color</span>: <span class="hl-val">#faf8f4</span>;
+  <span class="hl-prop">margin</span>: <span class="hl-num">0</span>;
+  <span class="hl-prop">padding</span>: <span class="hl-num">10px</span>;
+  <span class="hl-prop">color</span>: <span class="hl-val">#1a2744</span>;
+}
+
+<span class="hl-tag">header </span>{
+  <span class="hl-prop">background-color</span>: <span class="hl-val">#1a2744</span>;
+  <span class="hl-prop">color</span>: <span class="hl-val">#ffffff</span>;
+  <span class="hl-prop">text-align</span>: center;
+  <span class="hl-prop">padding</span>: <span class="hl-num">32px</span> <span class="hl-num">16px</span>;
+  <span class="hl-prop">border-radius</span>: <span class="hl-num">8px</span>;
+}
+
+<span class="hl-tag">header h1 </span>{
+  <span class="hl-prop">margin</span>: <span class="hl-num">0</span> <span class="hl-num">0</span> <span class="hl-num">8px</span> <span class="hl-num">0</span>;
+}
+
+<span class="hl-tag">header p </span>{
+  <span class="hl-prop">margin</span>: <span class="hl-num">0</span>;
+}
+
+<span class="hl-tag">main </span>{
+  <span class="hl-prop">background-color</span>: <span class="hl-val">#ffffff</span>;
+  <span class="hl-prop">margin</span>: <span class="hl-num">20px</span> auto;
+  <span class="hl-prop">padding</span>: <span class="hl-num">24px</span>;
+  <span class="hl-prop">border-radius</span>: <span class="hl-num">8px</span>;
+  <span class="hl-prop">max-width</span>: <span class="hl-num">800px</span>;
+  <span class="hl-prop">display</span>: flex;
+  <span class="hl-prop">flex-direction</span>: column;
+  <span class="hl-prop">align-items</span>: center;
+  <span class="hl-prop">gap</span>: <span class="hl-num">20px</span>;
+}
+
+<span class="hl-tag">article </span>{
+  <span class="hl-prop">display</span>: flex;
+  <span class="hl-prop">flex-direction</span>: column;
+  <span class="hl-prop">align-items</span>: center;
+  <span class="hl-prop">text-align</span>: center;
+  <span class="hl-prop">gap</span>: <span class="hl-num">16px</span>;
+  <span class="hl-prop">padding</span>: <span class="hl-num">20px</span>;
+  <span class="hl-prop">border-radius</span>: <span class="hl-num">8px</span>;
+  <span class="hl-prop">box-shadow</span>: <span class="hl-num">0</span> <span class="hl-num">4px</span> <span class="hl-num">8px</span> rgba(<span class="hl-num">0</span>, <span class="hl-num">0</span>, <span class="hl-num">0</span>, <span class="hl-num">0.1</span>);
+  <span class="hl-prop">background-color</span>: <span class="hl-val">#ffffff</span>;
+  <span class="hl-prop">width</span>: <span class="hl-num">100</span>%;
+}
+
+<span class="hl-tag">img </span>{
+  <span class="hl-prop">width</span>: <span class="hl-num">120px</span>;
+  <span class="hl-prop">height</span>: <span class="hl-num">170px</span>;
+  <span class="hl-prop">border-radius</span>: <span class="hl-num">8px</span>;
+}
+
+<span class="hl-tag">h2 </span>{
+  <span class="hl-prop">margin</span>: <span class="hl-num">0</span> <span class="hl-num">0</span> <span class="hl-num">8px</span> <span class="hl-num">0</span>;
+  <span class="hl-prop">color</span>: <span class="hl-val">#1a2744</span>;
+}
+
+<span class="hl-tag">.autor </span>{
+  <span class="hl-prop">color</span>: <span class="hl-val">#<span class="hl-num">888888</span></span>;
+  <span class="hl-prop">font-size</span>: <span class="hl-num">14px</span>;
+  <span class="hl-prop">margin</span>: <span class="hl-num">0</span> <span class="hl-num">0</span> <span class="hl-num">12px</span> <span class="hl-num">0</span>;
+}
+
+<span class="hl-tag">p </span>{
+  <span class="hl-prop">line-height</span>: <span class="hl-num">1.6</span>;
+  <span class="hl-prop">color</span>: <span class="hl-val">#4a5568</span>;
+  <span class="hl-prop">margin</span>: <span class="hl-num">0</span> <span class="hl-num">0</span> <span class="hl-num">12px</span> <span class="hl-num">0</span>;
+}
+
+<span class="hl-tag">.artigo-fonte </span>{
+  <span class="hl-prop">font-size</span>: <span class="hl-num">12px</span>;
+}
+
+<span class="hl-tag">.artigo-fonte a </span>{
+  <span class="hl-prop">color</span>: <span class="hl-val">#e8a020</span>;
+  <span class="hl-prop">text-decoration</span>: none;
+  <span class="hl-prop">font-weight</span>: bold;
+}
+
+<span class="hl-tag">button </span>{
+  <span class="hl-prop">padding</span>: <span class="hl-num">8px</span> <span class="hl-num">16px</span>;
+  <span class="hl-prop">border</span>: <span class="hl-num">1px</span> solid <span class="hl-val">#ccc</span>;
+  <span class="hl-prop">border-radius</span>: <span class="hl-num">20px</span>;
+  <span class="hl-prop">background-color</span>: <span class="hl-val">#ffffff</span>;
+  <span class="hl-prop">cursor</span>: pointer;
+  <span class="hl-prop">margin-right</span>: <span class="hl-num">8px</span>;
+}
+
+<span class="hl-tag">button:hover </span>{
+  <span class="hl-prop">background-color</span>: <span class="hl-val">#f0f0f0</span>;
+}
+
+<span class="hl-tag">.btn-tema-escuro </span>{
+  <span class="hl-prop">position</span>: fixed;
+  <span class="hl-prop">bottom</span>: <span class="hl-num">20px</span>;
+  <span class="hl-prop">right</span>: <span class="hl-num">20px</span>;
+  <span class="hl-prop">padding</span>: <span class="hl-num">12px</span>;
+  <span class="hl-prop">border-radius</span>: <span class="hl-num">50</span>%;
+  <span class="hl-prop">font-size</span>: <span class="hl-num">24px</span>;
+}
+
+<span class="hl-tag">.tema-escuro </span>{
+  <span class="hl-prop">background-color</span>: <span class="hl-val">#0f172a</span>;
+  <span class="hl-prop">color</span>: <span class="hl-val">#ffffff</span>;
+}</pre>
+        </div>
+
+        <!-- 3. JS Completo -->
+        <div class="prose">
+          <h3>3. Arquivo <code>script.js</code></h3>
+          <p>Substitua todo o conteúdo do seu arquivo <code>script.js</code> pelo código abaixo:</p>
+        </div>
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-filename">script.js</span>
+            <span class="code-lang js">JS</span>
+          </div>
+          <pre class="code-body"><span class="hl-kw">const</span> botoes = <span class="hl-prop">document</span>.<span class="hl-fn">querySelectorAll</span>(<span class="hl-str">"article button"</span>);
+
+botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(botao) {
+  <span class="hl-kw">let</span> curtiu = <span class="hl-kw">false</span>;
+
+  botao.<span class="hl-fn">addEventListener</span>(<span class="hl-str">"click"</span>, botaoClicado);
+
+  <span class="hl-kw">function</span> <span class="hl-fn">botaoClicado</span>() {
+    <span class="hl-kw">let</span> contador = botao.<span class="hl-fn">querySelector</span>(<span class="hl-str">"span"</span>);
+
+    <span class="hl-kw">if</span> (curtiu === <span class="hl-kw">false</span>) {
+      contador.<span class="hl-prop">textContent</span>++;
+      curtiu = <span class="hl-kw">true</span>;
+    }
+  }
+});
+
+<span class="hl-kw">const</span> btnTemaEscuro = <span class="hl-prop">document</span>.<span class="hl-fn">querySelector</span>(<span class="hl-str">".btn-tema-escuro"</span>);
+
+btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str">"click"</span>, mudaTema);
+
+<span class="hl-kw">function</span> <span class="hl-fn">mudaTema</span>() {
+  <span class="hl-prop">document</span>.<span class="hl-prop">body</span>.<span class="hl-prop">classList</span>.<span class="hl-fn">toggle</span>(<span class="hl-str">"tema-escuro"</span>);
+}</pre>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn btn-ghost" onclick="goTo(11)">← Anterior: Deploy no GitHub</button>
+          <button class="btn btn-ghost" disabled>Fim do tutorial ✓</button>
+        </div>
+      </section>
+
     </div><!-- /content-area -->
   </main>
+
   <script>
-    const totalSections = 12;
+    const totalSections = 13;
     let currentSection = 0;
 
     // Adicionar botão de copiar em todos os blocos de código
@@ -3290,6 +3551,7 @@ botoes.<span class="hl-fn">forEach</span>(<span class="hl-kw">function</span>(bo
 
     updateProgress();
   </script>
+
 </body>
 
 </html>
