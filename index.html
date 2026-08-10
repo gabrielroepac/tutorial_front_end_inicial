@@ -54,18 +54,54 @@
       left: 0;
       width: 260px;
       height: 100vh;
+      height: 100dvh;
       background: var(--navy);
-      padding: 28px 0 24px;
-      overflow-y: auto;
+      padding: 24px 0 16px;
       z-index: 100;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sidebar-logo {
+      padding: 0 24px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+      margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-scroll-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) rgba(0, 0, 0, 0.2);
+    }
+
+    /* Barra de rolagem destacada para o menu lateral */
+    .sidebar-scroll-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .sidebar-scroll-content::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-scroll-content::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 4px;
+    }
+
+    .sidebar-scroll-content::-webkit-scrollbar-thumb:hover {
+      background: var(--gold-light);
     }
 
     .sidebar-logo {
       padding: 0 24px 24px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.10);
       margin-bottom: 16px;
+      flex-shrink: 0;
     }
 
     .sidebar-logo .logo-title {
@@ -84,6 +120,7 @@
     }
 
     .nav-section-label {
+      flex-shrink: 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -174,6 +211,7 @@
       margin-top: auto;
       padding: 20px 24px 0;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
+      flex-shrink: 0;
     }
 
     .progress-label {
@@ -885,121 +923,123 @@
       <div class="logo-sub">Tutorial completo - html, css e js</div>
     </div>
 
-    <div class="nav-section-label" onclick="toggleNavGroup('grp-inicio', this)">
-      <span>Parte 1: início</span>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div id="grp-inicio" class="nav-group">
-      <a class="nav-item active" onclick="goTo(0)" href="#">
-        <span>🚀</span> Boas-vindas <span class="nav-badge">Início</span>
-      </a>
-      <a class="nav-item" onclick="goTo(1)" href="#">
-        <span>🛠️</span> O StackBlitz
-      </a>
-    </div>
-
-    <div class="nav-section-label" onclick="toggleNavGroup('grp-html', this)">
-      <span>HTML</span>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div id="grp-html" class="nav-group">
-      <a class="nav-item" onclick="goTo(2)" href="#">
-        <span>📄</span> Estrutura HTML <span class="nav-badge html">HTML</span>
-      </a>
-      <a class="nav-item" onclick="goTo(3)" href="#">
-        <span>✏️</span> Tags de texto <span class="nav-badge html">HTML</span>
-      </a>
-    </div>
-
-    <div class="nav-section-label" onclick="toggleNavGroup('grp-css', this)">
-      <span>CSS</span>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div id="grp-css" class="nav-group">
-      <a class="nav-item" onclick="goTo(4)" href="#">
-        <span>🎨</span> Estilizando com CSS <span class="nav-badge css">CSS</span>
-      </a>
-      <a class="nav-item" onclick="goTo(5)" href="#">
-        <span>📦</span> Box model e imagens <span class="nav-badge css">CSS</span>
-      </a>
-      <a class="nav-item" onclick="goTo(6)" href="#">
-        <span>🔲</span> Flexbox e classes <span class="nav-badge css">CSS</span>
-      </a>
-    </div>
-
-    <div class="nav-section-label" onclick="toggleNavGroup('grp-js', this)">
-      <span>JavaScript</span>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div id="grp-js" class="nav-group">
-      <a class="nav-item" onclick="goTo(7)" href="#">
-        <span>⚡</span> Contador de likes <span class="nav-badge js">JS</span>
-      </a>
-      <a class="nav-item" onclick="goTo(8)" href="#">
-        <span>👥</span> Múltiplos elementos <span class="nav-badge js">JS</span>
-      </a>
-      <a class="nav-item" onclick="goTo(9)" href="#">
-        <span>🔒</span> Lógica de curtidas <span class="nav-badge js">JS</span>
-      </a>
-    </div>
-
-    <div class="nav-section-label" onclick="toggleNavGroup('grp-aval', this)">
-      <span>Avaliação - 2,0 pontos</span>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div id="grp-aval" class="nav-group">
-      <a class="nav-item" onclick="goTo(10)" href="#">
-        <span>🎓</span> Entrega parcial I
-      </a>
-    </div>
-
-    <div class="nav-section-label" onclick="toggleNavGroup('grp-extra', this)">
-      <span>Extra: publicação</span>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div id="grp-extra" class="nav-group">
-      <a class="nav-item" onclick="goTo(11)" href="#">
-        <span>🚀</span> Deploy no GitHub <span class="nav-badge html">Git</span>
-      </a>
-    </div>
-
-    <div class="nav-section-label" onclick="toggleNavGroup('grp-recuperacao', this)">
-      <span>Recuperação</span>
-      <span class="toggle-icon">▼</span>
-    </div>
-    <div id="grp-recuperacao" class="nav-group">
-      <a class="nav-item" onclick="goTo(12)" href="#">
-        <span>📋</span> Código Completo <span class="nav-badge js">Recuperação</span>
-      </a>
-    </div>
-
-    <div style="display: none;">
-      <div class="nav-section-label" onclick="toggleNavGroup('grp-p2', this)">
-        <span>Parte 2: aprimorando</span>
+    <div class="sidebar-scroll-content">
+      <div class="nav-section-label" onclick="toggleNavGroup('grp-inicio', this)">
+        <span>Parte 1: início</span>
         <span class="toggle-icon">▼</span>
       </div>
-      <div id="grp-p2" class="nav-group">
+      <div id="grp-inicio" class="nav-group">
+        <a class="nav-item active" onclick="goTo(0)" href="#">
+          <span>🚀</span> Boas-vindas <span class="nav-badge">Início</span>
+        </a>
+        <a class="nav-item" onclick="goTo(1)" href="#">
+          <span>🛠️</span> O StackBlitz
+        </a>
+      </div>
+
+      <div class="nav-section-label" onclick="toggleNavGroup('grp-html', this)">
+        <span>HTML</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div id="grp-html" class="nav-group">
+        <a class="nav-item" onclick="goTo(2)" href="#">
+          <span>📄</span> Estrutura HTML <span class="nav-badge html">HTML</span>
+        </a>
+        <a class="nav-item" onclick="goTo(3)" href="#">
+          <span>✏️</span> Tags de texto <span class="nav-badge html">HTML</span>
+        </a>
+      </div>
+
+      <div class="nav-section-label" onclick="toggleNavGroup('grp-css', this)">
+        <span>CSS</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div id="grp-css" class="nav-group">
+        <a class="nav-item" onclick="goTo(4)" href="#">
+          <span>🎨</span> Estilizando com CSS <span class="nav-badge css">CSS</span>
+        </a>
+        <a class="nav-item" onclick="goTo(5)" href="#">
+          <span>📦</span> Box model e imagens <span class="nav-badge css">CSS</span>
+        </a>
+        <a class="nav-item" onclick="goTo(6)" href="#">
+          <span>🔲</span> Flexbox e classes <span class="nav-badge css">CSS</span>
+        </a>
+      </div>
+
+      <div class="nav-section-label" onclick="toggleNavGroup('grp-js', this)">
+        <span>JavaScript</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div id="grp-js" class="nav-group">
+        <a class="nav-item" onclick="goTo(7)" href="#">
+          <span>⚡</span> Contador de likes <span class="nav-badge js">JS</span>
+        </a>
+        <a class="nav-item" onclick="goTo(8)" href="#">
+          <span>👥</span> Múltiplos elementos <span class="nav-badge js">JS</span>
+        </a>
+        <a class="nav-item" onclick="goTo(9)" href="#">
+          <span>🔒</span> Lógica de curtidas <span class="nav-badge js">JS</span>
+        </a>
+      </div>
+
+      <div class="nav-section-label" onclick="toggleNavGroup('grp-aval', this)">
+        <span>Avaliação - 2,0 pontos</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div id="grp-aval" class="nav-group">
+        <a class="nav-item" onclick="goTo(10)" href="#">
+          <span>🎓</span> Entrega parcial I
+        </a>
+      </div>
+
+      <div class="nav-section-label" onclick="toggleNavGroup('grp-extra', this)">
+        <span>Extra: publicação</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div id="grp-extra" class="nav-group">
+        <a class="nav-item" onclick="goTo(11)" href="#">
+          <span>🚀</span> Deploy no GitHub <span class="nav-badge html">Git</span>
+        </a>
+      </div>
+
+      <div class="nav-section-label" onclick="toggleNavGroup('grp-recuperacao', this)">
+        <span>Recuperação</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div id="grp-recuperacao" class="nav-group">
         <a class="nav-item" onclick="goTo(12)" href="#">
-          <span>🔍</span> Planejamento
+          <span>📋</span> Código Completo <span class="nav-badge js">Recuperação</span>
         </a>
-        <a class="nav-item" onclick="goTo(13)" href="#">
-          <span>📝</span> Conteúdo
-        </a>
-        <a class="nav-item" onclick="goTo(14)" href="#">
-          <span>📐</span> Layout
-        </a>
-        <a class="nav-item" onclick="goTo(15)" href="#">
-          <span>🔗</span> Links
-        </a>
-        <a class="nav-item" onclick="goTo(16)" href="#">
-          <span>🎨</span> Estilização
-        </a>
-        <a class="nav-item" onclick="goTo(17)" href="#">
-          <span>⚡</span> JavaScript
-        </a>
-        <a class="nav-item" onclick="goTo(18)" href="#">
-          <span>✨</span> Acabamento
-        </a>
+      </div>
+
+      <div style="display: none;">
+        <div class="nav-section-label" onclick="toggleNavGroup('grp-p2', this)">
+          <span>Parte 2: aprimorando</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div id="grp-p2" class="nav-group">
+          <a class="nav-item" onclick="goTo(12)" href="#">
+            <span>🔍</span> Planejamento
+          </a>
+          <a class="nav-item" onclick="goTo(13)" href="#">
+            <span>📝</span> Conteúdo
+          </a>
+          <a class="nav-item" onclick="goTo(14)" href="#">
+            <span>📐</span> Layout
+          </a>
+          <a class="nav-item" onclick="goTo(15)" href="#">
+            <span>🔗</span> Links
+          </a>
+          <a class="nav-item" onclick="goTo(16)" href="#">
+            <span>🎨</span> Estilização
+          </a>
+          <a class="nav-item" onclick="goTo(17)" href="#">
+            <span>⚡</span> JavaScript
+          </a>
+          <a class="nav-item" onclick="goTo(18)" href="#">
+            <span>✨</span> Acabamento
+          </a>
+        </div>
       </div>
     </div>
 
