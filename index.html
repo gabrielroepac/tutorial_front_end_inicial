@@ -1049,43 +1049,7 @@
     }
     </style>
 <!-- Google tag (gtag.js) -->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-HPRZ1M9HTR">
-    function copyPrompt(promptKey, btn) {
-      let text = '';
-      if (promptKey === 'prompt1') {
-        const theme = document.getElementById('prompt1-theme-placeholder').innerText;
-        text = `Olá, Gemini! Somos um grupo de estudantes da 1ª série do Ensino Médio iniciando um projeto de inovação tecnológica.\n\nEstamos investigando problemas reais que acontecem na nossa rotina escolar sobre o tema: ${theme}.\n\nListe de 4 a 6 dificuldades e incômodos específicos que estudantes ou professores costumam enfrentar nesse contexto. Seja direto, realista e evite clichês genéricos.`;
-      } else if (promptKey === 'prompt2') {
-        text = `Com base nesses problemas que você listou, gere uma tabela comparativa avaliando cada um com notas de 1 a 5 nos seguintes critérios:\n1. Frequência (com que frequência acontece no dia a dia da escola)\n2. Impacto (o quanto atrapalha o aprendizado ou a rotina das pessoas)\n3. Clareza (o quanto o problema é fácil de explicar e entender)\n4. Potencial de Prototipagem (viabilidade de criar uma solução em aplicativo mobile)\n\nAo final, some as pontuações, indique qual problema obteve a maior nota e dê uma breve justificativa de por que ele é o mais recomendado para um projeto de aplicativo.`;
-      }
 
-      navigator.clipboard.writeText(text).then(() => {
-        const orig = btn.innerHTML;
-        btn.innerHTML = '✅ Copiado!';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.innerHTML = orig;
-          btn.classList.remove('copied');
-        }, 2000);
-      });
-    }
-
-    function selectTheme(card, themeText) {
-      document.querySelectorAll('.theme-card-btn').forEach(c => {
-        c.style.background = 'var(--cream)';
-        c.style.borderColor = 'var(--gray-200)';
-      });
-      card.style.background = '#fff8e8';
-      card.style.borderColor = 'var(--gold)';
-
-      const placeholder = document.getElementById('prompt1-theme-placeholder');
-      if (placeholder) {
-        placeholder.textContent = themeText;
-        placeholder.style.background = 'rgba(232, 160, 32, 0.4)';
-        placeholder.style.color = '#fff';
-      }
-    }
-    </script>
 <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
@@ -1107,15 +1071,15 @@
 </div>
 <div class="sidebar-scroll-content">
 <!-- ================= MASTER HEADER 1: PARTE 1 (BLOG WEB) ================= -->
-<div class="master-nav-header" id="master-hdr-pt1" onclick="toggleMasterGroup('master-grp-pt1', this)">
+<div class="master-nav-header collapsed" id="master-hdr-pt1" onclick="toggleMasterGroup('master-grp-pt1', this)">
 <div class="master-title-left">
 <span class="master-icon">📁</span>
 <span class="master-title-text">2º Tri • Parte 1: Blog Web</span>
 </div>
-<span class="master-toggle-icon">▼</span>
+<span class="master-toggle-icon">▶</span>
 </div>
 <!-- CONTAINER DE TODA A PARTE 1 (RECOLHE TUDO EM 1 CLIQUE) -->
-<div class="master-group-container" id="master-grp-pt1">
+<div class="master-group-container collapsed" id="master-grp-pt1">
 <!-- Início -->
 <div class="nav-section-label" onclick="toggleNavGroup('grp-inicio', this)">
 <span>Parte 1: início</span>
@@ -1216,44 +1180,37 @@
 <!-- CONTAINER DE TODA A PARTE 2 (RECOLHE TUDO EM 1 CLIQUE) -->
 <div class="master-group-container" id="master-grp-pt2">
 <div class="nav-group" style="padding-top: 4px;">
-<a class="nav-item active" href="#" onclick="return showSection('sec-aula41', this)">
-<span>🟢</span> Aula 41: Mapeando Problemas
-            <span class="nav-badge active-now" style="background: #1e7a4a; color: #fff; font-weight: 700; font-size: 9px; padding: 2px 6px; border-radius: 10px;">Ativa</span>
+<a class="nav-item" href="#" onclick="return showSection('sec-aula41', this)">
+<span>✅</span> Aula 41: Mapeando Problemas
+            
 </a>
-<a class="nav-item locked" href="#" onclick="alert('Esta aula será liberada na próxima semana!'); return false;" style="opacity: 0.55; cursor: not-allowed;">
-<span>🔒</span> Aula 42: Criando Personas
-            <span class="nav-badge locked" style="background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.45); font-size: 9px; padding: 2px 6px; border-radius: 10px;">Em
-              breve</span>
+<a class="nav-item active" href="#" onclick="return showSection('sec-aula42', this)">
+<span>🟢</span> Aula 42: Criando Personas
+            
 </a>
 <a class="nav-item locked" href="#" onclick="alert('Esta aula será liberada em breve!'); return false;" style="opacity: 0.55; cursor: not-allowed;">
 <span>🔒</span> Aula 43: Ideando Protótipos
-            <span class="nav-badge locked" style="background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.45); font-size: 9px; padding: 2px 6px; border-radius: 10px;">Em
-              breve</span>
+            
 </a>
 <a class="nav-item locked" href="#" onclick="alert('Esta aula será liberada em breve!'); return false;" style="opacity: 0.55; cursor: not-allowed;">
 <span>🔒</span> Aula 44: Prototipando no Figma
-            <span class="nav-badge locked" style="background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.45); font-size: 9px; padding: 2px 6px; border-radius: 10px;">Em
-              breve</span>
+            
 </a>
 <a class="nav-item locked" href="#" onclick="alert('Esta aula será liberada em breve!'); return false;" style="opacity: 0.55; cursor: not-allowed;">
 <span>🔒</span> Aula 45: Testes &amp; 1ª Entrega
-            <span class="nav-badge locked" style="background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.45); font-size: 9px; padding: 2px 6px; border-radius: 10px;">Em
-              breve</span>
+            
 </a>
 <a class="nav-item locked" href="#" onclick="alert('Esta aula será liberada em breve!'); return false;" style="opacity: 0.55; cursor: not-allowed;">
 <span>🔒</span> Aula 46: Canva IA (Slides)
-            <span class="nav-badge locked" style="background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.45); font-size: 9px; padding: 2px 6px; border-radius: 10px;">Em
-              breve</span>
+            
 </a>
 <a class="nav-item locked" href="#" onclick="alert('Esta aula será liberada em breve!'); return false;" style="opacity: 0.55; cursor: not-allowed;">
 <span>🔒</span> Aula 47: Pitch &amp; Apresentação
-            <span class="nav-badge locked" style="background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.45); font-size: 9px; padding: 2px 6px; border-radius: 10px;">Em
-              breve</span>
+            
 </a>
 <a class="nav-item locked" href="#" onclick="alert('Esta aula será liberada em breve!'); return false;" style="opacity: 0.55; cursor: not-allowed;">
 <span>🔒</span> Aula 48: Feira de Projetos
-            <span class="nav-badge locked" style="background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.45); font-size: 9px; padding: 2px 6px; border-radius: 10px;">Em
-              breve</span>
+            
 </a>
 </div>
 </div>
@@ -1268,7 +1225,7 @@
 <main class="main">
 <div class="content-area">
 <!-- ================= SEÇÃO: AULA 41 (PARTE 2) ================= -->
-<section class="section active" id="sec-aula41">
+<section class="section" id="sec-aula41">
 <div class="section-header">
 <div class="section-tag" style="background: #f3ebfc; color: #6c3fb5;">
             📍 2º Trimestre • Parte 2 • Aula 41
@@ -1376,7 +1333,6 @@
 </div>
 </div>
 <!-- Passo 3 -->
-
 <div class="step-card" style="border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 22px; background: #fff; box-shadow: var(--shadow);">
 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
 <div style="background: var(--navy); color: var(--gold-light); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px;">3</div>
@@ -1406,9 +1362,7 @@
 </div>
 </div>
 </div>
-
 <!-- Passo 4 -->
-
 <div class="step-card" style="border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 22px; background: #fff; box-shadow: var(--shadow);">
 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
 <div style="background: var(--navy); color: var(--gold-light); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px;">4</div>
@@ -1443,7 +1397,6 @@
 </div>
 </div>
 </div>
-
 <!-- Passo 5 -->
 <div class="step-card" style="border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 22px; background: #fff; box-shadow: var(--shadow);">
 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
@@ -1484,52 +1437,75 @@
 </div>
 </div>
 </div>
+<!-- Passo 6: Google Docs (docs.new) -->
+<div class="step-card" style="border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 22px; background: #fff; box-shadow: var(--shadow);">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+<div style="background: var(--navy); color: var(--gold-light); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px;">6</div>
+<h3 style="margin: 0; font-size: 17px; color: var(--navy); font-family: 'Lora', serif;">Registro Oficial no Google Docs (Atalho Mágico: docs.new)</h3>
+</div>
+<p style="font-size: 14px; line-height: 1.6; color: var(--gray-800); margin-bottom: 12px;">
+        Para acompanhar o desenvolvimento do projeto até a entrega final na Aula 48, a equipe manterá um <strong>documento compartilhado no Google Docs</strong> que será atualizado aula a aula.
+      </p>
+<div style="background: #fdfbf7; border: 1px solid #e5dfd0; border-radius: 8px; padding: 16px 18px; margin-bottom: 14px;">
+<div style="font-weight: 700; color: var(--navy); font-size: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+          🪄 Dose de Produtividade #1: O Atalho do Google Docs
+        </div>
+<ol style="margin: 0 0 10px 20px; padding: 0; font-size: 13.5px; line-height: 1.6; color: var(--gray-800);">
+<li>Abra uma nova aba no navegador e digite apenas <code style="background: var(--navy); color: var(--gold-light); padding: 2px 6px; border-radius: 4px; font-weight: 700;">docs.new</code> na barra de endereços para criar um documento instantaneamente.</li>
+<li>No topo esquerdo, nomeie o arquivo como: <strong style="color: var(--blue-soft);">Projeto IA - [Tema do Grupo] - 1ª Série</strong>.</li>
+<li>No topo direito, clique no botão azul <strong>"Compartilhar"</strong> e adicione os e-mails <code>@escola</code> de todos os integrantes da equipe.</li>
+</ol>
+</div>
+<div style="background: #ffffff; border: 1.5px dashed var(--gray-400); border-radius: 8px; padding: 14px 18px;">
+<div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--gold); margin-bottom: 6px;">
+          Estrutura para Registrar na Página 1 do Documento:
+        </div>
+<div style="font-size: 13px; line-height: 1.5; color: var(--navy); font-family: monospace; background: var(--cream); padding: 10px 14px; border-radius: 6px;">
+<strong>PROJETO DE INOVAÇÃO COM IA — 1ª SÉRIE EM</strong><br/>
+<strong>Equipe:</strong> [Nome completo dos integrantes do grupo]<br/><br/>
+<strong>Aula 41 — Frase-Problema do Projeto:</strong><br/>
+<em>[Cole aqui a Frase-Problema oficial montada no Passo 5]</em>
+</div>
+</div>
+</div>
 <!-- Passo 6: Checklist -->
 <div style="background: #ffffff; border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 24px; box-shadow: var(--shadow);">
 <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
-<h3 style="margin: 0; font-size: 17px; color: var(--navy); font-family: 'Lora', serif;">✅ Checklist da
-              Missão — Aula 41</h3>
-<span id="chk-badge" style="background: var(--gray-100); color: var(--gray-600); padding: 3px 10px; border-radius: 12px; font-size: 11.5px; font-weight: 700;">0
-              de 6 concluídos</span>
+<h3 style="margin: 0; font-size: 17px; color: var(--navy); font-family: 'Lora', serif;">✅ Checklist da Missão — Aula 41</h3>
+<span id="chk-badge" style="background: var(--gray-100); color: var(--gray-600); padding: 3px 10px; border-radius: 12px; font-size: 11.5px; font-weight: 700;">0 de 6 concluídos</span>
 </div>
 <div style="height: 6px; background: var(--gray-100); border-radius: 3px; overflow: hidden; margin-bottom: 16px;">
-<div id="chk-fill" style="height: 100%; background: linear-gradient(90deg, var(--gold) 0%, #1e7a4a 100%); width: 0%; transition: width 0.3s;">
-</div>
+<div id="chk-fill" style="height: 100%; background: linear-gradient(90deg, var(--gold) 0%, #1e7a4a 100%); width: 0%; transition: width 0.3s;"></div>
 </div>
 <div style="display: flex; flex-direction: column; gap: 8px;">
 <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; cursor: pointer;">
 <input id="c1" onchange="calcChecklist()" style="margin-top: 3px; accent-color: #1e7a4a;" type="checkbox"/>
-<span><strong>1. Acesso:</strong> Piloto da equipe abriu o Gemini conectado no e-mail
-                <code>@escola</code>.</span>
+<span><strong>1. Acesso ao Gemini:</strong> Piloto da equipe abriu o Gemini conectado no e-mail <code>@escola</code>.</span>
 </label>
 <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; cursor: pointer;">
 <input id="c2" onchange="calcChecklist()" style="margin-top: 3px; accent-color: #1e7a4a;" type="checkbox"/>
-<span><strong>2. Tema:</strong> Grupo definiu a área da escola que vai investigar.</span>
+<span><strong>2. Tema &amp; Dores:</strong> Enviamos o Prompt 1 com o tema escolhido e analisamos as dores.</span>
 </label>
 <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; cursor: pointer;">
 <input id="c3" onchange="calcChecklist()" style="margin-top: 3px; accent-color: #1e7a4a;" type="checkbox"/>
-<span><strong>3. Prompt 1:</strong> Enviamos o primeiro prompt e analisamos as dores geradas.</span>
+<span><strong>3. Matriz de Decisão:</strong> Enviamos o Prompt 2 e geramos a tabela de priorização com notas de 1 a 5.</span>
 </label>
 <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; cursor: pointer;">
 <input id="c4" onchange="calcChecklist()" style="margin-top: 3px; accent-color: #1e7a4a;" type="checkbox"/>
-<span><strong>4. Prompt 2:</strong> Geramos a tabela de priorização e definimos a dor vencedora.</span>
+<span><strong>4. Frase-Problema:</strong> Escrevemos a frase oficial no formato <em>[Quem] + [Dificuldade] + [Impacto]</em>.</span>
 </label>
 <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; cursor: pointer;">
 <input id="c5" onchange="calcChecklist()" style="margin-top: 3px; accent-color: #1e7a4a;" type="checkbox"/>
-<span><strong>5. Frase-Problema:</strong> Escrevemos a frase oficial no formato <em>[Quem] + [Dificuldade]
-                  + [Impacto]</em>.</span>
+<span><strong>5. Google Docs (docs.new):</strong> Criamos o arquivo compartilhado da equipe e colamos o registro da Aula 41.</span>
 </label>
 <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; cursor: pointer;">
 <input id="c6" onchange="calcChecklist()" style="margin-top: 3px; accent-color: #1e7a4a;" type="checkbox"/>
-<span><strong>6. Validação:</strong> Chamamos o professor para mostrar a Frase-Problema e deixamos o chat
-                salvo.</span>
+<span><strong>6. Validação:</strong> Chamamos o professor para mostrar o Docs e deixamos o chat salvo no Gemini.</span>
 </label>
 </div>
 <div id="c-success" style="display: none; background: #eef8f2; border: 1.5px solid #1e7a4a; border-radius: 8px; padding: 14px 18px; margin-top: 16px; text-align: center;">
-<strong style="color: #1e7a4a; font-size: 15px; display: block; margin-bottom: 4px;">🎉 Missão da Aula 41
-              Concluída!</strong>
-<span style="color: #2c6846; font-size: 13px;">Parabéns, equipe! Guardem a frase e a conversa no Gemini para
-              a criação da Persona na <strong>Aula 42</strong>.</span>
+<strong style="color: #1e7a4a; font-size: 15px; display: block; margin-bottom: 4px;">🎉 Missão da Aula 41 Concluída!</strong>
+<span style="color: #2c6846; font-size: 13px;">Parabéns, equipe! Guardem a frase e a conversa no Gemini para a criação da Persona na <strong>Aula 42</strong>.</span>
 </div>
 </div>
 <div class="nav-buttons">
@@ -1539,6 +1515,249 @@
 <button class="btn btn-primary" onclick="alert('A Aula 42 será liberada na próxima semana!');">
             Próxima: Aula 42 (Em breve) →
           </button>
+</div>
+</section>
+<!-- ================= SEÇÃO: AULA 42 (PARTE 2) ================= -->
+<section class="section active" id="sec-aula42">
+<div class="section-header">
+<div class="section-tag" style="background: #f3ebfc; color: #6c3fb5;">
+          📍 2º Trimestre • Parte 2 • Aula 42
+        </div>
+<h1 class="section-title">
+          Criando Personas com Inteligência Artificial
+        </h1>
+<p class="section-intro">
+          Guia de Missão Prática para o Laboratório de Informática (25 minutos). Nesta aula, sua equipe vai aprofundar a investigação do contexto e co-criar com o Google Gemini uma <strong>Persona</strong> empática e realista, que servirá de guia para todas as telas do aplicativo.
+        </p>
+</div>
+<!-- Card de Retomada & Conceito de Persona -->
+<div class="info-box" style="background: #ffffff; border: 1px solid var(--gray-200); box-shadow: var(--shadow); border-left: 4px solid var(--gold); margin-bottom: 28px;">
+<div class="ib-icon">🎭</div>
+<div class="ib-content" style="width: 100%;">
+<div class="ib-title" style="color: var(--navy); font-size: 16px; margin-bottom: 8px;">
+            Por que criamos uma Persona no Projeto?
+          </div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 10px;">
+<div style="background: var(--cream); padding: 10px 14px; border-radius: 8px;">
+<strong style="color: var(--navy); font-size: 13px;">💬 1. Mesmo Chat do Gemini:</strong>
+<p style="font-size: 12.5px; color: var(--gray-600); margin: 4px 0 0; line-height: 1.4;">
+                O Piloto deve abrir a <strong>mesma conversa da Aula 41</strong> para a IA lembrar da Frase-Problema do grupo.
+              </p>
+</div>
+<div style="background: var(--cream); padding: 10px 14px; border-radius: 8px;">
+<strong style="color: var(--navy); font-size: 13px;">🎯 2. Pessoa Real vs. Número:</strong>
+<p style="font-size: 12.5px; color: var(--gray-600); margin: 4px 0 0; line-height: 1.4;">
+                Não desenhamos telas para "estudantes em geral", mas sim para uma pessoa com rotina, sentimentos e dores específicas.
+              </p>
+</div>
+<div style="background: var(--cream); padding: 10px 14px; border-radius: 8px;">
+<strong style="color: var(--navy); font-size: 13px;">🔍 3. Curadoria sem Ilusões:</strong>
+<p style="font-size: 12.5px; color: var(--gray-600); margin: 4px 0 0; line-height: 1.4;">
+                Se a IA sugerir hábitos ou dados irreais para a nossa escola, a equipe tem a missão de <strong>ajustar e corrigir</strong>.
+              </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Passo 1 -->
+<div class="step-card" style="border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 22px; background: #fff; box-shadow: var(--shadow);">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+<div style="background: var(--navy); color: var(--gold-light); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px;">1</div>
+<h3 style="margin: 0; font-size: 17px; color: var(--navy); font-family: 'Lora', serif;">Reabrir a Conversa da Aula 41 no Google Gemini</h3>
+</div>
+<p style="font-size: 14px; line-height: 1.6; color: var(--gray-800); margin-bottom: 14px;">
+          O Piloto da equipe deve acessar o Gemini na sua conta <code>@escola</code> e clicar no histórico lateral na conversa iniciada na semana passada.
+        </p>
+<a class="btn btn-primary" href="https://gemini.google.com" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; padding: 10px 18px; font-size: 13.5px;" target="_blank">
+          🚀 Abrir Google Gemini (gemini.google.com) ↗
+        </a>
+</div>
+<!-- Passo 2 -->
+<div class="step-card" style="border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 22px; background: #fff; box-shadow: var(--shadow);">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+<div style="background: var(--navy); color: var(--gold-light); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px;">2</div>
+<h3 style="margin: 0; font-size: 17px; color: var(--navy); font-family: 'Lora', serif;">Prompt 1 — Investigação Aprofundada do Problema</h3>
+</div>
+<p style="font-size: 14px; line-height: 1.6; color: var(--gray-800); margin-bottom: 10px;">
+          Envie o comando abaixo no chat para explorar as causas, momentos e impactos da dificuldade que vocês escolheram:
+        </p>
+<div class="prompt-box">
+<div class="prompt-box-header">
+<span class="prompt-box-title">🔍 Prompt 1 • Investigação Contextual</span>
+<button class="btn-copy-prompt" onclick="copyPrompt('prompt1_42', this)">📋 Copiar Prompt</button>
+</div>
+<div class="prompt-text" id="prompt1_42-text">
+<p>Continuando nosso projeto anterior: com base no problema que selecionamos na nossa conversa, ajude-nos a aprofundar a investigação do contexto.</p>
+<p>Responda de forma direta e sem exageros:</p>
+<ol>
+<li>Quem são as pessoas mais impactadas no dia a dia da escola?</li>
+<li>Em quais momentos ou situações específicas esse problema acontece com mais frequência e intensidade?</li>
+<li>Quais são as consequências emocionais e práticas para quem vive isso?</li>
+<li>Que soluções improvisadas essas pessoas costumam tentar e por que elas falham?</li>
+</ol>
+</div>
+</div>
+<div class="info-box" style="background: #f4f6fb; border-left: 3px solid var(--blue-soft); margin-top: 12px; margin-bottom: 0;">
+<div class="ib-icon">🧐</div>
+<div class="ib-content">
+<div class="ib-title" style="color: var(--blue-soft);">Momento de Reflexão:</div>
+<p class="ib-text">
+              Leiam as 4 respostas da IA. O que ela acertou sobre a rotina da escola? Tem algo que vocês sabem por experiência própria e a IA não mencionou? Conversem no grupo!
+            </p>
+</div>
+</div>
+</div>
+<!-- Passo 3 -->
+<div class="step-card" style="border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 22px; background: #fff; box-shadow: var(--shadow);">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+<div style="background: var(--navy); color: var(--gold-light); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px;">3</div>
+<h3 style="margin: 0; font-size: 17px; color: var(--navy); font-family: 'Lora', serif;">Prompt 2 — Co-criação da Persona do Projeto</h3>
+</div>
+<p style="font-size: 14px; line-height: 1.6; color: var(--gray-800); margin-bottom: 10px;">
+          Agora, na mesma conversa, envie o comando para que o Gemini construa o perfil completo da sua Persona:
+        </p>
+<div class="prompt-box">
+<div class="prompt-box-header">
+<span class="prompt-box-title">👤 Prompt 2 • Criação da Persona</span>
+<button class="btn-copy-prompt" onclick="copyPrompt('prompt2_42', this)">📋 Copiar Prompt</button>
+</div>
+<div class="prompt-text" id="prompt2_42-text">
+<p>Com base em todas as informações que levantamos, crie o perfil de UMA Persona representativa para o nosso projeto no seguinte formato estruturado:</p>
+<ol>
+<li><strong>Nome e Idade:</strong> (Nome fictício e idade realista)</li>
+<li><strong>Ocupação e Rotina:</strong> (O que faz ao longo do dia, formato de estudo e aparelhos que utiliza)</li>
+<li><strong>Principal Dor/Frustração:</strong> (O maior incômodo diário relacionado ao nosso problema)</li>
+<li><strong>Necessidade Central:</strong> (O que essa pessoa mais precisa para ter sua rotina facilitada por um aplicativo)</li>
+<li><strong>Frase Marcante:</strong> (Uma frase curta entre aspas que resume o sentimento dessa persona)</li>
+</ol>
+<p>Seja realista, evite clichês e não invente hábitos que não combinam com estudantes reais.</p>
+</div>
+</div>
+<div class="info-box" style="background: #fff8e8; border-left: 3px solid var(--gold); margin-top: 12px; margin-bottom: 0;">
+<div class="ib-icon">✍️</div>
+<div class="ib-content">
+<div class="ib-title" style="color: #9a6500;">Filtro de Curadoria da Equipe:</div>
+<p class="ib-text">
+              Analise o perfil retornado. Vocês podem trocar o nome, mudar a idade ou ajustar a rotina para ficar 100% alinhado com a realidade da turma!
+            </p>
+</div>
+</div>
+</div>
+<!-- Passo 4 -->
+<div class="step-card" style="border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 22px; background: #fff; box-shadow: var(--shadow);">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+<div style="background: var(--navy); color: var(--gold-light); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px;">4</div>
+<h3 style="margin: 0; font-size: 17px; color: var(--navy); font-family: 'Lora', serif;">Construtor Interativo do Card de Persona</h3>
+</div>
+<p style="font-size: 14px; line-height: 1.6; color: var(--gray-800); margin-bottom: 14px;">
+          Preencham os campos abaixo para montar e visualizar o <strong>Card Oficial da Persona</strong> da equipe:
+        </p>
+<div style="background: #fdfbf7; border: 1px solid #e5dfd0; border-radius: 8px; padding: 18px; margin-bottom: 14px;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 10px;">
+<div>
+<label style="display: block; font-size: 12.5px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">👤 1. Nome e Idade:</label>
+<input id="p-name" oninput="liveUpdatePersona()" placeholder="Ex: Lucas, 17 anos" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid var(--gray-200); border-radius: 6px; font-size: 13.5px;" type="text"/>
+</div>
+<div>
+<label style="display: block; font-size: 12.5px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">🎯 2. Ocupação / Perfil:</label>
+<input id="p-profile" oninput="liveUpdatePersona()" placeholder="Ex: Estudante do 3º ano focado no vestibular" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid var(--gray-200); border-radius: 6px; font-size: 13.5px;" type="text"/>
+</div>
+</div>
+<div style="margin-bottom: 10px;">
+<label style="display: block; font-size: 12.5px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">💥 3. Principal Dor / Frustração:</label>
+<input id="p-pain" oninput="liveUpdatePersona()" placeholder="Ex: Perde muito tempo procurando anotações espalhadas em vários lugares" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid var(--gray-200); border-radius: 6px; font-size: 13.5px;" type="text"/>
+</div>
+<div style="margin-bottom: 12px;">
+<label style="display: block; font-size: 12.5px; font-weight: 700; color: var(--navy); margin-bottom: 4px;">✨ 4. Necessidade Central no Aplicativo:</label>
+<input id="p-need" oninput="liveUpdatePersona()" placeholder="Ex: Um hub único para centralizar PDFs, links e videoaulas por disciplina" style="width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid var(--gray-200); border-radius: 6px; font-size: 13.5px;" type="text"/>
+</div>
+<!-- Card de Persona Renderizado -->
+<div id="persona-card-render" style="background: #ffffff; border: 1.5px solid #2d3f6b; border-radius: 10px; padding: 16px 20px; margin-top: 12px; box-shadow: var(--shadow);">
+<div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--gray-100); padding-bottom: 8px; margin-bottom: 10px;">
+<div style="display: flex; align-items: center; gap: 8px;">
+<span style="font-size: 24px;">👤</span>
+<div>
+<strong id="card-p-name" style="color: var(--navy); font-size: 16px; font-family: 'Lora', serif;">[Nome e Idade da Persona]</strong>
+<span id="card-p-profile" style="display: block; font-size: 12px; color: var(--gray-600);">[Ocupação e Perfil]</span>
+</div>
+</div>
+<span style="background: #f3ebfc; color: #6c3fb5; padding: 3px 8px; border-radius: 12px; font-size: 10px; font-weight: 700;">PERSONA DO PROJETO</span>
+</div>
+<div style="font-size: 13px; line-height: 1.5; color: var(--gray-800);">
+<p style="margin: 0 0 6px;"><strong style="color: var(--red-soft);">💥 Maior Dificuldade:</strong> <span id="card-p-pain">Preencha o campo acima...</span></p>
+<p style="margin: 0;"><strong style="color: var(--green-soft);">🎯 O que precisa:</strong> <span id="card-p-need">Preencha o campo acima...</span></p>
+</div>
+</div>
+<div style="margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap;">
+<button class="btn btn-primary" onclick="copyPersonaCard(this)" style="font-size: 12.5px; padding: 7px 14px;">📋 Copiar Card da Persona</button>
+<button class="btn btn-ghost" onclick="fillExampleLucas()" style="font-size: 12.5px; padding: 7px 14px;">💡 Ver Exemplo do Lucas (17 anos)</button>
+</div>
+</div>
+</div>
+<!-- Passo 5: Google Docs (Ctrl + Enter) -->
+<div class="step-card" style="border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 22px; background: #fff; box-shadow: var(--shadow);">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+<div style="background: var(--navy); color: var(--gold-light); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px;">5</div>
+<h3 style="margin: 0; font-size: 17px; color: var(--navy); font-family: 'Lora', serif;">Registro no Google Docs (Atalho Mágico: Ctrl + Enter)</h3>
+</div>
+<p style="font-size: 14px; line-height: 1.6; color: var(--gray-800); margin-bottom: 12px;">
+        Abra o documento do Google Docs criado pela equipe na Aula 41 para registrar a Persona oficial do projeto.
+      </p>
+<div style="background: #fdfbf7; border: 1px solid #e5dfd0; border-radius: 8px; padding: 16px 18px; margin-bottom: 14px;">
+<div style="font-weight: 700; color: var(--navy); font-size: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+          🪄 Dose de Produtividade #2: Quebra de Página com Ctrl + Enter
+        </div>
+<ol style="margin: 0 0 10px 20px; padding: 0; font-size: 13.5px; line-height: 1.6; color: var(--gray-800);">
+<li>No documento da equipe, posicione o cursor no final do texto da Aula 41.</li>
+<li>Pressione o atalho <code style="background: var(--navy); color: var(--gold-light); padding: 2px 6px; border-radius: 4px; font-weight: 700;">Ctrl + Enter</code> (no Mac: <code>Cmd + Enter</code>). Isso cria uma <strong>Quebra de Página</strong> e joga o cursor direto para o topo da folha seguinte, sem precisar ficar apertando Enter várias vezes!</li>
+<li>Aplique o estilo <strong>Título 2</strong> (ou negrito) e escreva: <strong style="color: var(--blue-soft);">Aula 42 — Persona do Projeto</strong>.</li>
+<li>Cole o texto do <strong>Card da Persona</strong> copiado no Passo 4.</li>
+</ol>
+</div>
+</div>
+<!-- Passo 5: Checklist -->
+<div style="background: #ffffff; border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 22px 24px; margin-bottom: 24px; box-shadow: var(--shadow);">
+<div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+<h3 style="margin: 0; font-size: 17px; color: var(--navy); font-family: 'Lora', serif;">✅ Checklist da Missão — Aula 42</h3>
+<span id="chk-badge-42" style="background: var(--gray-100); color: var(--gray-600); padding: 3px 10px; border-radius: 12px; font-size: 11.5px; font-weight: 700;">0 de 5 concluídos</span>
+</div>
+<div style="height: 6px; background: var(--gray-100); border-radius: 3px; overflow: hidden; margin-bottom: 16px;">
+<div id="chk-fill-42" style="height: 100%; background: linear-gradient(90deg, var(--gold) 0%, #1e7a4a 100%); width: 0%; transition: width 0.3s;"></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<label style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; cursor: pointer;">
+<input id="c42_1" onchange="calcChecklist42()" style="margin-top: 3px; accent-color: #1e7a4a;" type="checkbox"/>
+<span><strong>1. Contexto:</strong> Reabrimos a mesma conversa da Aula 41 no Google Gemini.</span>
+</label>
+<label style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; cursor: pointer;">
+<input id="c42_2" onchange="calcChecklist42()" style="margin-top: 3px; accent-color: #1e7a4a;" type="checkbox"/>
+<span><strong>2. Prompt 1 &amp; 2:</strong> Investigamos o contexto e geramos o perfil da Persona no Gemini.</span>
+</label>
+<label style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; cursor: pointer;">
+<input id="c42_3" onchange="calcChecklist42()" style="margin-top: 3px; accent-color: #1e7a4a;" type="checkbox"/>
+<span><strong>3. Card Oficial:</strong> Filtramos generalizações e montamos o Card da Persona no Construtor do site.</span>
+</label>
+<label style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; cursor: pointer;">
+<input id="c42_4" onchange="calcChecklist42()" style="margin-top: 3px; accent-color: #1e7a4a;" type="checkbox"/>
+<span><strong>4. Google Docs (Ctrl + Enter):</strong> Criamos a Página 2 com Quebra de Página e colamos o Card da Persona.</span>
+</label>
+<label style="display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; cursor: pointer;">
+<input id="c42_5" onchange="calcChecklist42()" style="margin-top: 3px; accent-color: #1e7a4a;" type="checkbox"/>
+<span><strong>5. Validação:</strong> Chamamos o professor para mostrar o registro e deixamos o chat salvo para a Aula 43.</span>
+</label>
+</div>
+<div id="c42-success" style="display: none; background: #eef8f2; border: 1.5px solid #1e7a4a; border-radius: 8px; padding: 14px 18px; margin-top: 16px; text-align: center;">
+<strong style="color: #1e7a4a; font-size: 15px; display: block; margin-bottom: 4px;">🎉 Persona Registrada com Sucesso!</strong>
+<span style="color: #2c6846; font-size: 13px;">Excelente trabalho, equipe! Documento do Google Docs atualizado com a Página 2. Na <strong>Aula 43</strong> vamos pensar em soluções e protótipos de telas para atender a nossa Persona.</span>
+</div>
+</div>
+<div class="nav-buttons">
+<button class="btn btn-ghost" onclick="showSection('sec-aula41', null)">
+          ← Voltar para Aula 41 (Problema)
+        </button>
+<button class="btn btn-primary" onclick="alert('A Aula 43 (Ideando Protótipos) será liberada na próxima semana!');">
+          Próxima: Aula 43 (Em breve) →
+        </button>
 </div>
 </section>
 <!-- ════════════════════════════════════════
@@ -3402,7 +3621,7 @@ btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str">"
       if (document.body.classList.contains('mobile-nav-open')) {
         toggleMobileNav();
       }
-
+      
       document.querySelectorAll('.section').forEach(s => {
         s.classList.toggle('active', s.id === secId);
       });
@@ -3410,6 +3629,20 @@ btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str">"
       document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.remove('active');
       });
+
+      // Se for seção da Parte 1, expande a Parte 1 no menu
+      if (!secId.startsWith('sec-aula')) {
+        const grp1 = document.getElementById('master-grp-pt1');
+        const hdr1 = document.getElementById('master-hdr-pt1');
+        if (grp1 && grp1.classList.contains('collapsed')) {
+          grp1.classList.remove('collapsed');
+          if (hdr1) {
+            hdr1.classList.remove('collapsed');
+            const icon = hdr1.querySelector('.master-toggle-icon');
+            if (icon) icon.textContent = '▼';
+          }
+        }
+      }
 
       if (navElem) {
         navElem.classList.add('active');
@@ -3424,6 +3657,9 @@ btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str">"
       if (secId === 'sec-aula41') {
         if (pctLabel) pctLabel.textContent = 'Aula 41 (Ativa)';
         if (progBar) progBar.style.width = '100%';
+      } else if (secId === 'sec-aula42') {
+        if (pctLabel) pctLabel.textContent = 'Aula 42 (Ativa)';
+        if (progBar) progBar.style.width = '100%';
       } else {
         updateProgress();
       }
@@ -3434,15 +3670,14 @@ btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str">"
 
     function goTo(idx) {
       const secMap = [
-        'sec-0', 'sec-1', 'sec-2', 'sec-3', 'sec-4', 'sec-5',
+        'sec-0', 'sec-1', 'sec-2', 'sec-3', 'sec-4', 'sec-5', 
         'sec-6', 'sec-7', 'sec-8', 'sec-9', 'sec-18', 'sec-17', 'sec-recuperacao'
       ];
       if (idx >= 0 && idx < secMap.length) {
         currentSection = idx;
         const targetId = secMap[idx];
         showSection(targetId, null);
-
-        // Highlight in Part 1 nav
+        
         const pt1Navs = document.querySelectorAll('#master-grp-pt1 .nav-item');
         if (pt1Navs[idx]) {
           document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -3475,15 +3710,28 @@ btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str">"
       }
     });
 
-    // --- COPIAR TEXTO / PROMPTS ---
-    function copyTextById(elementId, btn) {
-      const el = document.getElementById(elementId);
-      if (!el) return;
-      const text = el.innerText || el.textContent;
+    // --- COPIAR PROMPTS ---
+    function copyPrompt(promptKey, btn) {
+      let text = '';
+      if (promptKey === 'prompt1') {
+        const theme = document.getElementById('prompt1-theme-placeholder') ? document.getElementById('prompt1-theme-placeholder').innerText : '[SUBSTITUA PELO TEMA]';
+        text = `Olá, Gemini! Somos um grupo de estudantes da 1ª série do Ensino Médio iniciando um projeto de inovação tecnológica.\n\nEstamos investigando problemas reais que acontecem na nossa rotina escolar sobre o tema: ${theme}.\n\nListe de 4 a 6 dificuldades e incômodos específicos que estudantes ou professores costumam enfrentar nesse contexto. Seja direto, realista e evite clichês genéricos.`;
+      } else if (promptKey === 'prompt2') {
+        text = `Com base nesses problemas que você listou, gere uma tabela comparativa avaliando cada um com notas de 1 a 5 nos seguintes critérios:\n1. Frequência (com que frequência acontece no dia a dia da escola)\n2. Impacto (o quanto atrapalha o aprendizado ou a rotina das pessoas)\n3. Clareza (o quanto o problema é fácil de explicar e entender)\n4. Potencial de Prototipagem (viabilidade de criar uma solução em aplicativo mobile)\n\nAo final, some as pontuações, indique qual problema obteve a maior nota e dê uma breve justificativa de por que ele é o mais recomendado para um projeto de aplicativo.`;
+      } else if (promptKey === 'prompt1_42') {
+        text = `Continuando nosso projeto anterior: com base no problema que selecionamos na nossa conversa, ajude-nos a aprofundar a investigação do contexto.\n\nResponda de forma direta e sem exageros:\n1. Quem são as pessoas mais impactadas no dia a dia da escola?\n2. Em quais momentos ou situações específicas esse problema acontece com mais frequência e intensidade?\n3. Quais são as consequências emocionais e práticas para quem vive isso?\n4. Que soluções improvisadas essas pessoas costumam tentar e por que elas falham?`;
+      } else if (promptKey === 'prompt2_42') {
+        text = `Com base em todas as informações que levantamos, crie o perfil de UMA Persona representativa para o nosso projeto no seguinte formato estruturado:\n\n1. Nome e Idade: (Nome fictício e idade realista)\n2. Ocupação e Rotina: (O que faz ao longo do dia, formato de estudo e aparelhos que utiliza)\n3. Principal Dor/Frustração: (O maior incômodo diário relacionado ao nosso problema)\n4. Necessidade Central: (O que essa pessoa mais precisa para ter sua rotina facilitada por um aplicativo)\n5. Frase Marcante: (Uma frase curta entre aspas que resume o sentimento dessa persona)\n\nSeja realista, evite clichês e não invente hábitos que não combinam com estudantes reais.`;
+      }
+
       navigator.clipboard.writeText(text).then(() => {
         const orig = btn.innerHTML;
         btn.innerHTML = '✅ Copiado!';
-        setTimeout(() => { btn.innerHTML = orig; }, 2000);
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerHTML = orig;
+          btn.classList.remove('copied');
+        }, 2000);
       });
     }
 
@@ -3495,13 +3743,15 @@ btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str">"
       card.style.background = '#fff8e8';
       card.style.borderColor = 'var(--gold)';
 
-      const p1 = document.getElementById('prompt1-text');
-      if (p1) {
-        p1.textContent = `Olá, Gemini! Somos um grupo de estudantes da 1ª série do Ensino Médio iniciando um projeto de inovação tecnológica. \nEstamos investigando problemas reais que acontecem na nossa rotina escolar sobre o tema: ${themeText}. \nListe de 4 a 6 dificuldades e incômodos específicos que estudantes ou professores costumam enfrentar nesse contexto. Seja direto, realista e evite clichês genéricos.`;
+      const placeholder = document.getElementById('prompt1-theme-placeholder');
+      if (placeholder) {
+        placeholder.textContent = themeText;
+        placeholder.style.background = 'rgba(232, 160, 32, 0.4)';
+        placeholder.style.color = '#fff';
       }
     }
 
-    // --- CONSTRUTOR DE FRASE ---
+    // --- CONSTRUTOR DE FRASE-PROBLEMA (AULA 41) ---
     function liveUpdateSentence() {
       const who = document.getElementById('b-who').value.trim();
       const what = document.getElementById('b-what').value.trim();
@@ -3543,7 +3793,7 @@ btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str">"
       });
     }
 
-    // --- CHECKLIST ---
+    // --- CHECKLIST AULA 41 ---
     function calcChecklist() {
       const checks = document.querySelectorAll('#sec-aula41 input[type="checkbox"]');
       let count = 0;
@@ -3560,7 +3810,65 @@ btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str">"
       if (success) success.style.display = (count === total) ? 'block' : 'none';
     }
 
-    // Copiar código em blocos de código legados
+    // --- CONSTRUTOR DE PERSONA (AULA 42) ---
+    function liveUpdatePersona() {
+      const name = document.getElementById('p-name').value.trim();
+      const profile = document.getElementById('p-profile').value.trim();
+      const pain = document.getElementById('p-pain').value.trim();
+      const need = document.getElementById('p-need').value.trim();
+
+      document.getElementById('card-p-name').textContent = name || '[Nome e Idade da Persona]';
+      document.getElementById('card-p-profile').textContent = profile || '[Ocupação e Perfil]';
+      document.getElementById('card-p-pain').textContent = pain || 'Preencha o campo acima...';
+      document.getElementById('card-p-need').textContent = need || 'Preencha o campo acima...';
+    }
+
+    function fillExampleLucas() {
+      document.getElementById('p-name').value = 'Lucas, 17 anos';
+      document.getElementById('p-profile').value = 'Estudante do 3º ano do EM, se preparando para o vestibular';
+      document.getElementById('p-pain').value = 'Gasta mais tempo organizando materiais espalhados entre WhatsApp, Drive e cadernos do que estudando de verdade';
+      document.getElementById('p-need').value = 'Um hub centralizado que reúna PDFs, fotos da lousa e videoaulas organizados por disciplina e aula';
+      liveUpdatePersona();
+    }
+
+    function copyPersonaCard(btn) {
+      const name = document.getElementById('p-name').value.trim();
+      const profile = document.getElementById('p-profile').value.trim();
+      const pain = document.getElementById('p-pain').value.trim();
+      const need = document.getElementById('p-need').value.trim();
+
+      if (!name || !pain || !need) {
+        alert('Por favor, preencha as informações da Persona antes de copiar!');
+        return;
+      }
+
+      const text = `🎭 CARD DA PERSONA DO PROJETO\n- Nome/Idade: ${name}\n- Perfil/Rotina: ${profile}\n- Maior Dor: ${pain}\n- Necessidade Central: ${need}`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '✅ Card Copiado!';
+        setTimeout(() => { btn.innerHTML = orig; }, 2000);
+      });
+    }
+
+    // --- CHECKLIST AULA 42 ---
+    function calcChecklist42() {
+      const checks = document.querySelectorAll('#sec-aula42 input[type="checkbox"]');
+      let count = 0;
+      checks.forEach(c => { if (c.checked) count++; });
+      const total = checks.length;
+      const pct = Math.round((count / total) * 100);
+
+      const badge = document.getElementById('chk-badge-42');
+      const fill = document.getElementById('chk-fill-42');
+      const success = document.getElementById('c42-success');
+
+      if (badge) badge.textContent = `${count} de ${total} concluídos (${pct}%)`;
+      if (fill) fill.style.width = pct + '%';
+      if (success) success.style.display = (count === total) ? 'block' : 'none';
+    }
+
+    // Adicionar botão de copiar em blocos de código legados
     document.querySelectorAll('.code-block').forEach(block => {
       const header = block.querySelector('.code-header');
       const body = block.querySelector('.code-body');
@@ -3581,6 +3889,6 @@ btnTemaEscuro.<span class="hl-fn">addEventListener</span>(<span class="hl-str">"
         header.appendChild(btn);
       }
     });
-  </script>
+</script>
 </body>
 </html>
